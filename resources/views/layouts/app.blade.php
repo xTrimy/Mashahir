@@ -10,7 +10,7 @@
     <title>@yield('title')</title>
 </head>
 <body dir="rtl" class="bg-gray-100 overflow-x-hidden">
-    <div class="w-full bg-blue-500 h-24 shadow-lg px-36 flex justify-between">
+    <div class="w-full bg-curious-blue h-24 shadow-lg px-36 flex justify-between">
         <div class="flex items-center h-full">
             <div class="cursor-pointer h-12 w-12 text-white text-5xl flex justify-center items-center">
                 <i class="las la-bars"></i>
