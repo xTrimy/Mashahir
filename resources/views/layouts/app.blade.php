@@ -10,7 +10,7 @@
     <title>@yield('title')</title>
 </head>
 <body dir="rtl" class="bg-gray-100 overflow-x-hidden">
-    <div class="w-full bg-curious-blue h-24 shadow-lg px-36 flex justify-between">
+    <div class="w-full bg-curious-blue h-24 shadow-lg px-4 md:px-12 lg:px-20 xl:px-36 flex justify-between">
         <div class="flex items-center h-full">
             <div class="cursor-pointer h-12 w-12 text-white text-5xl flex justify-center items-center">
                 <i class="las la-bars"></i>
@@ -54,12 +54,15 @@
         </div>
     </div>
     <link rel="stylesheet" href="{{ asset('js/app.js') }}">
-    <div class="md:wrapper pt-4 px-4 md:px-12 lg:px-36 mt-10 min-h-screen">
+    <div class="w-full">
+        @yield('before-contents')
+    </div>
+    <div class="md:wrapper pt-4 px-4 md:px-12 lg:px-20 xl:px-36 mt-10 min-h-screen">
         
         @yield('contents')
 
     </div>
-    <div class="w-full py-12 bg-gray-800 text-gray-400 flex px-4 md:px-12 lg:px-36 justify-between font-bold flex-wrap lg:flex-nowrap ">
+    <div class="w-full py-12 bg-gray-800 text-gray-400 flex px-4 md:px-12 lg:px-20 xl:px-36 justify-between font-bold flex-wrap lg:flex-nowrap ">
         <div class="w-full lg:w-72 mb-12 lg:mb-0">
             <div class="w-full h-16 mb-4">
                 <img src="{{ asset('image/UNESCO_logo_white.png') }}" class="object-contain object-right w-full h-full" alt="">
