@@ -1,56 +1,109 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
-    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
-    <title>الرئيسية</title>
-</head>
-<body dir="rtl">
-    <div class="w-full bg-blue-500 h-24 shadow-lg px-36 flex justify-between">
-        <div class="flex items-center h-full">
-            <div class="cursor-pointer h-12 w-12 text-white text-5xl flex justify-center items-center">
-                <i class="las la-bars"></i>
-            </div>
-            <div class="h-20 w-64">
-                <img class="w-full h-full object-contain object-center" src="{{ asset('image/UNESCO_logo_white.png') }}" alt="">
-            </div>
-            <div class="lg:mr-2 text-white text-xl">
-                <div class="flex items-center">
-                    <div class="md:mr-5 lg:mr-9">
-                        <i class="fas fa-folder-open text-2xl ml-2"></i>
-                        أعلاناتي
+@extends('layouts.app')
+@section('title')
+    الرئيسية
+@endsection
+
+@section('contents')
+    <div class="w-full  py-8">
+        <div class="w-full grid grid-cols-2 gap-12">
+            <div class="w-full bg-white pb-8">
+                <div class="w-full h-64 bg-black mb-8 relative">
+                    <div class="z-10 absolute top-0 left-0 w-full h-full flex justify-center items-center text-white text-3xl">
+                        اعلانات المشاهير
                     </div>
-                    <div class="md:mr-5 lg:mr-9">
-                        <i class="fas fa-cubes text-2xl ml-2"></i>
-                        التصنيفات
+                    <div class="absolute top-0 left-0 bg-gray-600 opacity-60 w-full h-full"></div>
+                    <img src="{{ asset('image/placeholders/photo-1519944518895-f08a12d6dfd5.jpg') }}" class="w-full h-full object-cover object-center" alt="">
+                </div>
+                <div class="w-full px-8 grid grid-cols-2 gap-8">
+                    <div class="w-full">
+                        <div class="w-full h-56 bg-black">
+                            <img src="{{ asset('image/placeholders/face-3.jpg') }}" class="w-full h-full object-center object-cover" alt="">
+                        </div>
+                        <div class="text-center">
+                            <p class="text-xl mt-4">محمد عبده</p>
+                            <div class="table py-2 px-12 bg-curious-blue mx-auto mt-4 text-white">طلب أعلان</div>
+                        </div>
                     </div>
-                    <div class="md:mr-5 lg:mr-9">
-                        <i class="fas fa-user text-2xl ml-2"></i>
-                        أبحث عن خدمة
+                    <div class="w-full">
+                        <div class="w-full h-56 bg-black">
+                            <img src="{{ asset('image/placeholders/face-4.jpg') }}" class="w-full h-full object-center object-cover" alt="">
+                        </div>
+                        <div class="text-center">
+                            <p class="text-xl mt-4">محمد عبده</p>
+                            <div class="table py-2 px-12 bg-curious-blue mx-auto mt-4 text-white">طلب أعلان</div>
+                        </div>
+                    </div>
+                    <div class="w-full">
+                        <div class="w-full h-56 bg-black">
+                            <img src="{{ asset('image/placeholders/face-1.jpg') }}" class="w-full h-full object-center object-cover" alt="">
+                        </div>
+                        <div class="text-center">
+                            <p class="text-xl mt-4">محمد عبده</p>
+                            <div class="table py-2 px-12 bg-curious-blue mx-auto mt-4 text-white">طلب أعلان</div>
+                        </div>
+                    </div>
+                    <div class="w-full">
+                        <div class="w-full h-56 bg-black">
+                            <img src="{{ asset('image/placeholders/face-2.jpg') }}" class="w-full h-full object-center object-cover" alt="">
+                        </div>
+                        <div class="text-center">
+                            <p class="text-xl mt-4">محمد عبده</p>
+                            <div class="table py-2 px-12 bg-curious-blue mx-auto mt-4 text-white">طلب أعلان</div>
+                        </div>
                     </div>
                 </div>
+                <a href="#"><div class="table py-2 px-12 border-curious-blue border-2 mt-8 mx-auto text-curious-blue hover:bg-curious-blue hover:text-white transition-colors">
+                    عرض الجميع</div></a>
             </div>
-        </div>
-        <div class="flex items-center h-full text-white flex-row-reverse text-2xl">
-            <div class="w-14 h-14 bg-white rounded-full mr-8"></div>
-            <div class="mr-8">
-                <i class="fas fa-bell"></i>
-            </div>
-            <div class="mr-8">
-                <i class="fas fa-envelope"></i>
-            </div>
-            <div class="mr-8">
-                <i class="fas fa-shopping-cart"></i>
-            </div>
-            <div class="mr-8">
-                <i class="fas fa-globe"></i>
+            <div class="w-full bg-white pb-8">
+                <div class="w-full h-64 bg-black mb-8 relative">
+                    <div class="z-10 absolute top-0 left-0 w-full h-full flex justify-center items-center text-white text-3xl">
+                        تسويق الكتروني
+                    </div>
+                    <div class="absolute top-0 left-0 bg-gray-600 opacity-60 w-full h-full"></div>
+                    <img src="{{ asset('image/placeholders/r0_0_4996_3286_w1200_h678_fmax.jpg') }}" class="w-full h-full object-cover object-center" alt="">
+                </div>
+                <div class="w-full px-8 grid grid-cols-2 gap-8">
+                    <div class="w-full">
+                        <div class="w-full h-56 bg-black">
+                            <img src="{{ asset('image/placeholders/face-3.jpg') }}" class="w-full h-full object-center object-cover" alt="">
+                        </div>
+                        <div class="text-center">
+                            <p class="text-xl mt-4">محمد عبده</p>
+                            <div class="table py-2 px-12 bg-curious-blue mx-auto mt-4 text-white">طلب أعلان</div>
+                        </div>
+                    </div>
+                    <div class="w-full">
+                        <div class="w-full h-56 bg-black">
+                            <img src="{{ asset('image/placeholders/face-4.jpg') }}" class="w-full h-full object-center object-cover" alt="">
+                        </div>
+                        <div class="text-center">
+                            <p class="text-xl mt-4">محمد عبده</p>
+                            <div class="table py-2 px-12 bg-curious-blue mx-auto mt-4 text-white">طلب أعلان</div>
+                        </div>
+                    </div>
+                    <div class="w-full">
+                        <div class="w-full h-56 bg-black">
+                            <img src="{{ asset('image/placeholders/face-1.jpg') }}" class="w-full h-full object-center object-cover" alt="">
+                        </div>
+                        <div class="text-center">
+                            <p class="text-xl mt-4">محمد عبده</p>
+                            <div class="table py-2 px-12 bg-curious-blue mx-auto mt-4 text-white">طلب أعلان</div>
+                        </div>
+                    </div>
+                    <div class="w-full">
+                        <div class="w-full h-56 bg-black">
+                            <img src="{{ asset('image/placeholders/face-2.jpg') }}" class="w-full h-full object-center object-cover" alt="">
+                        </div>
+                        <div class="text-center">
+                            <p class="text-xl mt-4">محمد عبده</p>
+                            <div class="table py-2 px-12 bg-curious-blue mx-auto mt-4 text-white">طلب أعلان</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#"><div class="table py-2 px-12 border-curious-blue border-2 mt-8 mx-auto text-curious-blue hover:bg-curious-blue hover:text-white transition-colors">
+                    عرض الجميع</div></a>
             </div>
         </div>
     </div>
-    <link rel="stylesheet" href="{{ asset('js/app.js') }}">
-</body>
-</html>
+@endsection
