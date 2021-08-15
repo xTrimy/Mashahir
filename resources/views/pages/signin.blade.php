@@ -5,8 +5,8 @@
 @endsection
 
 @section('contents')
-    <div class=" bg-white shadow w-3/5 m-auto p-5">
-        <h1 class="text-3xl font-bold text-center text-blue-600">تسجيل الدخول</h1>
+    <div class=" bg-white shadow w-3/5 m-auto p-5 py-12">
+        <h1 class="text-5xl mb-8 font-bold text-center text-blue-600">تسجيل الدخول</h1>
         <form action="">
             <p class="mb-2 font-semibold">اسم المستخدم</p>
             <input type="text" class="w-full bg-blue-100 border-blue-200 border-2 outline-none p-2 mb-3 rounded-sm">
@@ -14,7 +14,9 @@
             <p class="mb-2 font-semibold">كلمة المرور</p>
             <input type="password" class="w-full bg-blue-100 border-blue-200 border-2 outline-none p-2 mb-3 rounded-sm">
 
-            <button type="submit" class="w-full bg-blue-500 text-white font-semibold py-3 mt-7 px-3">التالي <i class="fas fa-arrow-left float-left"></i></button>
+            <button type="submit" class="w-full bg-blue-500 text-white font-semibold py-3 mt-7 px-3 relative" >
+                التالي <i class="las text-3xl la-arrow-left absolute top-1/2 left-4 transform -translate-y-1/2"></i>
+            </button>
         </form>
 
         <p class="text-center mt-4">او قم بالتسجيل من خلال موقعنا من <a href="" class="text-blue-500">هنا</a></p>

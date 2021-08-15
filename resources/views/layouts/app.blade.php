@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
     <title>@yield('title')</title>
 </head>
-<body dir="rtl">
+<body dir="rtl" class="bg-gray-100 overflow-x-hidden">
     <div class="w-full bg-blue-500 h-24 shadow-lg px-36 flex justify-between">
         <div class="flex items-center h-full">
             <div class="cursor-pointer h-12 w-12 text-white text-5xl flex justify-center items-center">
