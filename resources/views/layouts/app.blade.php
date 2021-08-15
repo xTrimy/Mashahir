@@ -57,5 +57,51 @@
         @yield('contents')
 
     </div>
+    <div class="w-full py-12 bg-gray-800 text-gray-400 flex px-8 lg:px-32 justify-between font-bold flex-wrap lg:flex-nowrap ">
+        <div class="w-full lg:w-72 mb-12 lg:mb-0">
+            <div class="w-full h-16 mb-4">
+                <img src="{{ asset('image/UNESCO_logo_white.png') }}" class="object-contain object-right w-full h-full" alt="">
+            </div>
+            <p class="w-full">
+                هذا النص هو مثال لنص يمكن أن يستبدلفي نفس
+                المساحة، لقد تم توليد هذا النص من مولد النص العربى،
+                حيث يمكنك أن تولد مثل هذا النص أو العديد من
+                النصوص الأخرى إضافة إلى زيادة عدد الحروف التى
+            </p>
+        </div>
+            <div class="flex flex-col h-full ml-12  lg:w-auto w-full">
+                <p class="text-lg mb-4"> حول موقع مشاهير </p>
+                <p class="text-lg mb-4"> كيف يعمل الموقع </p>
+                <p class="text-lg mb-4"> الأسئلة الشائعة </p>
+                <p class="text-lg mb-4"> إعرف كيف نضمن حقوقك </p>
+            </div>
+            <div class="flex flex-col h-full ml-12 lg:w-auto w-full">
+                <p class="text-lg mb-4"> التصنيفات </p>
+                <p class="text-lg mb-4"> بيان الخصوصية </p>
+                <p class="text-lg mb-4"> شروط الأستخدام </p>
+                <p class="text-lg mb-4"> دعم ومساعدة </p>
+            </div>
+            <div class="flex flex-col h-full ml-12 lg:w-auto w-full mb-12 lg:mb-0">
+                <p class="text-lg mb-4"> وكلاء الأعلانات </p>
+                <p class="text-lg mb-4"> جميع المشاهير </p>
+                <p class="text-lg mb-4"> مدونة مشاهير </p>
+            </div>
+            <div class="ml-12 w-full lg:w-auto mb-12 lg:mb-0">
+                <h1>تابع مشاهير على</h1>
+                <div class="flex text-3xl items-center font-normal">
+                    <a href="#"><i class="lab la-twitter ml-2"></i> </a>
+                    <a href="#"><i class="lab la-instagram ml-2"></i> </a>
+                    <a href="#"><i class="lab la-facebook-f text-2xl ml-2"></i> </a>
+                </div>
+            </div>
+            <div>
+                <h1>وسائل الدفع المتاحة</h1>
+                <div class="flex text-3xl items-center font-normal mt-1">
+                    <i class="fab fa-cc-paypal ml-2"></i> 
+                    <i class="fab fa-cc-mastercard ml-2"></i> 
+                    <i class="fab fa-cc-visa ml-2"></i> 
+                </div>
+            </div>
+    </div>
 </body>
 </html>
