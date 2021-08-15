@@ -18,7 +18,7 @@
             <div class="h-20 w-64">
                 <img class="w-full h-full object-contain object-center" src="{{ asset('image/UNESCO_logo_white.png') }}" alt="">
             </div>
-            <div class="lg:mr-2 text-white text-xl">
+            <div class="lg:mr-2 text-white text-lg">
                 <div class="flex items-center">
                     <div class="md:mr-5 lg:mr-9">
                         <i class="fas fa-folder-open text-2xl ml-2"></i>
@@ -36,7 +36,9 @@
             </div>
         </div>
         <div class="flex items-center h-full text-white flex-row-reverse text-2xl">
-            <div class="w-14 h-14 bg-white rounded-full mr-8"></div>
+            <div class="w-14 h-14 bg-white rounded-full mr-8 overflow-hidden">
+                <img src="{{ asset('image/placeholders/face-2.jpg') }}" class="w-full h-full object-cover object-center" alt="">
+            </div>
             <div class="mr-8">
                 <i class="fas fa-bell"></i>
             </div>
@@ -52,12 +54,12 @@
         </div>
     </div>
     <link rel="stylesheet" href="{{ asset('js/app.js') }}">
-    <div class="md:wrapper pt-4 md:px-12 lg:px-36 mt-10">
+    <div class="md:wrapper pt-4 px-4 md:px-12 lg:px-36 mt-10 min-h-screen">
         
         @yield('contents')
 
     </div>
-    <div class="w-full py-12 bg-gray-800 text-gray-400 flex px-8 lg:px-32 justify-between font-bold flex-wrap lg:flex-nowrap ">
+    <div class="w-full py-12 bg-gray-800 text-gray-400 flex px-4 md:px-12 lg:px-36 justify-between font-bold flex-wrap lg:flex-nowrap ">
         <div class="w-full lg:w-72 mb-12 lg:mb-0">
             <div class="w-full h-16 mb-4">
                 <img src="{{ asset('image/UNESCO_logo_white.png') }}" class="object-contain object-right w-full h-full" alt="">

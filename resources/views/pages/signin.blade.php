@@ -9,10 +9,10 @@
         <h1 class="text-5xl mb-8 font-bold text-center text-curious-blue">تسجيل الدخول</h1>
         <form action="">
             <p class="mb-2 font-semibold">اسم المستخدم</p>
-            <input type="text" class="w-full bg-curious-blue border-curious-blue border-2 outline-none p-2 mb-3 rounded-sm">
+            <input type="text" class="w-full  border-blue-200 border-2 outline-none p-2 mb-3 rounded-sm">
 
             <p class="mb-2 font-semibold">كلمة المرور</p>
-            <input type="password" class="w-full bg-curious-blue border-curious-blue border-2 outline-none p-2 mb-3 rounded-sm">
+            <input type="password" class="w-full  border-blue-200 border-2 outline-none p-2 mb-3 rounded-sm">
 
             <button type="submit" class="w-full bg-curious-blue text-white font-semibold py-3 mt-7 px-3 relative" >
                 التالي <i class="las text-3xl la-arrow-left absolute top-1/2 left-4 transform -translate-y-1/2"></i>
