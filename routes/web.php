@@ -34,3 +34,6 @@ Route::get('/message', function () {
 Route::get('/messages', function () {
     return view('pages.messages');
 });
+Route::get('/profile', function () {
+    return view('pages.profile');
+});
