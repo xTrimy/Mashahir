@@ -37,3 +37,6 @@ Route::get('/messages', function () {
 Route::get('/profile', function () {
     return view('pages.profile');
 });
+Route::get('/service', function () {
+    return view('pages.service');
+});

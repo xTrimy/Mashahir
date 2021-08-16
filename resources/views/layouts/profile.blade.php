@@ -30,8 +30,6 @@
                         </form>
                         <div class="p-1"></div>
                         <div class="flex-1 text-center bg-curious-blue text-white px-8 py-2 text-lg font-bold cursor-pointer">طلب تواصل</div>
-                        
-                        
                     </div>
                 </div>
             </div>
