@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('before-contents')
-<div class="w-full py-12 bg-white px-4 md:px-12 lg:px-20 xl:px-36">
+<div class="w-full py-12 bg-white px-4 md:px-12 lg:px-20 xl:px-52">
     <div class="flex justify-between flex-wrap">
         <div class="flex items-center mb-8 ">
             <div class="hidden md:block w-20 h-20 bg-black rounded-full ml-4 overflow-hidden">
@@ -40,7 +40,7 @@
 @endsection
 
 @section('contents')
-    <div class="flex w-full xl:px-12 2xl:px-36 flex-wrap">
+    <div class="flex w-full xl:px-12 2xl:px-52 flex-wrap">
         <div class="w-full lg:w-auto lg:flex-1 p-3 md:p-4 lg:p-8 bg-white lg:ml-4 mb-4">
             <div class="w-full h-96">
                 <div class="w-full h-full">
@@ -64,7 +64,7 @@
                         <li class="mb-4">
                             <div class="flex sm:justify-between flex-wrap">
                                 <label class="">
-                                    <input type="checkbox" class="form-checkbox bg-gray-200 border-curious-blue border-2 text-lg text-curious-blue rounded">
+                                    <input type="checkbox" class="form-checkbox border-curious-blue border-2 text-lg text-curious-blue rounded">
                                     <span class="mr-4">طلب حلا في اعلان ميداني</span>
                                 </label>
                                 <div class="text-xl mr-2 sm:mr-0">+450$</div>
