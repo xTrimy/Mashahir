@@ -28,3 +28,7 @@ Route::get('/signin', function () {
 Route::get('/profile', function () {
     return view('pages.profile');
 });
+
+Route::get('/profile-ads', function () {
+    return view('pages.profile-ads');
+});
