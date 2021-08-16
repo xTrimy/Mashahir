@@ -28,3 +28,9 @@ Route::get('/signin', function () {
 Route::get('/celebrities', function () {
     return view('pages.celebrities');
 });
+Route::get('/message', function () {
+    return view('pages.message');
+});
+Route::get('/messages', function () {
+    return view('pages.messages');
+});
