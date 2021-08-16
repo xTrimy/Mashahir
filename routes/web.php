@@ -40,3 +40,7 @@ Route::get('/profile', function () {
 Route::get('/service', function () {
     return view('pages.service');
 });
+
+Route::get('/profile-ads', function () {
+    return view('pages.profile-ads');
+});

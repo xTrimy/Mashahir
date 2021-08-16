@@ -1,7 +1,7 @@
 @extends('layouts.profile')
 
 @section('title')
-    Profile
+    ملفي
 @endsection
 
 @section('profile-nav')
