@@ -44,3 +44,7 @@ Route::get('/service', function () {
 Route::get('/profile-ads', function () {
     return view('pages.profile-ads');
 });
+
+Route::get('/profile-services', function () {
+    return view('pages.profile-services');
+});
