@@ -5,7 +5,7 @@
 @endsection
 @section('before-contents')
 <div class="group w-full h-80  bg-black relative">
-    <div class="opacity-0 group-hover:opacity-75 w-full h-full absolute top-0 left-0 bg-black flex transition-all cursor-pointer justify-center items-center z-10 text-white text-xl">
+    <div class="opacity-70 lg:opacity-0 group-hover:opacity-75 w-auto h-auto px-4 md:px-12 py-2 lg:w-full lg:h-full absolute top-0 left-0 bg-black flex transition-all cursor-pointer justify-center items-center z-10 text-white text-base md:text-lg lg:text-xl">
         <div>
             <i class="fas fa-pen ml-4"></i>
             <span class="hover:underline">تغيير صورة الغلاف</span>
@@ -18,8 +18,8 @@
 @section('contents')
 
 <div class="flex flex-wrap lg:flex-nowrap relative z-10 justify-center lg:justify-start -mt-14 ">
-    <div class="flex-initial">
-        <div class="w-80 shadow-lg mb-8 -mt-10">
+    <div class="flex-initial max-w-full">
+        <div class="w-80 max-w-full shadow-lg mb-8 -mt-10">
             <div class="w-full p-4 bg-white border-0 border-b border-solid">
                 <div class="w-full h-64 bg-black">
                     <img src="{{ asset('image/placeholders/face-3.jpg') }}" class="w-full h-full object-center object-cover" alt="">
