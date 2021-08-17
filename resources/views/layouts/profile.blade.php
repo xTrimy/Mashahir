@@ -4,8 +4,14 @@
     ملفي
 @endsection
 @section('before-contents')
-<div class="w-full h-80  bg-black">
-    <img class="w-full h-full object-cover opacity-30" src="{{ asset('image/placeholders/photo-1519944518895-f08a12d6dfd5.jpg') }}" alt="">
+<div class="group w-full h-80  bg-black relative">
+    <div class="opacity-0 group-hover:opacity-75 w-full h-full absolute top-0 left-0 bg-black flex transition-all cursor-pointer justify-center items-center z-10 text-white text-xl">
+        <div>
+            <i class="fas fa-pen ml-4"></i>
+            <span class="hover:underline">تغيير صورة الغلاف</span>
+        </div>
+    </div>
+    <img class="w-full h-full object-cover" src="{{ asset('image/placeholders/photo-1519944518895-f08a12d6dfd5.jpg') }}" alt="">
 </div>
 @endsection
 
