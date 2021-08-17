@@ -5,23 +5,29 @@
 @endsection
 
 @section('profile-nav')
-<div class="font-semibold flex w-full my-4 border-0 border-b pb-2 uppercase border-solid">
-    <div class="text-xl px-4 text-gray-400">
-        <a href="">الخدمات</a>
+<div class="font-semibold flex  w-full my-4 border-0 border-b pb-2 uppercase border-solid justify-between">
+    <div class="flex">
+        <div class="text-lg px-4 >
+            <a href="">الخدمات</a>
+        </div>
+        <div class="text-lg text-center px-4 border-0 border-b-2 border-curious-blue border-solid -mb-2.5 font-bold">
+            <a href="">عني</a>
+        </div>
+        <div class="text-lg px-4 ">
+            <a href="">الاعلانات</a>
+        </div>
+        <div class="text-lg px-4  ">
+            <a href="">الأخبار</a>
+        </div>
+        <div class="text-lg px-4 ">
+            <a href="">الوكيل</a>
+        </div>
     </div>
-    <div class="text-xl pl-4 border-0 border-b-4 border-curious-blue border-solid -mb-2.5 font-bold">
-        <a href="">عني</a>
+    
+    <div class="text-center font-normal bg-curious-blue text-white pl-4 pr-8 py-1 text-lg cursor-pointer  left-0 mr-1">
+        مشاركة 
+        <i class="las la-link text-2xl mr-4"></i>
     </div>
-    <div class="text-xl px-4 text-gray-400">
-        <a href="">الاعلانات</a>
-    </div>
-    <div class="text-xl px-4 text-gray-400 ">
-        <a href="">الأخبار</a>
-    </div>
-    <div class="text-xl px-4 text-gray-400">
-        <a href="">الوكيل</a>
-    </div>
-    <div class="text-center bg-curious-blue text-white px-4 py-1 text-lg font-bold cursor-pointer absolute left-0 mr-1">مشاركة <i class="fas fa-external-link-alt"></i></div>
 </div>
 @endsection
 

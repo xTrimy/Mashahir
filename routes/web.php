@@ -25,8 +25,20 @@ Route::get('/signin', function () {
     return view('pages.signin');
 });
 
+Route::get('/celebrities', function () {
+    return view('pages.celebrities');
+});
+Route::get('/message', function () {
+    return view('pages.message');
+});
+Route::get('/messages', function () {
+    return view('pages.messages');
+});
 Route::get('/profile', function () {
     return view('pages.profile');
+});
+Route::get('/service', function () {
+    return view('pages.service');
 });
 
 Route::get('/profile-ads', function () {

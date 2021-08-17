@@ -3,13 +3,15 @@
 @section('title')
     ملفي
 @endsection
-
-
-@section('contents')
-<div class="w-full h-80 -mt-8 bg-black">
+@section('before-contents')
+<div class="w-full h-80  bg-black">
     <img class="w-full h-full object-cover opacity-30" src="{{ asset('image/placeholders/photo-1519944518895-f08a12d6dfd5.jpg') }}" alt="">
 </div>
-<div class="flex flex-wrap lg:flex-nowrap relative z-10 justify-center lg:justify-start ">
+@endsection
+
+@section('contents')
+
+<div class="flex flex-wrap lg:flex-nowrap relative z-10 justify-center lg:justify-start -mt-14 ">
     <div class="flex-initial">
         <div class="w-80 shadow-lg mb-8 -mt-10">
             <div class="w-full p-4 bg-white border-0 border-b border-solid">
@@ -28,8 +30,6 @@
                         </form>
                         <div class="p-1"></div>
                         <div class="flex-1 text-center bg-curious-blue text-white px-8 py-2 text-lg font-bold cursor-pointer">طلب تواصل</div>
-                        
-                        
                     </div>
                 </div>
             </div>
