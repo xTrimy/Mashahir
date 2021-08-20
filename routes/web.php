@@ -48,3 +48,10 @@ Route::get('/profile-ads', function () {
 Route::get('/dashboard', function () {
     return view('dashboard.main');
 });
+Route::get('/profile-services', function () {
+    return view('pages.profile-services');
+});
+
+Route::get('/profile-agent', function () {
+    return view('pages.profile-agent');
+});
