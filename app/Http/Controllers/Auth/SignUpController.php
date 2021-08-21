@@ -29,8 +29,8 @@ class SignUpController extends Controller
             [
                 'type' => "required|exists:user_types,slug",
                 'name' => "string|max:255|min:12|required",
-                'username' => "string|max:16|min:3|required|regex:/^[a-zA-Z0-9_-]{3,15}$/",
-                'email' => "email|required",
+                'username' => "string|max:16|min:3|required|regex:/^[a-zA-Z0-9_-]{3,15}$/|unique:users,username",
+                'email' => "email|required|unique:users,email",
                 'phone' => "max:32|required",
                 'password'=> "confirmed|min:8|required",
             ]
@@ -44,10 +44,10 @@ class SignUpController extends Controller
         $user->password = bcrypt($request->password);
         $user->user_type_id = $user_type->id;
         $user->save();
+        $user->assignRole(str_replace('-',' ',$request->type));
         Auth::login($user);
         event(new Registered($user));
         return redirect()->route('verification.notice');
-        
         
     }
 }
