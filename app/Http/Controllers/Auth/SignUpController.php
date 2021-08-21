@@ -18,6 +18,7 @@ class SignUpController extends Controller
     public function signup($type){
         $available_types = ['celebrity','digital-marketer','advertising-agency','customer'];
         if(in_array($type,$available_types)){
+            $type = UserType::where('slug',$type)->first();
             return view('pages.signup_form', ['type' => $type]);
         }
         return abort(404);
