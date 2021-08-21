@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\Auth\SignUpController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,11 +18,28 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('pages.home');
-});
+})->name('home');
 
-Route::get('/signup', function () {
-    return view('pages.signup');
-});
+Route::get('/signup', [SignUpController::class, 'index'])->name( 'signup');
+Route::get( '/signup/{type}', [SignUpController::class, 'signup'])->name('signup_form');
+Route::post('/signup/{type}', [SignUpController::class, 'signup_action']);
+
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
+
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+
+    return redirect()->route('home');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::get('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+
+    return back()->with('message', 'Verification link sent!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 Route::get('/signin', function () {
     return view('pages.signin');
@@ -46,7 +66,7 @@ Route::get('/profile-ads', function () {
 });
 
 
-Route::prefix('/dashboard')->group(function () {
+Route::prefix('/dashboard')->middleware('verified')->group(function () {
     Route::get('/', function () {
         return view('dashboard.main');
     });
@@ -64,9 +84,6 @@ Route::prefix('/dashboard')->group(function () {
     });
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard.main');
-});
 Route::get('/profile-services', function () {
     return view('pages.profile-services');
 });
