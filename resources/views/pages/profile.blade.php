@@ -7,7 +7,7 @@
 @section('profile-nav')
 <div class="font-semibold flex  w-full my-4 border-0 border-b pb-2 uppercase border-solid justify-between">
     <div class="flex">
-        <div class="text-lg px-4 >
+        <div class="text-lg px-4 ">
             <a href="">الخدمات</a>
         </div>
         <div class="text-lg text-center px-4 border-0 border-b-2 border-curious-blue border-solid -mb-2.5 font-bold">
@@ -32,7 +32,7 @@
 @endsection
 
 @section('profile-data')
-    <div class="bg-white px-12 py-8 shadow border-solid border border-blueGray-light mb-5">
+    <div class="bg-white px-12 py-8 border-solid border border-blueGray-light mb-5">
         <div class="text-xl"><b>عن حلا الترك</b></div>
         
         <p>هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا
