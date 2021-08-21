@@ -27,7 +27,7 @@
         </div>
     </section>
     <div class="flex-1 mr-8  flex flex-wrap justify-around">
-            <div class="w-80 px-4 py-6 bg-white mb-8">
+            <div class="w-72 px-4 py-6 bg-white mb-8">
                 <div class="w-full h-48 bg-black">
                     <img src="{{ asset('image/placeholders/face-2.jpg') }}" class="w-full h-full object-cover object-center" alt="">
                 </div>
@@ -36,7 +36,7 @@
                     <div class="table py-2 px-12 bg-curious-blue mx-auto mt-4 text-white">طلب أعلان</div>
                 </div>
             </div>
-            <div class="w-80 px-4 py-6 bg-white mb-8">
+            <div class="w-72 px-4 py-6 bg-white mb-8">
                 <div class="w-full h-48 bg-black">
                     <img src="{{ asset('image/placeholders/face-3.jpg') }}" class="w-full h-full object-cover object-center" alt="">
                 </div>
@@ -45,7 +45,7 @@
                     <div class="table py-2 px-12 bg-curious-blue mx-auto mt-4 text-white">طلب أعلان</div>
                 </div>
             </div>
-            <div class="w-80 px-4 py-6 bg-white mb-8">
+            <div class="w-72 px-4 py-6 bg-white mb-8">
                 <div class="w-full h-48 bg-black">
                     <img src="{{ asset('image/placeholders/face-1.jpg') }}" class="w-full h-full object-cover object-center" alt="">
                 </div>

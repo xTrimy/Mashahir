@@ -11,31 +11,31 @@
         <div class="grid w-full grid-cols-2 grid-rows-2 gap-4 items-center flex-wrap justify-between">
             <label class="cursor-pointer flex border-2 rounded-xl border-gray-400 py-3  px-4">
                 <div class="flex w-3/5 items-center">
-                    <input type="radio" name="type" class="form-radio border-2 text-curious-blue ml-5 rounded-xl border-gray-400">
+                    <input type="radio" name="type" value="celebrity" class="form-radio border-2 text-curious-blue ml-5 rounded-xl border-gray-400">
                     مشهور     
                 </div>
-                <div class="bg-gray-400 rounded-xl py-2 px-6 text-white  flex-1 text-center cursor-pointer">  متابعة  <i class="fas fa-arrow-left"></i></div>
+                <a href="{{ route('signup_form','celebrity') }}" class="bg-gray-400 bg rounded-xl py-2 px-6 text-white  flex-1 text-center cursor-pointer">متابعة  <i class="fas fa-arrow-left"></i></a>
             </label>
             <label class="cursor-pointer flex border-2 rounded-xl border-gray-400 py-3 px-4">
                 <div class="flex w-3/5 items-center">
-                    <input type="radio" name="type" class="form-radio border-2 text-curious-blue ml-5 rounded-xl border-gray-400">
+                    <input type="radio" name="type" value="advertising-agency" class="form-radio border-2 text-curious-blue ml-5 rounded-xl border-gray-400">
                         وكيل اعلاني     
                 </div>
-                <div class="bg-gray-400 rounded-xl py-2 px-6 text-white  flex-1 text-center cursor-pointer">متابعة  <i class="fas fa-arrow-left"></i></div>
+                <a href="{{ route('signup_form','advertising-agency') }}" class="bg-gray-400 bg rounded-xl py-2 px-6 text-white  flex-1 text-center cursor-pointer">متابعة  <i class="fas fa-arrow-left"></i></a>
             </label>
             <label class="cursor-pointer flex border-2 rounded-xl border-gray-400 py-3  px-4">
                 <div class="flex w-3/5 items-center">
-                    <input type="radio" name="type" class="form-radio border-2 text-curious-blue ml-5 rounded-xl border-gray-400">
+                    <input type="radio" name="type" value="customer" class="form-radio border-2 text-curious-blue ml-5 rounded-xl border-gray-400">
                     عميل    
                 </div>
-                <div class="bg-gray-400 rounded-xl py-2 px-6 text-white  flex-1 text-center cursor-pointer">متابعة  <i class="fas fa-arrow-left"></i></div>
+                <a href="{{ route('signup_form','customer') }}" class="bg-gray-400 bg rounded-xl py-2 px-6 text-white  flex-1 text-center cursor-pointer">متابعة  <i class="fas fa-arrow-left"></i></a>
             </label>
             <label class="cursor-pointer flex border-2 rounded-xl border-gray-400 py-3  px-4">
                 <div class="flex w-3/5 items-center">
-                    <input type="radio" name="type" class="form-radio border-2 text-curious-blue ml-5 rounded-xl border-gray-400">
+                    <input type="radio" name="type" value="digital-marketer" class="form-radio border-2 text-curious-blue ml-5 rounded-xl border-gray-400">
                     مسوق الكتروني    
                 </div>
-                <div class="bg-gray-400 bg rounded-xl py-2 px-6 text-white  flex-1 text-center cursor-pointer">متابعة  <i class="fas fa-arrow-left"></i></div>
+                <a href="{{ route('signup_form','digital-marketer') }}" class="bg-gray-400 bg rounded-xl py-2 px-6 text-white  flex-1 text-center cursor-pointer">متابعة  <i class="fas fa-arrow-left"></i></a>
             </label>
         </div>
     </div>
