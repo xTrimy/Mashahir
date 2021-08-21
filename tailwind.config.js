@@ -16,7 +16,8 @@ module.exports = {
         rose:colors.rose,
         'curious-blue':{
           DEFAULT:"#2386c9",
-          "900":"#0b2257"
+          "900":"#0b2257",
+          "200":"#4f9ed3",
         },
       },
       borderWidth: {
@@ -28,7 +29,7 @@ module.exports = {
   },
   variants: {
     extend: {
-      display: ['group-hover'],
+      display: ['group-hover','group-focus'],
     },
   },
 plugins: [

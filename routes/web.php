@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\SignInController;
 use App\Http\Controllers\Auth\SignUpController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -20,29 +21,33 @@ Route::get('/', function () {
     return view('pages.home');
 })->name('home');
 
-Route::get('/signup', [SignUpController::class, 'index'])->name( 'signup');
-Route::get( '/signup/{type}', [SignUpController::class, 'signup'])->name('signup_form');
-Route::post('/signup/{type}', [SignUpController::class, 'signup_action']);
-
-Route::get('/email/verify', function () {
-    return view('auth.verify-email');
-})->middleware('auth')->name('verification.notice');
+Route::middleware('guest')->group(function () {
+    Route::get('/signup', [SignUpController::class, 'index'])->name('signup');
+    Route::get('/signup/{type}', [SignUpController::class, 'signup'])->name('signup_form');
+    Route::post('/signup/{type}', [SignUpController::class, 'signup_action']);
 
 
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill();
+    Route::get('/signin',[SignInController::class,'index'])->name('signin');
+    Route::post('/signin',[SignInController::class,'signin']);
+});
 
-    return redirect()->route('home');
-})->middleware(['auth', 'signed'])->name('verification.verify');
+Route::prefix('/email')->group(function(){
+    Route::get('/verify', function () {
+        return view('auth.verify-email');
+    })->middleware('auth')->name('verification.notice');
 
-Route::get('/email/verification-notification', function (Request $request) {
-    $request->user()->sendEmailVerificationNotification();
 
-    return back()->with('message', 'Verification link sent!');
-})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+    Route::get('/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+        $request->fulfill();
 
-Route::get('/signin', function () {
-    return view('pages.signin');
+        return redirect()->route('home');
+    })->middleware(['auth', 'signed'])->name('verification.verify');
+
+    Route::get('/verification-notification', function (Request $request) {
+        $request->user()->sendEmailVerificationNotification();
+
+        return back()->with('message', 'Verification link sent!');
+    })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 });
 
 Route::get('/celebrities', function () {
