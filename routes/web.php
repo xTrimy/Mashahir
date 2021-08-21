@@ -56,6 +56,12 @@ Route::prefix('/dashboard')->group(function () {
     Route::get('/celebrities', function () {
         return view('dashboard.celebrities');
     });
+    Route::get('/credit', function () {
+        return view('dashboard.credit');
+    });
+    Route::get('/edit-profile', function () {
+        return view('dashboard.edit-profile');
+    });
 });
 
 Route::get('/dashboard', function () {

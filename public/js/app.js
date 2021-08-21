@@ -355,20 +355,6 @@ function applyToSingletonTag(style, index, remove, obj) {
     }
   }
 }
-  // Check for `exports` after `define` in case a build optimizer adds it.
-  else {}
-}.call(this));
-
-
-/***/ }),
-
-/***/ "./resources/css/app.css":
-/*!*******************************!*\
-  !*** ./resources/css/app.css ***!
-  \*******************************/
-/***/ (() => {
-
-throw new Error("Module build failed (from ./node_modules/mini-css-extract-plugin/dist/loader.js):\nModuleBuildError: Module build failed (from ./node_modules/postcss-loader/dist/cjs.js):\nError: Cannot find module '@tailwindcss/custom-forms'\nRequire stack:\n- C:\\xampp\\htdocs\\Mashahir\\tailwind.config.js\n- C:\\xampp\\htdocs\\Mashahir\\node_modules\\tailwindcss\\lib\\index.js\n- C:\\xampp\\htdocs\\Mashahir\\webpack.mix.js\n- C:\\xampp\\htdocs\\Mashahir\\node_modules\\laravel-mix\\setup\\webpack.config.js\n- C:\\xampp\\htdocs\\Mashahir\\node_modules\\webpack-cli\\lib\\webpack-cli.js\n- C:\\xampp\\htdocs\\Mashahir\\node_modules\\webpack-cli\\lib\\bootstrap.js\n- C:\\xampp\\htdocs\\Mashahir\\node_modules\\webpack-cli\\bin\\cli.js\n- C:\\xampp\\htdocs\\Mashahir\\node_modules\\webpack\\bin\\webpack.js\n    at Function.Module._resolveFilename (internal/modules/cjs/loader.js:880:15)\n    at Function.Module._load (internal/modules/cjs/loader.js:725:27)\n    at Module.require (internal/modules/cjs/loader.js:952:19)\n    at require (C:\\xampp\\htdocs\\Mashahir\\node_modules\\v8-compile-cache\\v8-compile-cache.js:159:20)\n    at Object.<anonymous> (C:\\xampp\\htdocs\\Mashahir\\tailwind.config.js:23:5)\n    at Module._compile (C:\\xampp\\htdocs\\Mashahir\\node_modules\\v8-compile-cache\\v8-compile-cache.js:192:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1092:10)\n    at Module.load (internal/modules/cjs/loader.js:928:32)\n    at Function.Module._load (internal/modules/cjs/loader.js:769:14)\n    at Module.require (internal/modules/cjs/loader.js:952:19)\n    at processResult (C:\\xampp\\htdocs\\Mashahir\\node_modules\\webpack\\lib\\NormalModule.js:713:19)\n    at C:\\xampp\\htdocs\\Mashahir\\node_modules\\webpack\\lib\\NormalModule.js:819:5\n    at C:\\xampp\\htdocs\\Mashahir\\node_modules\\loader-runner\\lib\\LoaderRunner.js:399:11\n    at C:\\xampp\\htdocs\\Mashahir\\node_modules\\loader-runner\\lib\\LoaderRunner.js:251:18\n    at context.callback (C:\\xampp\\htdocs\\Mashahir\\node_modules\\loader-runner\\lib\\LoaderRunner.js:124:13)\n    at Object.loader (C:\\xampp\\htdocs\\Mashahir\\node_modules\\postcss-loader\\dist\\index.js:142:7)");
 
 function applyToTag(style, options, obj) {
   var css = obj.css;
@@ -504,6 +490,9 @@ module.exports = function (list, options) {
 /******/ 		return module.exports;
 /******/ 	}
 /******/ 	
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = __webpack_modules__;
+/******/ 	
 /************************************************************************/
 /******/ 	/* webpack/runtime/chunk loaded */
 /******/ 	(() => {
@@ -550,7 +539,6 @@ module.exports = function (list, options) {
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/define property getters */
-/******/ 	/* webpack/runtime/global */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
 /******/ 		__webpack_require__.d = (exports, definition) => {
@@ -628,22 +616,16 @@ module.exports = function (list, options) {
 /******/ 		var chunkLoadingGlobal = self["webpackChunk"] = self["webpackChunk"] || [];
 /******/ 		chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
 /******/ 		chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
-/******/ 	/* webpack/runtime/node module decorator */
-/******/ 	(() => {
-/******/ 		__webpack_require__.nmd = (module) => {
-/******/ 			module.paths = [];
-/******/ 			if (!module.children) module.children = [];
-/******/ 			return module;
-/******/ 		};
 /******/ 	})();
 /******/ 	
 /************************************************************************/
 /******/ 	
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	__webpack_require__("./resources/js/app.js");
-/******/ 	// This entry module doesn't tell about it's top-level declarations so it can't be inlined
-/******/ 	var __webpack_exports__ = __webpack_require__("./resources/css/app.css");
+/******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
+/******/ 	__webpack_require__.O(undefined, ["css/app"], () => (__webpack_require__("./resources/js/app.js")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/app"], () => (__webpack_require__("./resources/css/app.css")))
+/******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()
 ;

@@ -7,6 +7,9 @@ module.exports = {
   ],
   darkMode: false, // or 'media' or 'class'
   theme: {
+    fontFamily:{
+      'sans':['RB','Helvetica','Arial','sans-serif'],
+    },
     ...colors,
     extend: {
       colors:{
