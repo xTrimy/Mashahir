@@ -54,41 +54,41 @@
         </div>
     </div>
     <div class="w-full relative min-h-screen flex">
-        <div id="dashboard-side" class=" sticky shadow-xl top-0 right-0 bg-white h-screen">
-            <div class="w-full h-full px-4">
-                <div class="w-32 h-28 text-center shadow-md rounded flex justify-center items-center flex-col">
+        <div id="dashboard-side" class="sticky shadow-xl top-0 right-0 bg-white h-screen">
+            <div class="w-24 lg:w-36 h-full lg:px-4">
+                <div class="w-full h-28 text-center shadow-md rounded flex justify-center items-center flex-col">
                     <div class="w-full h-16 flex justify-center items-center text-curious-blue">
-                        <i class="las la-tachometer-alt text-4xl"></i>
+                        <i class="las la-tachometer-alt text-3xl lg:text-4xl"></i>
                     </div>
                     الرئيسية
                 </div>
-                <div class="w-32 h-28 text-center rounded text-gray-400 flex justify-center items-center flex-col">
+                <div class="w-full h-18 text-sm lg:text-base lg:h-28 text-center rounded text-gray-400 flex justify-center items-center flex-col">
                     <div class="w-full h-16 flex justify-center items-center ">
-                        <i class="las la-shopping-cart text-4xl"></i>
+                        <i class="las la-shopping-cart text-3xl lg:text-4xl"></i>
                     </div>
                     الطلبات
                 </div>
-                <div class="w-32 h-28 text-center rounded text-gray-400 flex justify-center items-center flex-col">
+                <div class="w-full h-18 text-sm lg:text-base lg:h-28 text-center rounded text-gray-400 flex justify-center items-center flex-col">
                     <div class="w-full h-16 flex justify-center items-center ">
-                        <i class="las la-dollar-sign text-4xl"></i>
+                        <i class="las la-dollar-sign text-3xl lg:text-4xl"></i>
                     </div>
                     الرصيد
                 </div>
-                <div class="w-32 h-28 text-center rounded text-gray-400 flex justify-center items-center flex-col">
+                <div class="w-full h-18 text-sm lg:text-base lg:h-28 text-center rounded text-gray-400 flex justify-center items-center flex-col">
                     <div class="w-full h-16 flex justify-center items-center ">
-                        <i class="las la-calendar text-4xl"></i>
+                        <i class="las la-calendar text-3xl lg:text-4xl"></i>
                     </div>
                     التقويم
                 </div>
-                <div class="w-32 h-28 text-center rounded text-gray-400 flex justify-center items-center flex-col">
+                <div class="w-full h-18 text-sm lg:text-base lg:h-28 text-center rounded text-gray-400 flex justify-center items-center flex-col">
                     <div class="w-full h-16 flex justify-center items-center ">
-                        <i class="las la-bell text-4xl"></i>
+                        <i class="las la-bell text-3xl lg:text-4xl"></i>
                     </div>
                     الاشعارات الهامة
                 </div>
-                <div class="absolute bottom-4 w-32 h-28 text-center rounded text-gray-400 flex justify-center items-center flex-col">
+                <div class="lg:absolute bottom-4 w-full h-18 lg:h-28 text-center rounded text-gray-400 flex justify-center items-center flex-col">
                     <div class="w-full h-16 flex justify-center items-center ">
-                        <i class="las la-sign-out-alt text-4xl"></i>
+                        <i class="las la-sign-out-alt text-3xl lg:text-4xl"></i>
                     </div>
                     تسجيل الخروج
                 </div>

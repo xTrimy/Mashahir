@@ -45,6 +45,16 @@ Route::get('/profile-ads', function () {
     return view('pages.profile-ads');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard.main');
+
+Route::prefix('/dashboard')->group(function () {
+    Route::get('/', function () {
+        return view('dashboard.main');
+    });
+    Route::get('/tasks', function () {
+        return view('dashboard.tasks');
+    });
+    Route::get('/celebrities', function () {
+        return view('dashboard.celebrities');
+    });
 });
+
