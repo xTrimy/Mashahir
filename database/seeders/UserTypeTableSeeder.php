@@ -25,11 +25,11 @@ class UserTypeTableSeeder extends Seeder
                 'slug' => 'customer'
             ],
             [
-                'name' => "مشهور",
+                'name' => "وكيل أعلاني",
                 'slug' => 'advertising-agency'
             ],
             [
-                'name' => "مشهور",
+                'name' => "مسوق ألكتروني",
                 'slug' => 'digital-marketer'
             ],
         ];
