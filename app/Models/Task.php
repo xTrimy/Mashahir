@@ -17,9 +17,9 @@ class Task extends Model
     public static function getCalender(Request $request)
     {
         $date = new stdClass;
-        $date->month = $request->month ?? now()->month;
-        $date->year = $request->year ?? now()->year;
-
+        $date->month = (intval($request->month)) ? $request->month : now()->month;
+        $date->year = (intval($request->year)) ? $request->year : now()->year;
+        
         $days = self::whereYear('deadline', '=', $date->year)
                         ->whereMonth('deadline', '=', $date->month)
                         ->orderBy('deadline', 'ASC')
@@ -28,7 +28,9 @@ class Task extends Model
                         ->groupBy(function($date){
                             return [Carbon::parse($date->deadline)->format('d')];
                         });
-
-        return $days;
+        $data = new stdClass;
+        $data->days = $days;
+        $data->date = $date;
+        return $data;
     }
 }

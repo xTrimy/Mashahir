@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
     <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>@yield('title')</title>
 </head>
 <body dir="rtl" class="bg-gray-100 overflow-x-hidden">
@@ -81,8 +82,11 @@
         </div>
     </div>
     <div class="w-full relative min-h-screen flex">
-        <div id="dashboard-side" class="sticky shadow-xl top-0 right-0 bg-white h-screen">
-            <div class="w-24 lg:w-36 h-full lg:px-4">
+        <div id="dashboard-side" class="fixed z-20 transform transition-transform translate-x-full lg:translate-x-0 lg:sticky shadow-xl top-0 right-0 bg-white h-screen">
+            <div id="dashboard-menu-button" class="lg:hidden cursor-pointer absolute top-24 right-full w-12 h-10 bg-white border-l-2 border-curious-blue text-curious-blue flex justify-center items-center">
+                <i class="las la-bars text-2xl"></i>
+            </div>
+            <div class="w-36 h-full px-4">
                 <div class="w-full h-28 text-center shadow-md rounded flex justify-center items-center flex-col">
                     <div class="w-full h-16 flex justify-center items-center text-curious-blue">
                         <i class="las la-tachometer-alt text-3xl lg:text-4xl"></i>
@@ -126,5 +130,12 @@
 </div>
     
     <script src="{{ asset('js/app.js') }}"></script>
+    <script>
+        var dahsboard_menu_button = document.getElementById('dashboard-menu-button');
+        dahsboard_menu_button.addEventListener('click',function(){
+            let parent = this.parentElement;
+            parent.classList.toggle('translate-x-full');
+        });
+    </script>
 </body>
 </html>
