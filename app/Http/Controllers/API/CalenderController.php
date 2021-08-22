@@ -12,17 +12,15 @@ class CalenderController extends Controller
 
     public function getTasks(Request $request)
     {
-
-        $response = [];
-        foreach(Task::getCalender($request) as $value => $tasks)
+        $response[] = Task::getCalender($request)->date;
+        foreach(Task::getCalender($request)->days as $value => $tasks)
         {
-            $response[] = [
+            $response[$tasks[0]->deadline] = [
                 "tasks" => $tasks,
-                "day" => $tasks[0]->deadline,
                 "isToday" => Carbon::parse($tasks[0]->deadline)->isToday()
             ];
         }
-
+        
         return $response;
     }
 

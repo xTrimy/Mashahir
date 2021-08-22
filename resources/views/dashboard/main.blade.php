@@ -149,7 +149,103 @@
                     </div>
                     <div class="w-full mt-6">
                         <h2 class="text-2xl mb-4">التقويم</h2>
-                        <div id="calendar"></div>
+                        {{-- Calendar Element --}}
+                        <div class="relative w-full shadow-md rounded-md bg-white py-4 px-2 md:px-6 overflow-hidden">
+                            <div class="flex items-center">
+                                <h2 class="text-lg font-bold text-curious-blue-900">
+                                    <span>3</span>
+                                    <span>يوليو</span>
+                                    <span>2021</span>
+                                </h2>
+                                
+                            </div>
+                            <div class="w-full gap-1 md:gap-2 xl:gap-4 border-b text-sm xl:text-base py-2 mt-2 mb-4 border-gray-400 text-gray-400 grid grid-cols-7 grid-rows-1">
+                                <div>الأحد</div>
+                                <div>الأثنين</div>
+                                <div>الثلاثاء</div>
+                                <div>الأربعاء</div>
+                                <div>الخميس</div>
+                                <div>الجمعة</div>
+                                <div>السبت</div>
+                            </div>
+                            <div class="hidden w-full h-full absolute top-0 left-0 bg-gray-600 opacity-10 animate-pulse">
+                            </div>
+
+                            <div id="calendar-days-container" class="grid gap-1 md:gap-2 xl:gap-4 grid-cols-7 w-full">
+                                {{-- <div class="w-full h-24 bg-gray-200 p-4 text-curious-blue-900  rounded-xl ">
+                                    <p class="text-2xl">1</p>
+                                </div>
+                                <div class="w-full h-24 bg-blue-200 border-curious-blue border-4 p-2 text-curious-blue-900 rounded-xl">
+                                    <p class="text-2xl">2</p>
+                                </div>
+                                <div class="w-full h-24 bg-yellow-100 p-4 text-curious-blue-900 rounded-xl">
+                                    <p class="text-2xl">3</p>
+                                    <p class="text-yellow-400 mt-2 text-sm">مهمة واحدة</p>
+                                </div> --}}
+                            </div>
+                        </div>
+                        <script>
+                            function daysInMonth (month, year) {
+                                return new Date(year, month, 0).getDate();
+                            }
+
+                            function getCalendarData(year_value, month_value){
+                                $.ajax({
+                                    url: "{{ url('/api/calender') }}",
+                                    type: "get", //send it through get method
+                                    data: { 
+                                        year: year_value | null, 
+                                        month: month_value | null
+                                    },
+                                    success: function(response) {
+                                        console.log(response);
+                                        const month = response[0]['month']-1;
+                                        const year = response[0]['year'];
+                                        const days_container = document.getElementById('calendar-days-container');
+                                        days_of_month = daysInMonth(month,year);
+                                        // Get first day of the month
+                                        var first_day = new Date(year,month,1).getDay();
+                                        for(let i = 0; i<first_day; i++){
+                                            var day_element = document.createElement('div');
+                                            days_container.appendChild(day_element);
+                                        }
+                                        for(let i = 1; i <= days_of_month; i++){
+                                            var date = new Date(year,month,i);
+                                            var date_string = date.toLocaleDateString('en-CA');
+                                            var day_element = document.createElement('div');
+                                            var style = "w-full h-16 lg:h-12 xl:h-24 bg-gray-200 p-1 xl:p-4 text-curious-blue-900  rounded-xl";
+                                            day_element.innerHTML = `<p class="text-2xl lg:text-base xl:text-2xl">${i}</p>`;
+                                            if(response[date_string]){
+                                                var data = response[date_string];
+                                                var style = "w-full h-16 lg:h-12 xl:h-24 bg-yellow-100 p-1 xl:p-4 text-curious-blue-900 rounded-xl";
+                                                if(data['tasks']){
+                                                    var tasks = data['tasks'];
+                                                    var task_text = "مهمة واحدة";
+                                                    if(tasks.length == 2){
+                                                        task_text = "مهمتان"
+                                                    }else if (tasks.length > 2){
+                                                        task_text = tasks.length + " مهام";
+                                                    }
+                                                    day_element.innerHTML += `<p class="text-yellow-400 hidden md:block lg:hidden xl:block text-sm">${task_text}</p>`;
+                                                }
+                                            }
+                                            day_element.setAttribute('class',style);
+                                            days_container.appendChild(day_element);
+                                        }
+                                        
+                                    },
+                                    error: function(xhr) {
+                                        console.log(xhr);
+                                    }
+                                });
+
+                            }
+                            window.addEventListener('load',function(){
+                                getCalendarData();
+
+                            });
+                            
+                        </script>
                     </div>
                 </div>
             </div>
