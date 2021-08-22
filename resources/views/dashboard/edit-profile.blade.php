@@ -45,18 +45,18 @@
                         </div>
                         
                         <div class="mr-8 text-4xl">
-                            Ali Abdullah
+                            {{ Auth::user()->name }}
                         </div>
                     </div>
                     <form method="POST" class="mt-8">
                         @csrf
                         <label >
                             <div class="text-lg">الأسم</div>
-                            <input type="text" class="form-input w-full border border-curious-blue  mt-2 rounded mb-4">
+                            <input type="text" class="form-input w-full border border-curious-blue  mt-2 rounded mb-4" value="{{ Auth::user()->name }}">
                         </label>
                         <label >
                             <div class="text-lg">أسم المستخدم</div>
-                            <input type="text" class="form-input w-full border border-curious-blue  mt-2 rounded mb-2">
+                            <input type="text" class="form-input w-full border border-curious-blue  mt-2 rounded mb-2" value="{{ Auth::user()->username }}">
                         </label>
                         <div class="text-base font-bold text-gray-400">
                             قم بتعديل هذا الأسم ليظهر في رابط الملف، مثال 

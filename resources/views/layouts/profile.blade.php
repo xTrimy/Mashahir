@@ -25,7 +25,7 @@
                     <img src="{{ asset('image/placeholders/face-3.jpg') }}" class="w-full h-full object-center object-cover" alt="">
                 </div>
                 <div class="mt-4">
-                    <p class="text-xl text-black">حلا الترك</p>
+                    <p class="text-xl text-black">{{ Auth::user()->name }}</p>
                     <div class="mt-5 flex">
                         <form method="POST" action="" class="flex">
                             @csrf

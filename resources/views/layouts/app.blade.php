@@ -47,7 +47,7 @@
                     </div>
                     <div class="w-full bg-white hover:bg-gray-200 text-right px-4 py-2 border-b">
                         <i class="las la-user text-lg ml-2"></i>
-                        xTrimy
+                        {{ strtok(Auth::user()->name,  ' ') }}
                     </div>
                     <div class="w-full bg-white hover:bg-gray-200 text-right px-4 py-2 border-b">
                         <i class="las la-dollar-sign text-lg ml-2"></i>
