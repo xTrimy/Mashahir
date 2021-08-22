@@ -9,6 +9,9 @@
             <div class="w-full mt-8 flex">
                 <div class="w-60">
                     <div class="w-full bg-white shadow-md rounded text-lg">
+                        
+
+
                         <div class="w-full py-6 px-8 font-bold text-curious-blue border-b">
                             <i class="fas fa-pen ml-4 text-2xl"></i>
                             <span>تعديل الملف</span>
@@ -62,6 +65,10 @@
                             قم بتعديل هذا الأسم ليظهر في رابط الملف، مثال 
                             <span class="mr-1">mashhour.net/<span id="username-link">AliAbdallah</span> </span>
                         </div>
+                        <hr class="mt-8">
+                        <h2 class="text-xl font-bold mt-4 text-gray-600 mb-8">
+                             معلومات إضافية
+                        </h2>
                         <hr class="mt-8">
                         <h2 class="text-xl font-bold mt-4 text-gray-600 mb-8">
                             وسائل التواصل
