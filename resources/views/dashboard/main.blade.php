@@ -150,7 +150,7 @@
                     <div class="w-full mt-6">
                         <h2 class="text-2xl mb-4">التقويم</h2>
                         {{-- Calendar Element --}}
-                        <div class="relative w-full shadow-md rounded-md bg-white py-4 px-2 md:px-6 overflow-hidden">
+                        <div class="relative w-full shadow-md rounded-md bg-white py-4 px-2 md text-center lg:text-right:px-6 overflow-hidden">
                             <div class="flex items-center">
                                 <h2 class="text-lg font-bold text-curious-blue-900">
                                     <span>3</span>
@@ -213,11 +213,11 @@
                                             var date = new Date(year,month,i);
                                             var date_string = date.toLocaleDateString('en-CA');
                                             var day_element = document.createElement('div');
-                                            var style = "w-full h-16 lg:h-12 xl:h-24 bg-gray-200 p-1 xl:p-4 text-curious-blue-900  rounded-xl";
+                                            var style = "w-full sm:h-16 lg:h-12 xl:h-24 bg-gray-200 p-1 xl:p-4 text-curious-blue-900  rounded-sm sm:rounded-xl text-center sm:text-right";
                                             day_element.innerHTML = `<p class="text-2xl lg:text-base xl:text-2xl">${i}</p>`;
                                             if(response[date_string]){
                                                 var data = response[date_string];
-                                                var style = "w-full h-16 lg:h-12 xl:h-24 bg-yellow-100 p-1 xl:p-4 text-curious-blue-900 rounded-xl";
+                                                var style = "w-full sm:h-16 lg:h-12 xl:h-24 bg-yellow-100 p-1 xl:p-4 text-curious-blue-900 rounded-sm sm:rounded-xl text-center sm:text-right";
                                                 if(data['tasks']){
                                                     var tasks = data['tasks'];
                                                     var task_text = "مهمة واحدة";
