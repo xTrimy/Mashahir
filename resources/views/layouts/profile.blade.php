@@ -26,17 +26,19 @@
                 </div>
                 <div class="mt-4">
                     <p class="text-xl text-black">{{$name}}</p>
-                    <div class="mt-5 flex">
-                        <form method="POST" action="" class="flex">
-                            @csrf
-                            <input type="hidden" name="user_id" value="">
-                            <button type="submit" class="cursor-pointer text-center border-2 border-curious-blue bg-white text-white transition-colors px-5 py-2 text-lg font-bold">
-                                <i class="fas fa-star text-curious-blue"></i>
-                            </button>
-                        </form>
-                        <div class="p-1"></div>
-                        <div class="flex-1 text-center bg-curious-blue text-white px-8 py-2 text-lg font-bold cursor-pointer">طلب تواصل</div>
-                    </div>
+                    @if($username !== $user->username)
+                        <div class="mt-5 flex">
+                            <form method="POST" action="" class="flex">
+                                @csrf
+                                <input type="hidden" name="user_id" value="{{$id}}">
+                                <button type="submit" class="cursor-pointer text-center border-2 border-curious-blue bg-white text-white transition-colors px-5 py-2 text-lg font-bold">
+                                    <i class="fas fa-star text-curious-blue"></i>
+                                </button>
+                            </form>
+                            <div class="p-1"></div>
+                            <div class="flex-1 text-center bg-curious-blue text-white px-8 py-2 text-lg font-bold cursor-pointer">طلب تواصل</div>
+                        </div>
+                    @endif
                 </div>
             </div>
             <div class="w-full break-words p-4 bg-white border-0 border-b border-solid mb-5">
