@@ -29,6 +29,9 @@ Route::middleware('guest')->group(function () {
 
 
     Route::get('/signin',[SignInController::class,'index'])->name('signin');
+    Route::get('/login', function(){
+        return redirect()->route('signin');
+    })->name('login');
     Route::post('/signin',[SignInController::class,'signin']);
 });
 
