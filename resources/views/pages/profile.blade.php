@@ -23,9 +23,9 @@
             <a href="">الوكيل</a>
         </div>
     </div>
-    
+
     <div class="text-center font-normal bg-curious-blue text-white pl-4 pr-8 py-1 text-lg cursor-pointer  left-0 mr-1">
-        مشاركة 
+        مشاركة
         <i class="las la-link text-2xl mr-4"></i>
     </div>
 </div>
@@ -33,8 +33,8 @@
 
 @section('profile-data')
     <div class="bg-white px-12 py-8 border-solid border border-blueGray-light mb-5">
-        <div class="text-xl"><b>عن حلا الترك</b></div>
-        
+        <div class="text-xl"><b>عن {{$name}}</b></div>
+
         <p>هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا
             .النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها التطبيق
             إذا كنت تحتاج إلى عدد أكبر من الفقرات يتيح لك مولد النص العربى زيادة عدد الفقرات كما تريد، النص لن يبدو مقسما ولا يحوي أخطاء
@@ -46,9 +46,9 @@
             .مازال نصاً بديلاً ومؤقتاً
         </p>
     </div>
-    
+
 @endsection
 
 @section('profile-title')
-        
+
 @endsection
