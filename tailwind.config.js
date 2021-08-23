@@ -32,7 +32,7 @@ module.exports = {
   },
   variants: {
     extend: {
-      display: ['group-hover','group-focus'],
+      display: ['group-hover','group-focus','focus-within','hover'],
     },
   },
 plugins: [

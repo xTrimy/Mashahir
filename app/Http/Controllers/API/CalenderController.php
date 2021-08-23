@@ -9,7 +9,6 @@ use Carbon\Carbon;
 
 class CalenderController extends Controller
 {
-
     public function getTasks(Request $request)
     {
         $calenderTasks = Task::getCalender($request);
