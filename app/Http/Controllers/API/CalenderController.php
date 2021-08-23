@@ -23,8 +23,6 @@ class CalenderController extends Controller
 
         $response['today'] = Carbon::now()->isoFormat('YYYY-MM-DD');
 
-        dd($response);
-
         return $response;
     }
 
