@@ -9,18 +9,23 @@ use Carbon\Carbon;
 
 class CalenderController extends Controller
 {
-
     public function getTasks(Request $request)
     {
-        $response[] = Task::getCalender($request)->date;
-        foreach(Task::getCalender($request)->days as $value => $tasks)
+        $calenderTasks = Task::getCalender($request);
+        $response[] = $calenderTasks->date;
+        $hasToday = null;
+        foreach($calenderTasks->days as $value => $tasks)
         {
+            if(!$hasToday)
+                $hasToday = ( Carbon::parse($tasks[0]->deadline)->isToday() ) ? ['Key'=> $tasks[0]->deadline, 'status'=>true] : null;
+
             $response[$tasks[0]->deadline] = [
                 "tasks" => $tasks,
-                "isToday" => Carbon::parse($tasks[0]->deadline)->isToday()
+                "isToday" => $hasToday['status'] ?? false
             ];
         }
-        
+
+        $response['todayKey'] = $hasToday['Key'] ?? null;
         return $response;
     }
 

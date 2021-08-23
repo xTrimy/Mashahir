@@ -22,15 +22,15 @@
         <div class="w-80 max-w-full shadow-lg mb-8 -mt-10">
             <div class="w-full p-4 bg-white border-0 border-b border-solid">
                 <div class="w-full h-64 bg-black">
-                    <img src="{{ asset('image/placeholders/face-3.jpg') }}" class="w-full h-full object-center object-cover" alt="">
+                    <img src="{{ asset($image ?? "avatars/images/default.png") }}" class="w-full h-full object-center object-cover" alt="">
                 </div>
                 <div class="mt-4">
-                    <p class="text-xl text-black">{{ Auth::user()->name }}</p>
+                    <p class="text-xl text-black">{{$name}}</p>
                     <div class="mt-5 flex">
                         <form method="POST" action="" class="flex">
                             @csrf
                             <input type="hidden" name="user_id" value="">
-                            <button type="submit" class="cursor-pointer text-center border-2 border-curious-blue bg-white text-white transition-colors px-5 py-2 text-lg font-bold"> 
+                            <button type="submit" class="cursor-pointer text-center border-2 border-curious-blue bg-white text-white transition-colors px-5 py-2 text-lg font-bold">
                                 <i class="fas fa-star text-curious-blue"></i>
                             </button>
                         </form>
@@ -66,7 +66,7 @@
                     <p class="text-lg text-black font-semibold flex-1 text-left">منذ 4 أيام</p>
                 </div>
             </div>
-            
+
         </div>
         <div class="w-full break-words p-4 bg-white border-0 border-b border-solid mb-5 shadow-lg">
             <div class="mb-3 flex">
