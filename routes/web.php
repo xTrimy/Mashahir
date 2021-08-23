@@ -91,6 +91,10 @@ Route::prefix('/dashboard')->middleware('verified')->group(function () {
     Route::get('/ads', function () {
         return view('dashboard.ads');
     });
+
+    Route::get('/services', function () {
+        return view('dashboard.services');
+    });
 });
 
 Route::get('/profile-services', function () {

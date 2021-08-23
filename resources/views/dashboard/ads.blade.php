@@ -50,13 +50,13 @@
                             <i class="fas fa-ellipsis-h text-3xl text-gray-500 cursor-pointer"></i>
                         </div>
                     </div>
-                    <div class="flex items-center shadow-lg bg-white py-8 px-12 rounded-md justify-between">
+                    <div class="flex items-center shadow-lg bg-white py-4 px-12 rounded-md justify-between">
                         <div class="flex items-center">
                             <div class="w-24 h-24 mr-2 md:ml-10">
                                 <img class="w-full h-full object-cover rounded" src="{{ asset('image/placeholders/face-3.jpg') }}"/>
                             </div>
                             <div>
-                                <b class="text-sm md:text-xl">إعلان لمجلة سيدتي</b>
+                                <b class="text-sm md:text-xl font-medium">إعلان لمجلة سيدتي</b>
                                 <div class="flex">
                                     <p class="mt-0 md:mt-2 text-xs md:text-base text-gray-400"> <i class="fas fa-cubes"></i> أزياء وموضة </p>
                                     <p class="mt-0 md:mt-2 text-xs md:text-base text-gray-400 mr-5"> <i class="fas fa-arrow-left"></i> مجلة سيدتي </p>
