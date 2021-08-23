@@ -27,7 +27,7 @@ class SignUpController extends Controller
     {
         $request->validate(
             [
-                'type' => "required|exists:user_types,slug",
+                // 'type' => "required|exists:user_types,slug",
                 'name' => "string|max:255|min:12|required",
                 'username' => "string|max:16|min:3|required|regex:/^[a-zA-Z0-9_-]{3,15}$/|unique:users,username",
                 'email' => "email|required|unique:users,email",

@@ -51,7 +51,7 @@ Route::prefix('/email')->group(function(){
     })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 });
 
-Route::get('/celebrities', function () {
+Route::get('/celebrities', function () { 
     return view('pages.celebrities');
 });
 Route::get('/message', function () {
@@ -98,5 +98,13 @@ Route::prefix('/dashboard')->middleware('verified')->group(function () {
     });
     Route::get('/edit-profile', function () {
         return view('dashboard.edit-profile');
+    });
+
+    Route::get('/ads', function () {
+        return view('dashboard.ads');
+    });
+
+    Route::get('/services', function () {
+        return view('dashboard.services');
     });
 });
