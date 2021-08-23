@@ -34,39 +34,37 @@
                     </a>
                 </div>
             </div>
-        </div>
+        </div> 
         @auth
            <div class="flex items-center h-full text-white flex-row-reverse text-lg lg:text-xl">
                <button class="group mr-2 relative h-full hover:bg-curious-blue-200 px-4 focus:bg-curious-blue-200">
                 <div class="group w-14 h-14 bg-white rounded-full overflow-hidden">
                     <img src="{{ asset($user->image ?? "avatars/images/default.png") }}" class="w-full h-full object-cover object-center" alt="">
                 </div>
-                <div class="absolute top-full left-0 w-48 bg-white group-focus:block hidden text-black text-base">
+                <div class="absolute top-full z-20 left-0 w-48 bg-white group-hover:block group-focus:block hidden text-black text-base">
                     <div class="w-6 overflow-hidden inline-block absolute left-8 bottom-full">
                         <div class=" h-3 w-6 bg-white rotate-45 transform origin-bottom-left"></div>
                     </div>
-                    <div class="w-full bg-white hover:bg-gray-200 text-right px-4 py-2 border-b">
-                        <a href="/profile/{{$user->username}}">
+                    <a href="/profile/{{$user->username}}" class="block w-full bg-white hover:bg-gray-200 text-right px-4 py-2 border-b">
                             <i class="las la-user text-lg ml-2"></i>
                             {{$user->username}}
-                        </a>
-                    </div>
-                    <div class="w-full bg-white hover:bg-gray-200 text-right px-4 py-2 border-b">
+                    </a>
+                    <a href="#" class="block w-full bg-white hover:bg-gray-200 text-right px-4 py-2 border-b">
                         <i class="las la-dollar-sign text-lg ml-2"></i>
                         الرصيد
-                    </div>
-                    <div class="w-full bg-white hover:bg-gray-200 text-right px-4 py-2 border-b">
+                    </a>
+                    <a href="#" class="block w-full bg-white hover:bg-gray-200 text-right px-4 py-2 border-b">
                         <i class="las la-cog text-lg ml-2"></i>
                         الإعدادات
-                    </div>
-                    <div class="w-full bg-white hover:bg-gray-200 text-right px-4 py-2 border-b">
+                    </a>
+                    <a href="#" class="block w-full bg-white hover:bg-gray-200 text-right px-4 py-2 border-b">
                         <i class="las la-pen text-lg ml-2"></i>
                         تعديل الحساب
-                    </div>
-                    <div class="w-full bg-white hover:bg-gray-200 text-right px-4 py-2 border-b">
+                    </a>
+                    <a href="#" class="block w-full bg-white hover:bg-gray-200 text-right px-4 py-2 border-b">
                         <i class="las la-sign-out-alt text-lg ml-2"></i>
                         خروج
-                    </div>
+                    </a>
                 </div>
                </button>
 
