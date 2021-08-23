@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Auth\SignInController;
 use App\Http\Controllers\Auth\SignUpController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
@@ -18,9 +20,7 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
-    return view('pages.home');
-})->name('home');
+Route::get('/', [HomeController::class, "index"])->name('home');
 
 Route::middleware('guest')->group(function () {
     Route::get('/signup', [SignUpController::class, 'index'])->name('signup');
@@ -60,15 +60,26 @@ Route::get('/message', function () {
 Route::get('/messages', function () {
     return view('pages.messages');
 });
-Route::get('/profile', function () {
-    return view('pages.profile');
+
+Route::get('/profile/{username}', [ProfileController::class, 'index'])
+    ->whereAlphaNumeric('username')
+    ->middleware('profile.exists');
+
+Route::get('/profile-services', function () {
+    return view('pages.profile-services');
 });
-Route::get('/service', function () {
-    return view('pages.service');
+
+Route::get('/profile-agent', function () {
+    return view('pages.profile-agent');
 });
 
 Route::get('/profile-ads', function () {
     return view('pages.profile-ads');
+});
+
+
+Route::get('/service', function () {
+    return view('pages.service');
 });
 
 
@@ -88,12 +99,4 @@ Route::prefix('/dashboard')->middleware('verified')->group(function () {
     Route::get('/edit-profile', function () {
         return view('dashboard.edit-profile');
     });
-});
-
-Route::get('/profile-services', function () {
-    return view('pages.profile-services');
-});
-
-Route::get('/profile-agent', function () {
-    return view('pages.profile-agent');
 });

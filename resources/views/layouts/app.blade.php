@@ -39,15 +39,17 @@
            <div class="flex items-center h-full text-white flex-row-reverse text-lg lg:text-xl">
                <button class="group mr-2 relative h-full hover:bg-curious-blue-200 px-4 focus:bg-curious-blue-200">
                 <div class="group w-14 h-14 bg-white rounded-full overflow-hidden">
-                    <img src="{{ asset(Auth::user()->image ?? "profile/images/default.png") }}" class="w-full h-full object-cover object-center" alt="">
+                    <img src="{{ asset($user->image ?? "avatars/images/default.png") }}" class="w-full h-full object-cover object-center" alt="">
                 </div>
                 <div class="absolute top-full left-0 w-48 bg-white group-focus:block hidden text-black text-base">
                     <div class="w-6 overflow-hidden inline-block absolute left-8 bottom-full">
                         <div class=" h-3 w-6 bg-white rotate-45 transform origin-bottom-left"></div>
                     </div>
                     <div class="w-full bg-white hover:bg-gray-200 text-right px-4 py-2 border-b">
-                        <i class="las la-user text-lg ml-2"></i>
-                        xTrimy
+                        <a href="/profile/{{$user->username}}">
+                            <i class="las la-user text-lg ml-2"></i>
+                            {{$user->username}}
+                        </a>
                     </div>
                     <div class="w-full bg-white hover:bg-gray-200 text-right px-4 py-2 border-b">
                         <i class="las la-dollar-sign text-lg ml-2"></i>
@@ -67,7 +69,7 @@
                     </div>
                 </div>
                </button>
-            
+
             <div class="mr-6 lg:mr-8">
                 <i class="fas fa-bell"></i>
             </div>
@@ -80,7 +82,7 @@
             <div class="mr-6 lg:mr-8 sm:block hidden">
                 <i class="fas fa-globe"></i>
             </div>
-        </div> 
+        </div>
         @endauth
         @guest
             <div class="flex h-full items-center">
@@ -94,14 +96,14 @@
                 </a>
             </div>
         @endguest
-        
+
     </div>
     <link rel="stylesheet" href="{{ asset('js/app.js') }}">
     <div class="w-full">
         @yield('before-contents')
     </div>
     <div class="md:wrapper pt-4 px-4 md:px-12 lg:px-20 xl:px-52 mt-10 min-h-screen">
-        
+
         @yield('contents')
 
     </div>
@@ -145,9 +147,9 @@
             <div>
                 <h1>وسائل الدفع المتاحة</h1>
                 <div class="flex text-3xl items-center font-normal mt-1">
-                    <i class="fab fa-cc-paypal ml-2"></i> 
-                    <i class="fab fa-cc-mastercard ml-2"></i> 
-                    <i class="fab fa-cc-visa ml-2"></i> 
+                    <i class="fab fa-cc-paypal ml-2"></i>
+                    <i class="fab fa-cc-mastercard ml-2"></i>
+                    <i class="fab fa-cc-visa ml-2"></i>
                 </div>
             </div>
     </div>
