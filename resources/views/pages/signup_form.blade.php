@@ -9,9 +9,10 @@
         <h1 class="text-5xl mb-8 font-bold text-center text-curious-blue">تسجيل </h1>
         <form method="POST">
             @csrf
+            
             <input type="hidden" name="type" value="{{ $type->slug }}">
             <p class="mb-2 font-semibold">نوع الحساب<span class="text-red-500">*</span></p>
-            <input type="text" readonly class="w-full  border-blue-200 bg-gray-100 cursor-not-allowed border-2 outline-none p-2 mb-3 rounded-sm" name="type" value="{{ $type->name }}">
+            <input type="text" readonly class="w-full  border-blue-200 bg-gray-100 cursor-not-allowed border-2 outline-none p-2 mb-3 rounded-sm" value="{{ $type->name }}">
             <p class="mb-2 font-semibold">الأسم الكامل<span class="text-red-500">*</span></p>
             <input type="text" value="{{ old('name') }}" name="name" class="w-full  border-blue-200 border-2 outline-none p-2 mb-3 rounded-sm">
             @error('name')

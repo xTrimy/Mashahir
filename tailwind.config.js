@@ -12,6 +12,9 @@ module.exports = {
     },
     ...colors,
     extend: {
+      zIndex: {
+         '-10': '-10',
+        },
       colors:{
         rose:colors.rose,
         'curious-blue':{
