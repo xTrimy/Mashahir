@@ -116,5 +116,16 @@ Route::prefix('/dashboard')->middleware('verified')->group(function () {
         });
         
     });
-    
+
+    Route::get('/notifications', function () {
+        return view('dashboard.notifications');
+    });
+
+    Route::get('/send-notification', function () {
+        return view('dashboard.send-notification');
+    });
+
+    Route::get('/requests', function () {
+        return view('dashboard.requests');
+    });
 });
