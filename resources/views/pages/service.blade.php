@@ -5,24 +5,24 @@
     <div class="flex justify-between flex-wrap">
         <div class="flex items-center mb-8 ">
             <div class="hidden md:block w-20 h-20 bg-black rounded-full ml-4 overflow-hidden">
-                <img src="{{ asset('image/placeholders/face-1.jpg') }}" class="w-full h-full object-center object-cover" alt="">
+                <img src="{{ asset($service->user->image ?? "avatars/images/default.png" ) }}" class="w-full h-full object-center object-cover" alt="">
             </div>
             <div class="flex flex-col justify-between h-full">
                 <h1 class="text-2xl mb-4">
-                    نشر حسابك على انستجرام حلا
+                    {{ $service->name }}
                 </h1>
                 <div class="flex text-gray-400 text-sm flex-wrap">
                     <p class="ml-4 w-full sm:w-auto">
                         <i class="fas fa-user"></i>
-                        <span class="mr-1">حلا الترك</span>
+                        <span class="mr-1">{{ $service->user->name }}</span>
                     </p>
                     <p class="ml-4 w-full sm:w-auto">
                         <i class="fas fa-cubes"></i>
-                        <span class="mr-1">اعلانات حسابات التواصل</span>
+                        <a href="#"><span class="mr-1">{{ $service->category->name }}</span></a>
                     </p>
                     <p class="ml-4 w-full sm:w-auto">
                         <i class="fas fa-clock"></i>
-                        <span class="mr-1">اخر تفاعل: منذ يومان</span>
+                        <span class="mr-1">اخر تفاعل:  {{ $time_ago->diffForHumans() }}</span>
                     </p>
                 </div>
             </div>
@@ -49,10 +49,7 @@
             </div>
                 <div class="py-8 ">
                     <p>
-                        هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها التطبيق.
-إذا كنت تحتاج إلى عدد أكبر من الفقرات يتيح لك مولد النص العربى زيادة عدد الفقرات كما تريد، النص لن يبدو مقسما ولا يحوي أخطاء لغوية، مولد النص العربى مفيد لمصممي المواقع على وجه الخصوص، حيث يحتاج العميل فى كثير من الأحيان أن يطلع على صورة حقيقية لتصميم الموقع.
-ومن هنا وجب على المصمم أن يضع نصوصا مؤقتة على التصميم ليظهر للعميل الشكل كاملاً،دور مولد النص العربى أن يوفر على المصمم عناء البحث عن نص بديل لا علاقة له بالموضوع الذى يتحدث عنه التصميم فيظهر بشكل لا يليق.
-هذا النص يمكن أن يتم تركيبه على أي تصميم دون مشكلة فلن يبدو وكأنه نص منسوخ، غير منظم، غير منسق، أو حتى غير مفهوم. لأنه مازال نصاً بديلاً ومؤقتاً.
+                        {{ $service->description }}
                     </p>
                 </div>
                 <hr>
@@ -61,15 +58,24 @@
                         أضافة تطويرات للخدمة
                     </h1>
                     <ul class="mt-4">
-                        <li class="mb-4">
-                            <div class="flex sm:justify-between flex-wrap">
-                                <label class="">
-                                    <input type="checkbox" class="form-checkbox border-curious-blue border-2 text-lg text-curious-blue rounded">
-                                    <span class="mr-4">طلب حلا في اعلان ميداني</span>
-                                </label>
-                                <div class="text-xl mr-2 sm:mr-0">+450$</div>
-                            </div>
-                        </li>
+                        @forelse ($service->upgrades as $upgrade)
+                            <li class="mb-4">
+                                <div class="flex sm:justify-between flex-wrap">
+                                    <label class="">
+                                        <input type="checkbox" class="form-checkbox border-curious-blue border-2 text-lg text-curious-blue rounded">
+                                        <span class="mr-4">{{ $upgrade->title }}</span>
+                                    </label>
+                                    <div class="">
+                                        <div class="text-lg mr-2 sm:mr-0">+{{ $upgrade->price }}$</div>
+                                        <div class="text-lg mr-2 sm:mr-0">+{{ $upgrade->duration }} أيام</div>
+
+                                    </div>
+                                </div>
+                            </li>
+                        @empty
+                            <p class="text-sm text-gray-400">لا يوجد تطويرات للخدمة في الوقت الحالي.</p>
+                        @endforelse
+                        
                     </ul>
                 </div>
                 <hr>
