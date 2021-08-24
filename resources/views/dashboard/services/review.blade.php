@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 @section('title')
-تعديل الملف | لوحة التحكم
+مراجعة عامة للخدمات  | لوحة التحكم
 @endsection
 @section('content')
         <div class="px-2 lg:pr-12 lg:pl-24 py-12 mt-8 w-full overflow-x-hidden">
@@ -25,7 +25,7 @@
                             <i class="fas fa-cubes ml-4 text-2xl"></i>
                             <span>الإعلانات</span>
                         </div>
-                        <div class="w-full py-6 px-8 font-bold text-curious-blue border-b">
+                        <div class="w-full py-6 px-8 font-bold text-curious-blue  border-b">
                             <i class="far fa-paper-plane ml-4 text-2xl"></i>
                             <span>الخدمات</span>
                         </div>
@@ -50,7 +50,17 @@
                             <i class="fas fa-ellipsis-h text-3xl text-gray-500 cursor-pointer"></i>
                         </div>
                     </div>
-                    <x-service-form />
+                    <div class="flex flex-wrap justify-between">
+                        @foreach ($services as $service)
+                            <div class="bg-white w-3/12 h-72 p-3 border-solid border mb-5 mx-4">
+                                <div class="w-full h-3/5 md:ml-10">
+                                    <img class="w-full h-full object-cover" src="{{ asset($service->image ?? "default.png") }}"/>
+                                </div>
+                                <div class="text-l text-center my-3"><b>{{ $service->name }}</b></div>
+                                <a href="{{ route('dashboard.services.edit',$service->id) }}"><div class=" bg-curious-blue text-white w-8/12 cursor-pointer m-auto py-2 text-center font-bold">تعديل</div></a>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>

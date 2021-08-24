@@ -88,31 +88,33 @@ Route::get('/service/{id}', [ServiceController::class,'index'])->name('service')
 
 Route::prefix('/dashboard')->as('dashboard.')->middleware('verified')->group(function () {
     Route::get('/', function () {
-        return view('main');
+        return view('dashboard.main');
     });
     Route::get('/tasks', function () {
-        return view('tasks');
+        return view('dashboard.tasks');
     });
     Route::get('/celebrities', function () {
-        return view('celebrities');
+        return view('dashboard.celebrities');
     });
     Route::get('/credit', function () {
-        return view('credit');
+        return view('dashboard.credit');
     });
     Route::get('/edit-profile', function () {
-        return view('edit-profile');
+        return view('dashboard.edit-profile');
     });
 
     Route::get('/ads', function () {
-        return view('ads');
+        return view('dashboard.ads');
     });
     Route::prefix('services')->as('services.')->group(function () {
-        Route::get('/', function () {
-            return view('services');
-        });
+        Route::get('/', [ServiceController::class ,'dashboard_review'])->name('review');
+
         Route::middleware(['add-service'])->group(function () {
             Route::get('/add', [AddServiceController::class, 'index'])->name('add');
             Route::post('/add', [AddServiceController::class, 'store']);
+
+            Route::get('/edit/{id}', [AddServiceController::class, 'edit'])->name('edit');
+            Route::post('/edit/{id}', [AddServiceController::class, 'store']);
         });
         
     });
@@ -126,6 +128,6 @@ Route::prefix('/dashboard')->as('dashboard.')->middleware('verified')->group(fun
     });
 
     Route::get('/requests', function () {
-        return view('requests');
+        return view('dashboard.requests');
     });
 });

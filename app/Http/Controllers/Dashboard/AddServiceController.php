@@ -14,10 +14,17 @@ class AddServiceController extends Controller
         return view('dashboard.services.add');
     }
 
+    public function edit($id)
+    {
+        $service = Service::find($id)->first('id');
+        return view('dashboard.services.add',['service'=>$service]);
+    }
+
     public function store(Request $request)
     {
         
         $request->validate([
+            'service_id'=>"nullable|exists:services,id",
             'name'=>"required|min:12|max:64",
             'category'=>"required|exists:categories,id",
             'description'=>"required|min:50|max:500",
@@ -33,6 +40,12 @@ class AddServiceController extends Controller
             "status" => "required",
         ]);
         $service = new Service();
+        if($request->has('service_id')){
+            $service = Service::find($request->service_id)->where('user_id',Auth::user()->id)->first();
+            if(!$service){
+                return abort(403);
+            }
+        }
         $service->name = $request->name;
         $service->description = $request->description;
         $service->category_id = $request->category;
@@ -47,15 +60,19 @@ class AddServiceController extends Controller
 
         $service->status = $request->status;
         $service->save();
-        foreach($request->upgrade as $i=>$upgrade_title){
-            $upgrade = new ServiceUpgrade();
-            $upgrade->service_id = $service->id;
-            $upgrade->title = $upgrade_title;
-            $upgrade->price = intval($request->upgrade_price[$i]);
-            $upgrade->duration = intval($request->upgrade_duration[$i]);
-            $upgrade->save();
-            
+        if($request->has('upgrade')){
+            if($request->has('service_id')){
+                ServiceUpgrade::where('service_id',$service->id)->delete();
+            }
+            foreach($request->upgrade as $i=>$upgrade_title){
+                $upgrade = new ServiceUpgrade();
+                $upgrade->service_id = $service->id;
+                $upgrade->title = $upgrade_title;
+                $upgrade->price = intval($request->upgrade_price[$i]);
+                $upgrade->duration = intval($request->upgrade_duration[$i]);
+                $upgrade->save();
+            }
         }
-        return redirect()->route('service');
+        return redirect()->route('service',$service->id);
     }
 }

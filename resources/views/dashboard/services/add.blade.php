@@ -50,7 +50,7 @@
                             <i class="fas fa-ellipsis-h text-3xl text-gray-500 cursor-pointer"></i>
                         </div>
                     </div>
-                    <x-service-form />
+                    <x-service-form id="{{ $service->id }}" />
                 </div>
             </div>
         </div>
