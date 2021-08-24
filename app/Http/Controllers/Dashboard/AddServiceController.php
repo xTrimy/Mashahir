@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\Service;
 use App\Models\ServiceUpgrade;
+use App\Notifications\NewService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,7 +23,7 @@ class AddServiceController extends Controller
 
     public function store(Request $request)
     {
-        
+
         $request->validate([
             'service_id'=>"nullable|exists:services,id",
             'name'=>"required|min:12|max:64",
@@ -53,9 +54,10 @@ class AddServiceController extends Controller
         $service->instructions = $request->instructions;
         $service->duration = $request->duration;
         $service->user_id = Auth::user()->id;
-        
-        $request->status = ($request->status == 0 || $request->status == 1) 
-                            ? $request->status 
+
+
+        $request->status = ($request->status == 0 || $request->status == 1)
+                            ? $request->status
                             : 1;
 
         $service->status = $request->status;
@@ -63,6 +65,8 @@ class AddServiceController extends Controller
         if($request->has('upgrade')){
             if($request->has('service_id')){
                 ServiceUpgrade::where('service_id',$service->id)->delete();
+            }else{
+                Auth:: user()->notify(new NewService($service));
             }
             foreach($request->upgrade as $i=>$upgrade_title){
                 $upgrade = new ServiceUpgrade();
@@ -73,6 +77,8 @@ class AddServiceController extends Controller
                 $upgrade->save();
             }
         }
+
+
         return redirect()->route('service',$service->id);
     }
 }

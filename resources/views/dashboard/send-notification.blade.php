@@ -15,7 +15,7 @@
                 
                 <div class=" px-4 mx-2">المعاملات المالية</div>
             </div>
-            <div class="w-full mt-8 bg-white shadow-lg px-12 py-8 rounded-sm">
+            <div class="w-full mt-8 bg-white shadow-lg px-4 lg:px-12 py-8 rounded-sm">
                 <p class="mb-2 font-semibold text-gray-800">إختر وجهة الرسالة</p>
                 <select name="title" id="" class="w-full border border-black outline-none p-2 mb-3 rounded-sm">
                     <option value="كل المستخدمين" selected>كل المستخدمين</option>
@@ -26,33 +26,33 @@
 
                 <p class="mb-2 font-semibold text-gray-800">نص الرسالة</p>
                 <textarea name="message" id="" cols="30" rows="6" class="w-full border-blue-200 border outline-none p-2 mb-3 rounded-sm bg-blue-50" placeholder="أدخل نص الرسالة"></textarea>
-                <div class="flex">
-                    <div class="flex ml-5">
+                <div class="flex flex-wrap">
+                    <div class="flex ml-5 mb-4">
                         <div class="text-curious-blue border border-curious-blue py-2 px-6 cursor-pointer"><i class="fas fa-trash"></i></div>
                         <div class="text-curious-blue border border-curious-blue py-2 px-6 cursor-pointer"><i class="fas fa-exclamation-circle"></i></div>
                         <div class="text-curious-blue border border-curious-blue py-2 px-6 cursor-pointer"><i class="fas fa-download"></i></div>
                     </div>
-                    <div class="flex">
+                    <div class="flex mb-4">
                         <button class="text-curious-blue border border-curious-blue py-2 px-6 cursor-pointer dropdown relative group">
                             <i class="fas fa-arrow-down"></i> <i class="fas fa-tag"></i> 
-                            <div class="dropdown-menu absolute hidden text-gray-700 pt-4 bg-white shadow-lg p-5 rounded-lg mt-8 group-focus:block group-hover:block">
+                            <div class="dropdown-menu absolute hidden text-gray-700 pt-4 bg-white shadow-lg p-5 rounded-lg mt-0 group-focus:block group-hover:block">
                                 <div class="flex">
-                                    <div class="flex ml-4">
-                                        <input type="checkbox" name="color" id="" class="form-checkbox rounded border-2 border-curious-blue text-curious-blue">
+                                    <label class="flex ml-4">
+                                        <input type="radio" name="color" id="" class="form-radio  border-2 border-curious-blue text-curious-blue">
                                         <div class=" bg-curious-blue p-2 rounded-md mr-2"></div>
-                                    </div>
-                                    <div class="flex ml-4">
-                                        <input type="checkbox" name="color" id="" class="form-checkbox rounded border-2 border-curious-blue text-curious-blue">
+                                    </label>
+                                    <label class="flex ml-4">
+                                        <input type="radio" name="color" id="" class="form-radio  border-2 border-curious-blue text-curious-blue">
                                         <div class=" bg-red-700 p-2 rounded-md mr-2"></div>
-                                    </div>
-                                    <div class="flex ml-4">
-                                        <input type="checkbox" name="color" id="" class="form-checkbox rounded border-2 border-curious-blue text-curious-blue">
+                                    </label>
+                                    <label class="flex ml-4">
+                                        <input type="radio" name="color" id="" class="form-radio  border-2 border-curious-blue text-curious-blue">
                                         <div class=" bg-yellow-400 p-2 rounded-md mr-2"></div>
-                                    </div>
-                                    <div class="flex ml-4">
-                                        <input type="checkbox" name="color" id="" class="form-checkbox rounded border-2 border-curious-blue text-curious-blue">
+                                    </label>
+                                    <label class="flex ml-4">
+                                        <input type="radio" name="color" id="" class="form-radio  border-2 border-curious-blue text-curious-blue">
                                         <div class=" bg-green-500 p-2 rounded-md mr-2"></div>
-                                    </div>
+                                    </label>
                                 </div>
                             </div>
                         </button>

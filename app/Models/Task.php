@@ -19,7 +19,7 @@ class Task extends Model
         $date = new stdClass;
         $date->month = (intval($request->month)) ? $request->month : now()->month;
         $date->year = (intval($request->year)) ? $request->year : now()->year;
-        
+
         $days = self::whereYear('deadline', '=', $date->year)
                         ->whereMonth('deadline', '=', $date->month)
                         ->orderBy('deadline', 'ASC')

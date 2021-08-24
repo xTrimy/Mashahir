@@ -120,11 +120,11 @@ Route::prefix('/dashboard')->as('dashboard.')->middleware('verified')->group(fun
     });
 
     Route::get('/notifications', function () {
-        return view('notifications');
+        return view('dashboard.notifications');
     });
 
     Route::get('/send-notification', function () {
-        return view('send-notification');
+        return view('dashboard.send-notification');
     });
 
     Route::get('/requests', function () {
