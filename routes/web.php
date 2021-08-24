@@ -102,7 +102,7 @@ Route::prefix('/dashboard')->middleware('verified')->group(function () {
     });
     Route::get('/edit-profile', function () {
         return view('dashboard.edit-profile');
-    });
+    })->name('edit-profile');;
 
     Route::get('/ads', function () {
         return view('dashboard.ads');
@@ -129,4 +129,8 @@ Route::prefix('/dashboard')->middleware('verified')->group(function () {
     Route::get('/requests', function () {
         return view('dashboard.requests');
     });
+
+    // Route::post('/saveChanges', [SignUpController::class, 'saveChanges']);
+
+    Route::post('/edit-profile', [ProfileController::class, 'saveChanges']);
 });
