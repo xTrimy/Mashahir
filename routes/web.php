@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\SignInController;
 use App\Http\Controllers\Auth\SignUpController;
+use App\Http\Controllers\Dashboard\AddServiceController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -107,7 +108,13 @@ Route::prefix('/dashboard')->middleware('verified')->group(function () {
         return view('dashboard.ads');
     });
 
-    Route::get('/services', function () {
-        return view('dashboard.services');
+    
+    Route::prefix('/services')->as('services')->middleware('services.add')->group(function () {
+        Route::get('/', function () {
+            return view('dashboard.services');
+        });
+
+        Route::get('/add', [AddServiceController::class, 'index'])->name('add');
+        Route::post('/add', [AddServiceController::class, 'store']);
     });
 });
