@@ -13,19 +13,15 @@ class CalenderController extends Controller
     {
         $calenderTasks = Task::getCalender($request);
         $response[] = $calenderTasks->date;
-        $hasToday = null;
         foreach($calenderTasks->days as $value => $tasks)
         {
-            if(!$hasToday)
-                $hasToday = ( Carbon::parse($tasks[0]->deadline)->isToday() ) ? ['Key'=> $tasks[0]->deadline, 'status'=>true] : null;
-
             $response[$tasks[0]->deadline] = [
                 "tasks" => $tasks,
-                "isToday" => $hasToday['status'] ?? false
             ];
         }
 
-        $response['todayKey'] = $hasToday['Key'] ?? null;
+        $response['today'] = Carbon::now()->isoFormat('YYYY-MM-DD');
+
         return $response;
     }
 

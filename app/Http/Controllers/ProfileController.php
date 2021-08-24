@@ -13,7 +13,7 @@ class ProfileController extends Controller
     public function index($username)
     {
 
-        $profile = User::select('name', 'image')->where('username', '=', $username)->first();
+        $profile = User::select('id','name','username','image')->where('username', '=', $username)->first();
 
         return view('pages.profile', $profile);
     }
