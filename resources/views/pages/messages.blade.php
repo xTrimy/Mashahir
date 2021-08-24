@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('before-contents')
-<div class="w-full py-12 bg-white px-4 md:px-12 lg:px-20 xl:px-52">
+<div class="w-full py-12 bg-white px-4 md:px-8 lg:px-12 xl:px-20 2xl:px-52">
     <div class="flex justify-between flex-wrap">
         <div class="flex items-center mb-8 ">
             <div class="hidden md:block w-20 h-20 bg-black rounded-full ml-4 overflow-hidden">

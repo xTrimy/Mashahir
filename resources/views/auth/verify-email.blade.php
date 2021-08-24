@@ -5,7 +5,7 @@
 @endsection
 
 @section('contents')
-    <div class=" bg-white shadow w-full lg:w-3/5 m-auto p-12 py-24">
+    <div class=" bg-white shadow w-full lg:w-full xl:w-3/5 m-auto p-12 py-24">
         <h1 class="text-5xl mb-8 font-bold text-center text-gray-500">
             <i class="las la-check-circle text-green-500"></i>
             تم تسجيل البيانات بنجاح</h1>
