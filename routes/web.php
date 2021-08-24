@@ -86,29 +86,29 @@ Route::get('/profile-ads', function () {
 Route::get('/service/{id}', [ServiceController::class,'index'])->name('service');
 
 
-Route::prefix('/dashboard')->middleware('verified')->group(function () {
+Route::prefix('/dashboard')->as('dashboard.')->middleware('verified')->group(function () {
     Route::get('/', function () {
-        return view('dashboard.main');
+        return view('main');
     });
     Route::get('/tasks', function () {
-        return view('dashboard.tasks');
+        return view('tasks');
     });
     Route::get('/celebrities', function () {
-        return view('dashboard.celebrities');
+        return view('celebrities');
     });
     Route::get('/credit', function () {
-        return view('dashboard.credit');
+        return view('credit');
     });
     Route::get('/edit-profile', function () {
-        return view('dashboard.edit-profile');
+        return view('edit-profile');
     });
 
     Route::get('/ads', function () {
-        return view('dashboard.ads');
+        return view('ads');
     });
     Route::prefix('services')->as('services.')->group(function () {
         Route::get('/', function () {
-            return view('dashboard.services');
+            return view('services');
         });
         Route::middleware(['add-service'])->group(function () {
             Route::get('/add', [AddServiceController::class, 'index'])->name('add');
@@ -118,14 +118,14 @@ Route::prefix('/dashboard')->middleware('verified')->group(function () {
     });
 
     Route::get('/notifications', function () {
-        return view('dashboard.notifications');
+        return view('notifications');
     });
 
     Route::get('/send-notification', function () {
-        return view('dashboard.send-notification');
+        return view('send-notification');
     });
 
     Route::get('/requests', function () {
-        return view('dashboard.requests');
+        return view('requests');
     });
 });
