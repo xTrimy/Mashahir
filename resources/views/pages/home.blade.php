@@ -67,7 +67,7 @@
                     <div class="absolute top-0 left-0 bg-gray-600 opacity-60 w-full h-full"></div>
                     <img src="{{ asset('image/placeholders/r0_0_4996_3286_w1200_h678_fmax.jpg') }}" class="w-full h-full object-cover object-center" alt="">
                 </div>
-                <div class="w-full px-8 grid grid-cols-2 gap-8">
+                <div class="w-full px-8 grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="w-full">
                         <div class="w-full h-56 bg-black">
                             <img src="{{ asset('image/placeholders/face-3.jpg') }}" class="w-full h-full object-center object-cover" alt="">

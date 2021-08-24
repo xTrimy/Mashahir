@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\SignInController;
 use App\Http\Controllers\Auth\SignUpController;
+use App\Http\Controllers\Dashboard\AddServiceController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +30,9 @@ Route::middleware('guest')->group(function () {
 
 
     Route::get('/signin',[SignInController::class,'index'])->name('signin');
+    Route::get('/login', function(){
+        return redirect()->route('signin');
+    })->name('login');
     Route::post('/signin',[SignInController::class,'signin']);
 });
 
@@ -104,8 +108,14 @@ Route::prefix('/dashboard')->middleware('verified')->group(function () {
         return view('dashboard.ads');
     });
 
-    Route::get('/services', function () {
-        return view('dashboard.services');
+    
+    Route::prefix('/services')->as('services')->middleware('services.add')->group(function () {
+        Route::get('/', function () {
+            return view('dashboard.services');
+        });
+
+        Route::get('/add', [AddServiceController::class, 'index'])->name('add');
+        Route::post('/add', [AddServiceController::class, 'store']);
     });
 
     Route::get('/notifications', function () {

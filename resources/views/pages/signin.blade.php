@@ -5,7 +5,7 @@
 @endsection
 
 @section('contents')
-    <div class=" bg-white shadow w-3/5 m-auto p-5 py-12">
+    <div class=" bg-white shadow w-full xl:w-3/5 m-auto p-5 py-12">
         <h1 class="text-5xl mb-8 font-bold text-center text-curious-blue">تسجيل الدخول</h1>
         <form method="POST">
             @csrf

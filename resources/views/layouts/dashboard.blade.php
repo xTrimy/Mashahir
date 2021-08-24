@@ -11,7 +11,7 @@
     <title>@yield('title')</title>
 </head>
 <body dir="rtl" class="bg-gray-100 overflow-x-hidden">
-    <div class="w-full bg-white  h-20 shadow-md px-4 md:px-12 lg:px-20 xl:px-52 flex justify-between">
+    <div class="w-full bg-white  h-20 shadow-md px-4 md:px-8 lg:px-12 xl:px-20 2xl:px-52 flex justify-between">
         <div class="flex items-center h-full">
             <div class="cursor-pointer h-8 w-8 text-curious-blue text-3xl lg:text-4xl flex justify-start items-center">
                 <i class="las la-bars"></i>

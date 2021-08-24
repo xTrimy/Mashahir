@@ -5,10 +5,10 @@
 @endsection
 
 @section('contents')
-    <div class=" w-3/5 bg-white shadow p-4 m-auto py-12">
+    <div class=" w-full xl:w-3/5 bg-white shadow p-4 m-auto py-12">
         <h1 class="text-5xl mb-8 font-bold text-center text-curious-blue">تسجيل مستخدم جديد</h1>
         <p class="mb-3 text-lg">أختر نوع المستخدم الذي تريد تسجيله</p>
-        <div class="grid w-full grid-cols-2 grid-rows-2 gap-4 items-center flex-wrap justify-between">
+        <div class="grid w-full grid-cols-1 grid-rows-4 md:grid-cols-2 md:grid-rows-2 gap-4 items-center flex-wrap justify-between">
             <label class="cursor-pointer flex border-2 rounded-xl border-gray-400 py-3  px-4">
                 <div class="flex w-3/5 items-center">
                     <input type="radio" name="type" value="celebrity" class="form-radio border-2 text-curious-blue ml-5 rounded-xl border-gray-400">
