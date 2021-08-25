@@ -20,6 +20,17 @@ class ProfileController extends Controller
         return view('pages.profile', $profile);
     }
 
+    public function editProfile() {
+        $user = User::find(Auth::user()->id);
+        $user_info = UserInfo::where('user_id',$user->id)->first();
+
+        // if(!user_info) {
+
+        // }
+
+        return view('dashboard.edit-profile',['user_info' => $user_info,]);
+    }
+
     public function saveChanges(Request $input) {
 
         $input->validate(

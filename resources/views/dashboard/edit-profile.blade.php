@@ -74,23 +74,23 @@
                         </h2>
                         <label >
                             <div class="text-lg">البلد</div>
-                            <input type="text" name="location" class="form-input w-full border border-curious-blue  mt-2 rounded mb-2" value="">
+                            <input type="text" name="location" class="form-input w-full border border-curious-blue  mt-2 rounded mb-2" value="{{ $user_info->location ?? ""}}">
                         </label>
                         <label >
                             <div class="text-lg">عني</div>
-                            <textarea name="description" id="" cols="30" rows="6" class="form-input w-full border border-curious-blue  mt-2 rounded mb-2"></textarea>
+                            <textarea name="description" id="" cols="30" rows="6" class="form-input w-full border border-curious-blue  mt-2 rounded mb-2">{{ $user_info->description ?? ""}}</textarea>
                         </label>
                         <label >
                             <div class="text-lg">عدد المشاهدات</div>
-                            <input type="text" name="viewers" class="form-input w-full border border-curious-blue  mt-2 rounded mb-2" value="">
+                            <input type="text" name="viewers" class="form-input w-full border border-curious-blue  mt-2 rounded mb-2" value="{{ $user_info->viewers ?? ""}}">
                         </label>
                         <label >
                             <div class="text-lg">ضريبة القيمة المضافة</div>
-                            <input type="file" name="vat" class="form-input w-full border border-curious-blue  mt-2 rounded mb-2" value="">
+                            <input type="file" name="vat" class="form-input w-full border border-curious-blue  mt-2 rounded mb-2" value="{{ $user_info->location ?? ""}}">
                         </label>
                         <label >
                             <div class="text-lg">رابط معروف</div>
-                            <input type="text" name="maroof_url" class="form-input w-full border border-curious-blue  mt-2 rounded mb-2" value="">
+                            <input type="text" name="maroof_url" class="form-input w-full border border-curious-blue  mt-2 rounded mb-2" value="{{ $user_info->maarof_url ?? ""}}">
                         </label>
                         <hr class="mt-8">
                         <h2 class="text-xl font-bold mt-4 text-gray-600 mb-8">

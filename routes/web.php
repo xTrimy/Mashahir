@@ -99,9 +99,8 @@ Route::prefix('/dashboard')->middleware('verified')->group(function () {
     Route::get('/credit', function () {
         return view('dashboard.credit');
     });
-    Route::get('/edit-profile', function () {
-        return view('dashboard.edit-profile');
-    })->name('edit-profile');;
+
+    Route::get( 'edit-profile', [ProfileController::class, 'editProfile'])->name('edit-profile');
 
     Route::get('/ads', function () {
         return view('dashboard.ads');
