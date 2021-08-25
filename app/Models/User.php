@@ -52,6 +52,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsTo(UserType::class);
     }
 
+    public function agency()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function sendEmailVerificationNotification()
     {
         //dispactches the job to the queue passing it this User object

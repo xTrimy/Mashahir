@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class AddServicePermission
+class PermissionExists
 {
     /**
      * Handle an incoming request.
@@ -15,13 +15,12 @@ class AddServicePermission
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next, ...$role)
     {
-        if(Auth::check()){
-            if(Auth::user()->hasPermissionTo('publish services')){
-                return $next($request);
-            }
+        if(Auth::user()->hasPermissionTo($role[0])){
+            return $next($request);
         }
+
         return abort(403);
     }
 }

@@ -55,7 +55,7 @@ Route::prefix('/email')->group(function(){
     })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 });
 
-Route::get('/celebrities', function () { 
+Route::get('/celebrities', function () {
     return view('pages.celebrities');
 });
 Route::get('/message', function () {
@@ -88,6 +88,7 @@ Route::get('/service', function () {
 
 
 Route::prefix('/dashboard')->middleware('verified')->group(function () {
+
     Route::get('/', function () {
         return view('dashboard.main');
     });
@@ -108,13 +109,31 @@ Route::prefix('/dashboard')->middleware('verified')->group(function () {
         return view('dashboard.ads');
     });
 
-    
-    Route::prefix('/services')->as('services')->middleware('services.add')->group(function () {
+
+    Route::prefix('/services')->as('services')->middleware('user.hasPermission:publish services')->group(function () {
         Route::get('/', function () {
             return view('dashboard.services');
         });
-
         Route::get('/add', [AddServiceController::class, 'index'])->name('add');
         Route::post('/add', [AddServiceController::class, 'store']);
     });
+
+    /**
+     * Notice that you can check any user permission by add it's role after the middleware
+     * ex: user.hasPermission:manage celebrities
+     * @author Mohammad Salah
+     */
+    Route::group(['prefix'=>'/celebrity/{username}', 'middleware'=>['user.hasPermission:manage celebrities', 'profile.exists', 'agency.hasCelebrity']], function(){
+
+        /**
+         * ANY CONTROLLER HERE SHOULD Check if there is username parameter in the request first.
+         * THIS IS AN EXAMPLE YOU SHOULD FOLLOW
+         */
+        Route::prefix('/services')->as('services')->middleware('user.hasPermission:publish services')->group(function () {
+            Route::get('/add', [AddServiceController::class, 'index'])->name('add');
+            Route::post('/add', [AddServiceController::class, 'store']);
+        });
+
+    });
+
 });

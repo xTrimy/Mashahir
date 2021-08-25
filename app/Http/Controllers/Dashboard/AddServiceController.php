@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\Service;
 use App\Models\ServiceUpgrade;
+use App\Models\User;
 use App\Notifications\NewService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -40,8 +41,7 @@ class AddServiceController extends Controller
         $service->keywords = $request->keywords;
         $service->instructions = $request->instructions;
         $service->duration = $request->duration;
-        $service->user_id = Auth::user()->id;
-
+        $service->user_id = ($request->username) ? User::where('username', $request->username)->first()->id : Auth::user()->id;
 
         $request->status = ($request->status == 0 || $request->status == 1)
                             ? $request->status
