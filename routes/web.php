@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\SignUpController;
 use App\Http\Controllers\Dashboard\AddServiceController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ServiceController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
@@ -82,13 +83,11 @@ Route::get('/profile-ads', function () {
 });
 
 
-Route::get('/service', function () {
-    return view('pages.service');
-});
+Route::get('/service/{id}', [ServiceController::class,'index'])->name('service');
 
 
-Route::prefix('/dashboard')->middleware('verified')->group(function () {
-
+Route::prefix('/dashboard')->as('dashboard.')->middleware('verified')->group(function () {
+  
     Route::get('/', function () {
         return view('dashboard.main');
     });
@@ -108,14 +107,37 @@ Route::prefix('/dashboard')->middleware('verified')->group(function () {
     Route::get('/ads', function () {
         return view('dashboard.ads');
     });
+    Route::prefix('services')->as('services.')->group(function () {
+        Route::get('/', [ServiceController::class ,'dashboard_review'])->name('review');
+
+        Route::middleware(['add-service'])->group(function () {
+            Route::get('/add', [AddServiceController::class, 'index'])->name('add');
+            Route::post('/add', [AddServiceController::class, 'store']);
 
 
     Route::prefix('/services')->as('services')->middleware('user.hasPermission:publish services')->group(function () {
-        Route::get('/', function () {
-            return view('dashboard.services');
+            Route::get('/', function () {
+                return view('dashboard.services');
+            });
+            Route::get('/add', [AddServiceController::class, 'index'])->name('add');
+            Route::post('/add', [AddServiceController::class, 'store']);
+
+            Route::get('/edit/{id}', [AddServiceController::class, 'edit'])->name('edit');
+            Route::post('/edit/{id}', [AddServiceController::class, 'store']);
         });
-        Route::get('/add', [AddServiceController::class, 'index'])->name('add');
-        Route::post('/add', [AddServiceController::class, 'store']);
+        
+    });
+
+    Route::get('/notifications', function () {
+        return view('dashboard.notifications');
+    });
+
+    Route::get('/send-notification', function () {
+        return view('dashboard.send-notification');
+    });
+
+    Route::get('/requests', function () {
+        return view('dashboard.requests');
     });
 
     /**

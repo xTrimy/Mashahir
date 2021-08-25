@@ -66,5 +66,6 @@ class Kernel extends HttpKernel
         'profile.exists' =>\App\Http\Middleware\ProfileExists::class,
         'user.hasPermission' =>\App\Http\Middleware\PermissionExists::class,
         'agency.hasCelebrity' =>\App\Http\Middleware\hasCelebrity::class
+
     ];
 }

@@ -3,6 +3,7 @@
 namespace App\View\Components;
 
 use App\Models\Category;
+use App\Models\Service;
 use Illuminate\View\Component;
 
 class ServiceForm extends Component
@@ -12,10 +13,10 @@ class ServiceForm extends Component
      *
      * @return void
      */
-    private $data = "";
-    public function __construct($data = null)
+    private $id = "";
+    public function __construct($id = null)
     {
-        $this->data = $data;
+        $this->id = $id;
     }
 
     /**
@@ -26,6 +27,10 @@ class ServiceForm extends Component
     public function render()
     {
         $categories = Category::all();
-        return view('components.service-form',['data'=>$this->data,'categories'=>$categories]);
+        $service = null;
+        if($this->id){
+            $service = Service::find($this->id)->with('upgrades')->first();
+        }
+        return view('components.service-form',['service'=> $service,'categories'=>$categories]);
     }
 }
