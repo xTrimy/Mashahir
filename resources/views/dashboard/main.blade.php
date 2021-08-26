@@ -10,7 +10,7 @@
                 <div class=" px-4 mx-2">المهام</div>
                 <div class=" px-4 mx-2">المشاهير</div>
                 <div class=" px-4 mx-2">الرصيد</div>
-                <div class=" px-4 mx-2">اعدادات</div>
+                <a href="{{ route('dashboard.edit-profile') }}"><div class=" px-4 mx-2">اعدادات</div></a>
             </div>
             <div class="flex mt-4  flex-wrap">
                 <div class="w-full lg:w-96">

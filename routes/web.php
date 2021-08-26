@@ -100,9 +100,9 @@ Route::prefix('/dashboard')->as('dashboard.')->middleware('verified')->group(fun
     Route::get('/credit', function () {
         return view('dashboard.credit');
     });
-    Route::get('/edit-profile', function () {
-        return view('dashboard.edit-profile');
-    });
+
+    Route::get( '/edit-profile', [ProfileController::class, 'editProfile'])->name('edit-profile');
+    Route::post('/edit-profile', [ProfileController::class, 'saveChanges']);
 
     Route::get('/ads', function () {
         return view('dashboard.ads');
@@ -150,3 +150,6 @@ Route::prefix('/dashboard')->as('dashboard.')->middleware('verified')->group(fun
     Route::get('/requests', function () {
         return view('dashboard.requests');
     });
+
+    // Route::post('/saveChanges', [SignUpController::class, 'saveChanges']);
+

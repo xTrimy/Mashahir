@@ -21,7 +21,7 @@
                                         <p class="mb-2 font-semibold text-gray-800">التصنيف</p>
                                         <select required name="category" id="" class="w-full  border-blue-200 border-2 outline-none p-2 mb-3 rounded-sm">
                                             @foreach ($categories as $category)
-                                                <option value="{{ $category->id }}" {{ (old('category') == $category->id ? "selected":($service->category_id == $category->id)?"selected":"") }}>{{ $category->name }}</option>
+                                                <option value="{{ $category->id }}" {{ (old('category') == $category->id ? "selected":($service && $service->category_id == $category->id)?"selected":"") }}>{{ $category->name }}</option>
                                             @endforeach
                                         </select>
 
@@ -81,6 +81,8 @@
                                                 </div>
                                                 @endforeach
                                             @else
+                                            @if ($service)
+                                                
                                                 @foreach ($service->upgrades as $upgrade)
                                                 <div class="w-full">
                                                     <div onclick="this.parentElement.remove()" class="remove mb-1 table py-1 text-sm float-left cursor-pointer px-4 border border-red-700 text-red-700 bg-white hover:bg-red-700 hover:text-white transition-colors">
@@ -113,6 +115,7 @@
                                                     </div>
                                                 </div>
                                                 @endforeach
+                                            @endif
                                             @endif                                            
                                         </div>
                                         <div class="w-full" id="upgrades-clone">

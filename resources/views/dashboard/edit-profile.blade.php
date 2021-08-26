@@ -9,6 +9,9 @@
             <div class="w-full mt-8 flex flex-wrap lg:flex-nowrap">
                 <x-profile-settings-navbar />
                 <div class="lg:mr-8 flex-1 bg-white shadow-lg rounded-md py-8 px-2 lg:px-12">
+                    @if($errors->any())
+                        {!! implode('', $errors->all('<div class="text-red-500">:message</div>')) !!}
+                    @endif
                     <div class="flex items-center">
                         <div class="relative cursor-pointer">
                             <div class="w-36 h-36 bg-blue-300 rounded-full overflow-hidden relative">
@@ -27,11 +30,11 @@
                         @csrf
                         <label >
                             <div class="text-lg">الأسم</div>
-                            <input type="text" class="form-input w-full border border-curious-blue  mt-2 rounded mb-4" value="{{ Auth::user()->name }}">
+                            <input type="text" name="name" class="form-input w-full border border-curious-blue  mt-2 rounded mb-4" value="{{ Auth::user()->name }}">
                         </label>
                         <label >
                             <div class="text-lg">أسم المستخدم</div>
-                            <input type="text" class="form-input w-full border border-curious-blue  mt-2 rounded mb-2" value="{{ Auth::user()->username }}">
+                            <input type="text" name="username" class="form-input w-full border border-curious-blue  mt-2 rounded mb-2" value="{{ Auth::user()->username }}">
                         </label>
                         <div class="text-base font-bold text-gray-400">
                             قم بتعديل هذا الأسم ليظهر في رابط الملف، مثال 
@@ -41,6 +44,26 @@
                         <h2 class="text-xl font-bold mt-4 text-gray-600 mb-8">
                              معلومات إضافية
                         </h2>
+                        <label >
+                            <div class="text-lg">البلد</div>
+                            <input type="text" name="location" class="form-input w-full border border-curious-blue  mt-2 rounded mb-2" value="{{ $user_info->location ?? ""}}">
+                        </label>
+                        <label >
+                            <div class="text-lg">عني</div>
+                            <textarea name="description" id="" cols="30" rows="6" class="form-input w-full border border-curious-blue  mt-2 rounded mb-2">{{ $user_info->description ?? ""}}</textarea>
+                        </label>
+                        <label >
+                            <div class="text-lg">عدد المشاهدات</div>
+                            <input type="text" name="viewers" class="form-input w-full border border-curious-blue  mt-2 rounded mb-2" value="{{ $user_info->viewers ?? ""}}">
+                        </label>
+                        <label >
+                            <div class="text-lg">ضريبة القيمة المضافة</div>
+                            <input type="file" name="vat" class="form-input w-full border border-curious-blue  mt-2 rounded mb-2" value="{{ $user_info->location ?? ""}}">
+                        </label>
+                        <label >
+                            <div class="text-lg">رابط معروف</div>
+                            <input type="text" name="maroof_url" class="form-input w-full border border-curious-blue  mt-2 rounded mb-2" value="{{ $user_info->maarof_url ?? ""}}">
+                        </label>
                         <hr class="mt-8">
                         <h2 class="text-xl font-bold mt-4 text-gray-600 mb-8">
                             وسائل التواصل
@@ -69,6 +92,7 @@
                                 
                             </div>
                         </div>
+                        <button class="text-center bg-curious-blue text-white px-8 py-2 text-lg font-semibold cursor-pointer">حفظ</button>
                     </form>
                 </div>
             </div>
