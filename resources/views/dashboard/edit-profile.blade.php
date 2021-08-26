@@ -54,7 +54,7 @@
                             {{ Auth::user()->name }}
                         </div>
                     </div>
-                    <form method="POST" class="mt-8">
+                    <form method="POST" class="mt-8" enctype="multipart/form-data">
                         @csrf
                         <label >
                             <div class="text-lg">الأسم</div>
@@ -86,11 +86,11 @@
                         </label>
                         <label >
                             <div class="text-lg">ضريبة القيمة المضافة</div>
-                            <input type="file" name="vat" class="form-input w-full border border-curious-blue  mt-2 rounded mb-2" value="{{ $user_info->location ?? ""}}">
+                            <input type="file" name="vat" class="form-input w-full border border-curious-blue  mt-2 rounded mb-2" >
                         </label>
                         <label >
                             <div class="text-lg">رابط معروف</div>
-                            <input type="text" name="maroof_url" class="form-input w-full border border-curious-blue  mt-2 rounded mb-2" value="{{ $user_info->maarof_url ?? ""}}">
+                            <input type="text" name="maroof_url" class="form-input w-full border border-curious-blue  mt-2 rounded mb-2" value="{{ $user_info->maroof_url ?? ""}}">
                         </label>
                         <hr class="mt-8">
                         <h2 class="text-xl font-bold mt-4 text-gray-600 mb-8">

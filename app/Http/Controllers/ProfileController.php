@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\UserInfo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -45,6 +46,7 @@ class ProfileController extends Controller
                 'maroof_url' => "string|max:255|min:12|required",
             ]
         );
+        
 
         $user = User::find(Auth::user()->id);
         $user_info = UserInfo::where('user_id',$user->id)->first();
@@ -52,6 +54,13 @@ class ProfileController extends Controller
         if (!$user_info) {
             $user_info = new UserInfo();
             $user_info->user_id = $user->id;
+        }
+
+        if($input->file()) {
+            $fileName = time().'_'.$input->file('vat')->getClientOriginalName();
+            $input->file('vat')->move(public_path('uploads'), $fileName);
+
+            $user_info->vat = $fileName;
         }
 
         $user->name = $input["name"];
