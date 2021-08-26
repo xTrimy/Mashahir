@@ -1,8 +1,8 @@
-
-
 <form class="flex items-center py-4 rounded-md" method="POST">
-    
     @csrf
+    @if ($service)
+    <input type="hidden" name="service_id" value="{{ $service->id }}">
+    @endif
                         <div class="flex w-full flex-wrap">
                             <div class="w-full lg:w-auto lg:flex-1 p-3 md:p-4 lg:p-8 bg-white lg:ml-4 mb-4 shadow-lg rounded-md">
                                 @if($errors->any())
@@ -16,24 +16,24 @@
                                     <div class="py-8 ">
                                         
                                         <p class="mb-2 font-semibold text-gray-800">الأسم</p>
-                                        <input required type="text" name="name" class="w-full  border-blue-200 border-2 outline-none p-2 mb-3 rounded-sm" value="{{ old('name') ?? $data->name ?? "" }}">
+                                        <input required type="text" name="name" class="w-full  border-blue-200 border-2 outline-none p-2 mb-3 rounded-sm" value="{{ old('name') ?? $service->name ?? "" }}">
 
                                         <p class="mb-2 font-semibold text-gray-800">التصنيف</p>
                                         <select required name="category" id="" class="w-full  border-blue-200 border-2 outline-none p-2 mb-3 rounded-sm">
                                             @foreach ($categories as $category)
-                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                                <option value="{{ $category->id }}" {{ (old('category') == $category->id ? "selected":($service && $service->category_id == $category->id)?"selected":"") }}>{{ $category->name }}</option>
                                             @endforeach
                                         </select>
 
                                         <p class="mb-2 font-semibold text-gray-800">وصف الخدمة</p>
-                                        <textarea required name="description" id="" cols="30" rows="6" class="w-full border-blue-200 border-2 outline-none p-2 mb-3 rounded-sm">{{ old('description') ?? $data->description ?? "" }}</textarea>
+                                        <textarea required name="description" id="" cols="30" rows="6" class="w-full border-blue-200 border-2 outline-none p-2 mb-3 rounded-sm">{{ old('description') ?? $service->description ?? "" }}</textarea>
                                     
                                         <p class="mb-2 font-semibold text-gray-800">كلمات مفتاحية</p>
-                                        <input type="text" name="keywords" class="w-full  border-blue-200 border-2 outline-none p-2 mb-3 rounded-sm" value="{{ old('keywords') ?? $data->keywords ?? "" }}">
+                                        <input type="text" name="keywords" class="w-full  border-blue-200 border-2 outline-none p-2 mb-3 rounded-sm" value="{{ old('keywords') ?? $service->keywords ?? "" }}">
 
                                         <p class="mb-2 font-semibold text-gray-800">مدة التسليم</p>
                                         <div class="flex  mb-3 ">
-                                            <input required type="text" oninput="this.value|=0" max="30" min="1" pattern="[0-9]+" name="duration" class="w-12 h-full border-r-2 border-t-2 border-b-2 border-blue-200 outline-none p-2 rounded-sm" value="{{ old('duration') ?? $data->duration ?? "1" }}">
+                                            <input required type="text" oninput="this.value|=0" max="30" min="1" pattern="[0-9]+" name="duration" class="w-12 h-full border-r-2 border-t-2 border-b-2 border-blue-200 outline-none p-2 rounded-sm" value="{{ old('duration') ?? $service->duration ?? "1" }}">
                                             <div class="flex-1 border-l-2 border-t-2 border-b-2 border-blue-200 text-lg flex items-center">أيام</div>
                                         </div>
 
@@ -41,7 +41,7 @@
                                         <input type="text" name="days" class="w-full  border-blue-200 border-2 outline-none p-2 mb-3 rounded-sm" value="">
 
                                         <p class="mb-2 font-semibold text-gray-800">تعليمات للمشتري</p>
-                                        <textarea required name="instructions" id="" cols="30" rows="6" class="w-full border-blue-200 border-2 outline-none p-2 mb-3 rounded-sm">{{ old('instructions') ?? $data->instructions ?? "" }}</textarea>
+                                        <textarea required name="instructions" id="" cols="30" rows="6" class="w-full border-blue-200 border-2 outline-none p-2 mb-3 rounded-sm">{{ old('instructions') ?? $service->instructions ?? "" }}</textarea>
                                     </div>
                                     <hr>
                                     <div class="py-8 mb-5">
@@ -56,6 +56,7 @@
                                                     </div>
                                                     <input type="text" required name="upgrade[]" class="w-full  border-blue-200 border-2 outline-none p-2 mb-3 rounded-sm" value="{{ $upgrade_title }}">
                                                     <div class="flex">
+                                                        
                                                         <select type="text" required name="upgrade_duration[]" class="w-full  border-blue-200 border-2 outline-none p-2 mb-3 rounded-sm flex-1 ml-3">
                                                             <option value="0" {{ old('upgrade_duration.'.$i) == "0"?"selected":"" }} >لن يزيد من مدة التنفيذ</option>
                                                             <option value="1" {{ old('upgrade_duration.'.$i) == "1"?"selected":"" }}>سيزيد من مدة التنفيذ يوم واحد</option>
@@ -79,6 +80,42 @@
                                                     </div>
                                                 </div>
                                                 @endforeach
+                                            @else
+                                            @if ($service)
+                                                
+                                                @foreach ($service->upgrades as $upgrade)
+                                                <div class="w-full">
+                                                    <div onclick="this.parentElement.remove()" class="remove mb-1 table py-1 text-sm float-left cursor-pointer px-4 border border-red-700 text-red-700 bg-white hover:bg-red-700 hover:text-white transition-colors">
+                                                        <i class="las la-trash-alt"></i>
+                                                        <span>حذف</span>
+                                                    </div>
+                                                    <input type="text" required name="upgrade[]" class="w-full  border-blue-200 border-2 outline-none p-2 mb-3 rounded-sm" value="{{ $upgrade->title }}">
+                                                    <div class="flex">
+                                                        
+                                                        <select type="text" required name="upgrade_duration[]" class="w-full  border-blue-200 border-2 outline-none p-2 mb-3 rounded-sm flex-1 ml-3">
+                                                            <option value="0" {{ $upgrade->duration == "0"?"selected":"" }} >لن يزيد من مدة التنفيذ</option>
+                                                            <option value="1" {{ $upgrade->duration == "1"?"selected":"" }}>سيزيد من مدة التنفيذ يوم واحد</option>
+                                                            <option value="2" {{ $upgrade->duration == "2"?"selected":"" }}>سيزيد من مدة التنفيذ يومان </option>
+                                                            <option value="3" {{ $upgrade->duration == "3"?"selected":"" }}>سيزيد من مدة التنفيذ 3 أيام </option>
+                                                            <option value="7" {{ $upgrade->duration == "7"?"selected":"" }}>سيزيد من مدة التنفيذ 7 أيام </option>
+                                                            <option value="10" {{ $upgrade->duration == "10"?"selected":"" }}>سيزيد من مدة التنفيذ 10 أيام </option>
+                                                            <option value="14" {{ $upgrade->duration == "14"?"selected":"" }}>سيزيد من مدة التنفيذ 14 يوم </option>
+                                                        </select>
+                                                        <select type="text" required name="upgrade_price[]" class="w-full  border-blue-200 border-2 outline-none p-2 mb-3 rounded-sm flex-1">
+                                                            <option value="10" {{ $upgrade->price == "10"?"selected":"" }}>10$</option>
+                                                            <option value="25" {{ $upgrade->price == "25"?"selected":"" }}>25$</option>
+                                                            <option value="50" {{ $upgrade->price == "50"?"selected":"" }}>50$</option>
+                                                            <option value="100" {{ $upgrade->price == "100"?"selected":"" }}>100$</option>
+                                                            <option value="200" {{ $upgrade->price == "200"?"selected":"" }}>200$</option>
+                                                            <option value="500" {{ $upgrade->price == "500"?"selected":"" }}>500$</option>
+                                                            <option value="1000" {{ $upgrade->price == "1000"?"selected":"" }}>1000$</option>
+                                                            <option value="2500" {{ $upgrade->price == "2500"?"selected":"" }}>2500$</option>
+                                                            <option value="5000" {{ $upgrade->price == "5000"?"selected":"" }}>5000$</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                @endforeach
+                                            @endif
                                             @endif                                            
                                         </div>
                                         <div class="w-full" id="upgrades-clone">
@@ -116,8 +153,8 @@
                                     <div class="py-8">
                                         <p class="mb-2 font-semibold text-gray-800">حالة الخدمة</p>
                                         <select name="status" id="" class="w-full  border-blue-200 border-2 outline-none p-2 mb-3 rounded-sm">
-                                            <option value="تعمل" selected>تعمل</option>
-                                            <option value="تعطيل" >تعطيل</option>
+                                            <option value="1" selected>تعمل</option>
+                                            <option value="0" >تعطيل</option>
                                         </select>
                                     </div>
                                     <div class="w-full mt-8 flex justify-between">

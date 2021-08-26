@@ -5,7 +5,7 @@
 @section('content')
         <div class="px-2 lg:pr-12 lg:pl-24 py-12 mt-8 w-full overflow-x-hidden">
             <h1 class="text-3xl lg:text-5xl font-extrabold mb-8">إدارة الملف </h1>
-            
+
             <div class="w-full mt-8 flex">
                 <div class="w-60">
                     <div class="w-full bg-white shadow-md rounded text-lg">
@@ -38,7 +38,7 @@
                             <span>الاشعارات الهامة</span>
                         </div>
                     </div>
-                    
+
                 </div>
                 <div class="lg:mr-8 flex-1 h-full ">
                     <div class="flex items-center shadow-lg bg-white px-12 mb-7 rounded-md justify-between">
@@ -50,9 +50,8 @@
                             <i class="fas fa-ellipsis-h text-3xl text-gray-500 cursor-pointer"></i>
                         </div>
                     </div>
-                    <x-service-form />
+                    <x-service-form id="{{ $service->id ?? null }}" />
                 </div>
             </div>
         </div>
 @endsection
-   

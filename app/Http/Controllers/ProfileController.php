@@ -73,7 +73,7 @@ class ProfileController extends Controller
         $user_info->maroof_url = $input["maroof_url"];
         $user_info->save();
 
-        return redirect()->route('edit-profile');
+        return redirect()->route('dashboard.edit-profile');
     }
 
 }

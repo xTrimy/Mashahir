@@ -19,7 +19,7 @@ module.exports = {
         rose:colors.rose,
         'curious-blue':{
           DEFAULT:"#2386c9",
-          "900":"#0b2257",
+          "900":"#11193C",
           "200":"#4f9ed3",
         },
       },
