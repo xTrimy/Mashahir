@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\Service;
 use App\Models\ServiceUpgrade;
+use App\Models\User;
 use App\Notifications\NewService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,6 +24,7 @@ class AddServiceController extends Controller
 
     public function store(Request $request)
     {
+        $user = ($request->username) ? User::where('username', $request->username)->first()->id : Auth::user()->id;
 
         $request->validate([
             'service_id'=>"nullable|exists:services,id",
@@ -42,7 +44,7 @@ class AddServiceController extends Controller
         ]);
         $service = new Service();
         if($request->has('service_id')){
-            $service = Service::find($request->service_id)->where('user_id',Auth::user()->id)->first();
+            $service = Service::find($request->service_id)->where('user_id',$user)->first();
             if(!$service){
                 return abort(403);
             }
@@ -53,8 +55,7 @@ class AddServiceController extends Controller
         $service->keywords = $request->keywords;
         $service->instructions = $request->instructions;
         $service->duration = $request->duration;
-        $service->user_id = Auth::user()->id;
-
+        $service->user_id = $user;
 
         $request->status = ($request->status == 0 || $request->status == 1)
                             ? $request->status
