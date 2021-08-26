@@ -50,4 +50,6 @@ class SignUpController extends Controller
         return redirect()->route('verification.notice');
         
     }
+
+    
 }

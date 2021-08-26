@@ -44,11 +44,11 @@
             <div class="w-full break-words p-4 bg-white border-0 border-b border-solid mb-5">
                 <div class="mb-3 flex">
                     <p class="text-base text-black flex-1">البلد</p>
-                    <p class="text-lg text-black font-semibold flex-1 text-left">البحرين</p>
+                    <p class="text-lg text-black font-semibold flex-1 text-left">{{ $user_info->location ?? "N/A"}}</p>
                 </div>
                 <div class="mb-3 flex">
                     <p class="text-base text-black flex-1">عدد المشاهدات</p>
-                    <p class="text-lg text-black font-semibold flex-1 text-left">+ 65,000</p>
+                    <p class="text-lg text-black font-semibold flex-1 text-left">{{ $user_info->viewers ?? "N/A"}}</p>
                 </div>
                 <div class="mb-3 flex">
                     <p class="text-base text-black flex-1">معدل التوظيف</p>
