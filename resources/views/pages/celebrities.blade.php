@@ -12,21 +12,36 @@
     <section class="hidden lg:block w-96">
         <div class="w-full px-8 py-12 bg-white">
             <div class="relative overflow-hidden">
-                <div class="flex justify-between items-center mb-4">
-                    <h1 class="text-xl font-bold">الأقسام</h1>
-                    <div class="w-8 h-8 bg-white border-2 border-curious-blue flex items-center justify-center text-curious-blue rounded">
-                        <i class="las la-plus text-2xl"></i>
+                <div class="show cat">
+                    <div class="flex justify-between items-center mb-4">
+                        <h1 class="text-xl font-bold">الأقسام</h1>
+                        <div class="show-hide cursor-pointer w-8 h-8 bg-white border-2 border-curious-blue flex items-center justify-center text-curious-blue rounded">
+                            <i class="las la-minus text-2xl"></i>
+                        </div>
                     </div>
+                    <ul class="text-lg group">
+                        <li>
+                            <div class="flex justify-between items-center">
+                                <label class="cursor-pointer"><input type="checkbox" class="ml-2 form-checkbox rounded border-curious-blue border-2 text-curious-blue">  أعمال </label>
+                                <div class="bg-gray-800 text-white  px-4 text-sm rounded-full">5</div>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
-                <ul class="text-lg">
-                    <li>
-                        <label class="cursor-pointer"><input type="checkbox" class="ml-2 form-checkbox rounded border-curious-blue border-2 text-curious-blue">  أعمال </label>
-                    </li>
-                </ul>
+                <script>
+                    let cats =document.getElementsByClassName('cat');
+                    for(let i = 0; i<cats.length; i++){
+                        cats[i].getElementsByClassName('show-hide')[0].addEventListener('click',function(){
+                            cats[i].querySelector('.group').classList.toggle('hidden');
+                            cats[i].querySelector('.las').classList.toggle('la-plus');
+                            cats[i].querySelector('.las').classList.toggle('la-minus');
+                        });
+                    }
+                </script>
             </div>
         </div>
     </section>
-    <div class="flex-1 mr-8  flex flex-wrap justify-around">
+    <div class="flex-1 lg:mr-8  flex flex-wrap justify-around">
             <div class="w-72 px-4 py-6 bg-white mb-8">
                 <div class="w-full h-48 bg-black">
                     <img src="{{ asset('image/placeholders/face-2.jpg') }}" class="w-full h-full object-cover object-center" alt="">

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AgencyController;
 use App\Http\Controllers\Auth\SignInController;
 use App\Http\Controllers\Auth\SignUpController;
 use App\Http\Controllers\Dashboard\AddServiceController;
@@ -59,6 +60,10 @@ Route::prefix('/email')->group(function(){
 Route::get('/celebrities', function () {
     return view('pages.celebrities');
 });
+
+Route::get('/agencies', [AgencyController::class,'search'])->name('agencies');
+Route::get('/agency/request/{id}',[AgencyController::class,'agency_request'])->name('agency-request');
+
 Route::get('/message', function () {
     return view('pages.message');
 });
@@ -68,7 +73,8 @@ Route::get('/messages', function () {
 
 Route::get('/profile/{username}', [ProfileController::class, 'index'])
     ->whereAlphaNumeric('username')
-    ->middleware('profile.exists');
+    ->middleware('profile.exists')
+    ->name('profile');
 
 Route::get('/profile-services', function () {
     return view('pages.profile-services');

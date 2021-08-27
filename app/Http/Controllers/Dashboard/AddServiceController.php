@@ -67,7 +67,7 @@ class AddServiceController extends Controller
             if($request->has('service_id')){
                 ServiceUpgrade::where('service_id',$service->id)->delete();
             }else{
-                Auth:: user()->notify(new NewService($service));
+                Auth::user()->notify(new NewService($service));
             }
             foreach($request->upgrade as $i=>$upgrade_title){
                 $upgrade = new ServiceUpgrade();
