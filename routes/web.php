@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\ticketController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
@@ -58,10 +59,11 @@ Route::prefix('/email')->group(function(){
 });
 
 
-Route::prefix('/Messages')->middleware(['auth', 'verified'])->group(function(){
+Route::prefix('/messages')->middleware(['auth', 'verified'])->group(function(){
 
-    Route::get('/', [MessagesController::class, 'index']);
-    Route::get('/{ticket}',[MessagesController::class, 'ticket'])->middleware('user.hasTicket:web');
+    Route::get('/create/{username}', [ticketController::class, 'index'])->middleware('profile.exists');
+    Route::post('/create/{username}', [ticketController::class, 'store'])->middleware('profile.exists');
+    Route::get('/{ticket}',[ticketController::class, 'read'])->middleware('user.hasTicket:web');
 
 });
 

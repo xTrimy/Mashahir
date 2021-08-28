@@ -18,7 +18,7 @@ class CreateTicketsTable extends Migration
             $table->string('subject');
             $table->foreignId('sender_id')->references('id')->on('users')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('reciever_id')->references('id')->on('users')->constrained()->onDelete('cascade')->onUpdate('cascade');
-            $table->dateTime('finished_at');
+            $table->dateTime('finished_at')->nullable();
             $table->timestamps();
         });
     }
