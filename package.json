@@ -19,6 +19,7 @@
         "tailwindcss": "^2.2.7"
     },
     "dependencies": {
-        "color-calendar": "^1.0.7"
+        "color-calendar": "^1.0.7",
+        "laravel-echo": "^1.11.1"
     }
 }

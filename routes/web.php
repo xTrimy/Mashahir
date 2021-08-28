@@ -5,8 +5,10 @@ use App\Http\Controllers\Auth\SignInController;
 use App\Http\Controllers\Auth\SignUpController;
 use App\Http\Controllers\Dashboard\AddServiceController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\ticketController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
@@ -55,6 +57,15 @@ Route::prefix('/email')->group(function(){
 
         return back()->with('message', 'Verification link sent!');
     })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+});
+
+
+Route::prefix('/messages')->middleware(['auth', 'verified'])->group(function(){
+
+    Route::get('/create/{username}', [ticketController::class, 'index'])->middleware('profile.exists');
+    Route::post('/create/{username}', [ticketController::class, 'store'])->middleware('profile.exists');
+    Route::get('/{ticket}',[ticketController::class, 'read'])->middleware('user.hasTicket:web');
+
 });
 
 Route::get('/celebrities', function () {

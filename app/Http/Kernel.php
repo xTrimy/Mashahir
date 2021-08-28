@@ -65,6 +65,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'profile.exists' =>\App\Http\Middleware\ProfileExists::class,
         'user.hasPermission' =>\App\Http\Middleware\PermissionExists::class,
+        'user.hasTicket' => \App\Http\Middleware\hasTicket::class,
         'agency.hasCelebrity' =>\App\Http\Middleware\hasCelebrity::class
 
     ];

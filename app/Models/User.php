@@ -61,6 +61,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasOne(UserInfo::class);
     }
 
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
+    }
+
     public function sendEmailVerificationNotification()
     {
         //dispactches the job to the queue passing it this User object
