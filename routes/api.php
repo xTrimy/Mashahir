@@ -18,8 +18,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/calender', [CalenderController::class, 'getTasks'])->middleware('auth.apicustom');
-Route::get('/Messages/{ticket}', [MessageController::class, 'updateMessages'])->middleware(['auth.apicustom', 'user.hasTicket']);
-Route::post('/Messages/{ticket}', [MessageController::class, 'store'])->middleware(['auth.apicustom', 'user.hasTicket:api']);
+Route::get('/messages/{ticket}', [MessageController::class, 'updateMessages'])->middleware(['auth.apicustom', 'user.hasTicket']);
+Route::post('/messages/{ticket}', [MessageController::class, 'store'])->middleware(['auth.apicustom', 'user.hasTicket:api']);
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
