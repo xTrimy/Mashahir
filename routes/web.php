@@ -89,7 +89,8 @@ Route::get('/profile-ads', function () {
 });
 
 
-Route::get('/service/{id}', [ServiceController::class,'index'])->name('service');
+Route::get( '/service/{id}', [ServiceController::class, 'index'])->name('service');
+Route::post('/service/{id}', [ServiceController::class, 'purchase']);
 
 
 Route::prefix('/dashboard')->as('dashboard.')->middleware('verified')->group(function () {
@@ -136,15 +137,16 @@ Route::prefix('/dashboard')->as('dashboard.')->middleware('verified')->group(fun
          * ANY CONTROLLER HERE SHOULD Check if there is username parameter in the request first.
          * THIS IS AN EXAMPLE YOU SHOULD FOLLOW
          */
-        Route::prefix('/services')->as('services')->middleware('user.hasPermission:publish services')->group(function () {
+        Route::group(['prefix'=>'/services','as'=>'services.'],function ()  { 
             Route::get('/add', [AddServiceController::class, 'index'])->name('add');
             Route::post('/add', [AddServiceController::class, 'store']);
+
+            Route::get('/edit/{id}', [AddServiceController::class, 'edit_as_agency'])->name('edit');
+            Route::post('/edit/{id}', [AddServiceController::class, 'store']);
         });
+        
 
     });
-
-});
-
     Route::get('/notifications', function () {
         return view('dashboard.notifications');
     });
@@ -156,6 +158,8 @@ Route::prefix('/dashboard')->as('dashboard.')->middleware('verified')->group(fun
     Route::get('/requests', function () {
         return view('dashboard.requests');
     });
+});
+
 
     // Route::post('/saveChanges', [SignUpController::class, 'saveChanges']);
 

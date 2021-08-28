@@ -15,10 +15,12 @@ class AddServiceController extends Controller
     public function index(){
         return view('dashboard.services.add');
     }
-
+    public function edit_as_agency($username,$id){
+        return $this->edit($id);
+    }
     public function edit($id)
     {
-        $service = Service::find($id)->first('id');
+        $service = Service::where('id',$id)->first('id');
         return view('dashboard.services.add',['service'=>$service]);
     }
 

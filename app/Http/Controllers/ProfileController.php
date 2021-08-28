@@ -15,12 +15,10 @@ class ProfileController extends Controller
 
     public function index($username)
     {
-        $user = User::find(Auth::user()->id);
-        $user_info = UserInfo::where('user_id',$user->id)->first();
 
-        $profile = User::select('id','name','username','image')->where('username', '=', $username)->first();
+        $profile = User::select('id','name','username','image')->with('user_info')->where('username', '=', $username)->first();
 
-        return view('pages.profile', $profile , ['user_info' => $user_info]);
+        return view('pages.profile', $profile);
     }
 
     public function editProfile() {
