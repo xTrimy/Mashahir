@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\SignInController;
 use App\Http\Controllers\Auth\SignUpController;
 use App\Http\Controllers\Dashboard\AddServiceController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServiceController;
 use Illuminate\Support\Facades\Route;
@@ -54,6 +55,14 @@ Route::prefix('/email')->group(function(){
 
         return back()->with('message', 'Verification link sent!');
     })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+});
+
+
+Route::prefix('/Messages')->middleware(['auth', 'verified'])->group(function(){
+
+    Route::get('/', [MessagesController::class, 'index']);
+    Route::get('/{ticket}',[MessagesController::class, 'ticket'])->middleware('user.hasTicket:web');
+
 });
 
 Route::get('/celebrities', function () {
