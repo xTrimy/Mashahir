@@ -37,6 +37,7 @@
 
 @section('contents')
 <div class="w-full bg-white">
+    <div  id="messages">
     @foreach ($messages as  $message)
         <div class="w-full px-8 py-12">
             <div class="flex">
@@ -56,14 +57,35 @@
             </div>
         </div>
     <hr>
-
     @endforeach
+    </div>
+    <div class="hidden" id="message_cloner">
+        <div class="w-full px-8 py-12 message">
+            <div class="flex">
+                <div class="w-16 h-16 bg-black rounded-full overflow-hidden">
+                    <img src="{{ asset(Auth::user()->image ?? 'avatars/images/default.png') }}" class="w-full h-full object-cover object-center" alt="">
+                </div>
+                <div class="flex flex-col justify-around mr-4">
+                    <h2 class="text-xl">{{Auth::user()->name}} </h2>
+                    <span class="text-sm text-gray-400">
+                        <i class="fas fa-clock ml-1"></i>
+                        <span>الآن</span>
+                    </span>
+                </div>
+            </div>
+            <div class="text-lg mt-4" id="message_container">
+                
+            </div>
+        </div>
+    <hr>
+    </div>
     <div class="w-full py-12 px-8">
         <form method="POST" class="w-full">
             @csrf
-            <input hidden value="{{$date}}">
+            <input hidden name="_id" id="ticket_id" value="{{$ticket->id}}">
+            <input hidden name="_date" value="{{$date}}">
             <label>
-                <textarea class="w-full border-2 border-blue-200 bg-blue-50 outline-none focus:ring-1 ring-curious-blue py-2 px-4" name="" id="" cols="30" rows="10"></textarea>
+                <textarea class="w-full border-2 border-blue-200 bg-blue-50 outline-none focus:ring-1 ring-curious-blue py-2 px-4" name="message" id="message" cols="30" rows="10"></textarea>
             </label>
             <div class="flex">
                 <div class="table pl-8 pr-2 py-2 border-2 border-curious-blue text-curious-blue hover:bg-curious-blue hover:text-white cursor-pointer ml-2">
@@ -79,10 +101,93 @@
                     <span>أضف رسالة صوتية</span>
                 </div>
             </div>
-                <button type="submit" class="mt-4 text-2xl text-white py-2 px-24 outline-none bg-curious-blue focus:ring-2 border border-white ring-curious-blue">
+                <button id="submit" class="mt-4 text-2xl text-white py-2 px-24 outline-none bg-curious-blue focus:ring-2 border border-white ring-curious-blue">
                     أرسل
                 </button>
         </form>
     </div>
 </div>
+<script>
+    Date.prototype.getFromFormat = function(format) {
+        var yyyy = this.getFullYear().toString();
+        format = format.replace(/yyyy/g, yyyy)
+        var mm = (this.getMonth()+1).toString(); 
+        format = format.replace(/mm/g, (mm[1]?mm:"0"+mm[0]));
+        var dd  = this.getDate().toString();
+        format = format.replace(/dd/g, (dd[1]?dd:"0"+dd[0]));
+        var hh = this.getHours().toString();
+        format = format.replace(/hh/g, (hh[1]?hh:"0"+hh[0]));
+        var ii = this.getMinutes().toString();
+        format = format.replace(/ii/g, (ii[1]?ii:"0"+ii[0]));
+        var ss  = this.getSeconds().toString();
+        format = format.replace(/ss/g, (ss[1]?ss:"0"+ss[0]));
+        return format;
+    };
+
+    function sendMessage(message){
+        $.ajax({
+            url : "/api/messages/"+$("#ticket_id").val(),
+            type: "POST",
+            headers: {
+                    'X-CSRF-TOKEN': $("input[name='_token']").val(),
+                },
+            data : {
+                
+                "message":message,
+            },
+            success: function(data, textStatus, jqXHR)
+            {
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+            }
+        });
+    }
+    let append_message = (message)=>{
+        let message_clone = document.querySelector('#message_cloner .message').cloneNode(true);
+        console.log(message_clone);
+        message_clone.querySelector('#message_container').innerHTML = message;
+        document.querySelector('#messages').appendChild(message_clone);
+        document.querySelector('#messages').appendChild(document.createElement('hr'));
+    }
+    function updateMessages(date){
+        $.ajax({
+            url : "/api/messages/"+$("#ticket_id").val(),
+            type: "GET",
+            
+            data : {
+                "date":date,
+            },
+            success: function(data, textStatus, jqXHR)
+            {
+                var messages = data['Messages'];
+                for(let i = 0;i < messages.length; i++){
+                    append_message(messages[i].message);
+                    var date = new Date(messages[i].created_at);
+                    console.log(date.getFromFormat('yyyy-mm-dd hh:ii:ss'));
+                    $('input[name="_date"]').val(date.getFromFormat('yyyy-mm-dd hh:ii:ss'));
+                }
+                console.log(data);
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                console.log(jqXHR,textStatus,errorThrown);
+            }
+        });
+    }
+    setInterval(function(){
+        console.log('checked');
+        updateMessages($('input[name="_date"]').val());
+    },5000);
+    
+    var submitButton = document.getElementById('submit');
+    submitButton.addEventListener('click',function(e){
+        e.preventDefault();
+        let message = $('#message').val();
+        sendMessage(message);
+        $('#message').val("");
+        append_message(message);
+    });
+
+</script>
 @endsection
