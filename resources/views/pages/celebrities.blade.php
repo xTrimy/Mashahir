@@ -10,50 +10,52 @@
 
 <div class="w-full flex my-12 ">
     <section class="hidden lg:block w-96">
-        <div class="w-full px-8 py-12 bg-white">
-            <div class="relative overflow-hidden">
-                <div class="flex justify-between items-center mb-4">
-                    <h1 class="text-xl font-bold">الأقسام</h1>
-                    <div class="w-8 h-8 bg-white border-2 border-curious-blue flex items-center justify-center text-curious-blue rounded">
-                        <i class="las la-plus text-2xl"></i>
+        <form>
+            @csrf
+            <div class="w-full px-8 py-12 bg-white">
+                <div class="relative overflow-hidden">
+                    <div class="flex justify-between items-center mb-4">
+                        <h1 class="text-xl font-bold">الأقسام</h1>
+                        <div class="w-8 h-8 bg-white border-2 border-curious-blue flex items-center justify-center text-curious-blue rounded">
+                            <i class="las la-plus text-2xl"></i>
+                        </div>
                     </div>
+                    <ul class="text-lg">
+                        @foreach ($categories as $category)
+                            <li>
+                                <label class="cursor-pointer">
+                                    <input name="cat[]" value="{{$category->id}}" type="checkbox"
+                                    @if (in_array($category->id, $selected_categories))
+                                        checked
+                                    @endif
+                                    class="ml-2 form-checkbox rounded border-curious-blue border-2 text-curious-blue">
+                                    {{$category->name}}
+                                </label>
+                            </li>
+                        @endforeach
+                    </ul>
                 </div>
-                <ul class="text-lg">
-                    <li>
-                        <label class="cursor-pointer"><input type="checkbox" class="ml-2 form-checkbox rounded border-curious-blue border-2 text-curious-blue">  أعمال </label>
-                    </li>
-                </ul>
             </div>
-        </div>
+            <div class="w-full px-2 py-2 bg-white mt-2">
+                <button class="table py-2 px-12 bg-curious-blue mx-auto text-white" type="submit">تحديث</button>
+            </div>
+        </form>
     </section>
     <div class="flex-1 mr-8  flex flex-wrap justify-around">
-            <div class="w-72 px-4 py-6 bg-white mb-8">
-                <div class="w-full h-48 bg-black">
-                    <img src="{{ asset('image/placeholders/face-2.jpg') }}" class="w-full h-full object-cover object-center" alt="">
+            @foreach ($celebrities as $celebrity )
+                <div class="w-72 px-4 py-6 bg-white mb-8">
+                    <div class="w-full h-48 bg-black">
+                        <img src="{{ $celebrity->image ?? asset('avatars/images/default.png') }}" class="w-full h-full object-cover object-center" alt="">
+                    </div>
+                    <div class="text-center">
+                        <p class="text-lg mt-4">{{$celebrity->name}}</p>
+                        <a href="/profile/{{$celebrity->username}}/services">
+                            <div class="table py-2 px-12 bg-curious-blue mx-auto mt-4 text-white">طلب اعلان</div>
+                        </a>
+                    </div>
                 </div>
-                <div class="text-center">
-                    <p class="text-lg mt-4">حلا الترك</p>
-                    <div class="table py-2 px-12 bg-curious-blue mx-auto mt-4 text-white">طلب أعلان</div>
-                </div>
-            </div>
-            <div class="w-72 px-4 py-6 bg-white mb-8">
-                <div class="w-full h-48 bg-black">
-                    <img src="{{ asset('image/placeholders/face-3.jpg') }}" class="w-full h-full object-cover object-center" alt="">
-                </div>
-                <div class="text-center">
-                    <p class="text-lg mt-4">حلا الترك</p>
-                    <div class="table py-2 px-12 bg-curious-blue mx-auto mt-4 text-white">طلب أعلان</div>
-                </div>
-            </div>
-            <div class="w-72 px-4 py-6 bg-white mb-8">
-                <div class="w-full h-48 bg-black">
-                    <img src="{{ asset('image/placeholders/face-1.jpg') }}" class="w-full h-full object-cover object-center" alt="">
-                </div>
-                <div class="text-center">
-                    <p class="text-lg mt-4">حلا الترك</p>
-                    <div class="table py-2 px-12 bg-curious-blue mx-auto mt-4 text-white">طلب أعلان</div>
-                </div>
-            </div>
+            @endforeach
+
             <div class="w-72 p-8 mb-8"></div>
             <div class="w-72 p-8 mb-8"></div>
     </div>

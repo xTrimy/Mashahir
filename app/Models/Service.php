@@ -38,6 +38,11 @@ class Service extends Model
         return $query->where('status', 1);
     }
 
+    public function scopeCategory($query, $categories = [])
+    {
+        return $query->whereIn('category_id', $categories);
+    }
+
     public function scopeDisabled($query)
     {
         return $query->where('status', 0);

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\SignInController;
 use App\Http\Controllers\Auth\SignUpController;
+use App\Http\Controllers\CelebrityController;
 use App\Http\Controllers\Dashboard\AddServiceController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MessagesController;
@@ -67,9 +68,8 @@ Route::prefix('/messages')->middleware(['auth', 'verified'])->group(function(){
 
 });
 
-Route::get('/celebrities', function () {
-    return view('pages.celebrities');
-});
+Route::get('/celebrities', [CelebrityController::class, 'index']);
+
 Route::get('/message', function () {
     return view('pages.message');
 });
