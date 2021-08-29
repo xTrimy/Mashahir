@@ -50,19 +50,15 @@
                             <i class="las la-user text-lg ml-2"></i>
                             {{$user->username}}
                     </a>
-                    <a href="#" class="block w-full bg-white hover:bg-gray-200 text-right px-4 py-2 border-b">
+                    <a href="{{ route('dashboard.credit') }}" class="block w-full bg-white hover:bg-gray-200 text-right px-4 py-2 border-b">
                         <i class="las la-dollar-sign text-lg ml-2"></i>
                         الرصيد
                     </a>
-                    <a href="#" class="block w-full bg-white hover:bg-gray-200 text-right px-4 py-2 border-b">
+                    <a href="{{ route('dashboard.edit-profile') }}" class="block w-full bg-white hover:bg-gray-200 text-right px-4 py-2 border-b">
                         <i class="las la-cog text-lg ml-2"></i>
                         الإعدادات
                     </a>
-                    <a href="#" class="block w-full bg-white hover:bg-gray-200 text-right px-4 py-2 border-b">
-                        <i class="las la-pen text-lg ml-2"></i>
-                        تعديل الحساب
-                    </a>
-                    <a href="#" class="block w-full bg-white hover:bg-gray-200 text-right px-4 py-2 border-b">
+                    <a href="{{ route('logout') }}" class="block w-full bg-white hover:bg-gray-200 text-right px-4 py-2 border-b">
                         <i class="las la-sign-out-alt text-lg ml-2"></i>
                         خروج
                     </a>

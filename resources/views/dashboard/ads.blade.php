@@ -7,7 +7,7 @@
             <h1 class="text-3xl lg:text-5xl font-extrabold mb-8">إدارة الملف </h1>
             
             <div class="w-full mt-8 flex flex-wrap lg:flex-nowrap">
-                <x-profile-settings-navbar />
+                <x-profile-settings-navbar page="ads" />
 
                 <div class="lg:mr-8 flex-1 h-full ">
                     <div class="flex items-center shadow-lg bg-white px-12 mb-7 rounded-md justify-between">

@@ -41,6 +41,7 @@
                 <div class="group w-14 h-14 bg-white rounded-full overflow-hidden">
                     <img src="{{ asset(Auth::user()->image ?? "avatars/images/default.png") }}" class="w-full h-full object-cover object-center" alt="">
                 </div>
+                
                 <div class="absolute top-full z-20 left-0 w-48 bg-white group-hover:block group-focus:block hidden text-black text-base">
                     <div class="w-6 overflow-hidden inline-block absolute left-8 bottom-full">
                         <div class=" h-3 w-6 bg-white rotate-45 transform origin-bottom-left"></div>
@@ -49,19 +50,15 @@
                             <i class="las la-user text-lg ml-2"></i>
                             {{$user->username}}
                     </a>
-                    <a href="#" class="block w-full bg-white hover:bg-gray-200 text-right px-4 py-2 border-b">
+                    <a href="{{ route('dashboard.credit') }}" class="block w-full bg-white hover:bg-gray-200 text-right px-4 py-2 border-b">
                         <i class="las la-dollar-sign text-lg ml-2"></i>
                         الرصيد
                     </a>
-                    <a href="#" class="block w-full bg-white hover:bg-gray-200 text-right px-4 py-2 border-b">
+                    <a href="{{ route('dashboard.edit-profile') }}" class="block w-full bg-white hover:bg-gray-200 text-right px-4 py-2 border-b">
                         <i class="las la-cog text-lg ml-2"></i>
                         الإعدادات
                     </a>
-                    <a href="#" class="block w-full bg-white hover:bg-gray-200 text-right px-4 py-2 border-b">
-                        <i class="las la-pen text-lg ml-2"></i>
-                        تعديل الحساب
-                    </a>
-                    <a href="#" class="block w-full bg-white hover:bg-gray-200 text-right px-4 py-2 border-b">
+                    <a href="{{ route('logout') }}" class="block w-full bg-white hover:bg-gray-200 text-right px-4 py-2 border-b">
                         <i class="las la-sign-out-alt text-lg ml-2"></i>
                         خروج
                     </a>

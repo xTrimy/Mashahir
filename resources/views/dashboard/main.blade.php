@@ -5,13 +5,7 @@
 @section('content')
         <div class="px-2 lg:pr-12 lg:pl-24 py-12 mt-8 w-full overflow-x-hidden">
             <h1 class="text-3xl lg:text-5xl font-extrabold mb-8">لوحة التحكم</h1>
-            <div class="w-full border-blue-200 border-b px-4 text-lg lg:text-2xl flex overflow-x-auto">
-                <div class="font-bold border-b-2 border-curious-blue pb-4 px-4 mx-2 whitespace-nowrap">نظرة عامة</div>
-                <div class=" px-4 mx-2">المهام</div>
-                <div class=" px-4 mx-2">المشاهير</div>
-                <div class=" px-4 mx-2">الرصيد</div>
-                <a href="{{ route('dashboard.edit-profile') }}"><div class=" px-4 mx-2">اعدادات</div></a>
-            </div>
+            <x-dashboard-nav-bar page="main"/>
             <div class="flex mt-4  flex-wrap">
                 <div class="w-full lg:w-96">
                     <div class="flex justify-between items-center">
