@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -64,6 +65,22 @@ class User extends Authenticatable implements MustVerifyEmail
     public function tickets()
     {
         return $this->hasMany(Ticket::class);
+    }
+
+    public function services()
+    {
+        return $this->hasMany(Service::class);
+    }
+
+    public function scopeServicesCategory($query, $cat)
+    {
+        if(empty($cat)) return $query;
+        return $query->whereExists(function($query) use($cat){
+            $query->select(DB::raw(1))
+                    ->from('services')
+                    ->whereIn('services.category_id', $cat)
+                    ->whereColumn('services.user_id','users.id');
+        });
     }
 
     public function sendEmailVerificationNotification()
