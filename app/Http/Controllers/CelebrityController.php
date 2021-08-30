@@ -12,18 +12,18 @@ class CelebrityController extends Controller
 
     public function index(Request $request)
     {
-        $cat = [];
+        $category = [];
 
-        if($request->query('cat')) $cat = explode(',', $request->query('cat'));
+        if($request->query('category')) $category = explode(',', $request->query('category'));
 
-        $celebrities = User::role('celebrity')->ServicesCategory($cat)->get();
+        $celebrities = User::role('celebrity')->ServicesCategory($category)->get();
 
         $categories = Category::all();
 
         return view('pages.celebrities', [
             'celebrities' => $celebrities,
             'categories' => $categories,
-            'selected_categories' => $cat
+            'selected_categories' => $category
         ]);
     }
 }

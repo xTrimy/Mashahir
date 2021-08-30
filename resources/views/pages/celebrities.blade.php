@@ -10,8 +10,7 @@
 
 <div class="w-full flex my-12 ">
     <section class="hidden lg:block w-96">
-        <form>
-            @csrf
+        <form id="form">
             <div class="w-full px-8 py-12 bg-white">
                 <div class="relative overflow-hidden">
                     <div class="flex justify-between items-center mb-4">
@@ -24,7 +23,7 @@
                         @foreach ($categories as $category)
                             <li>
                                 <label class="cursor-pointer">
-                                    <input name="cat[]" value="{{$category->id}}" type="checkbox"
+                                    <input name="category" value="{{$category->id}}" type="checkbox"
                                     @if (in_array($category->id, $selected_categories))
                                         checked
                                     @endif
@@ -60,4 +59,23 @@
             <div class="w-72 p-8 mb-8"></div>
     </div>
 </div>
+<script>
+
+    let form = document.getElementById('form');
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        let checkedBoxes = document.querySelectorAll("input[type=checkbox]:checked");
+        let path = "/celebrities"
+        if(checkedBoxes.length > 0)
+        {
+            path += "?category=" + Array.from(checkedBoxes).map((category) => category.value).join(',');
+        }
+
+        return window.location.href = path;
+
+    })
+
+</script>
+
 @endsection
+
