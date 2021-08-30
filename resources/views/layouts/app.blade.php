@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
     <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>@yield('title')</title>
 </head>
 <body dir="rtl" class="bg-gray-100 overflow-x-hidden">
@@ -49,19 +50,15 @@
                             <i class="las la-user text-lg ml-2"></i>
                             {{$user->username}}
                     </a>
-                    <a href="#" class="block w-full bg-white hover:bg-gray-200 text-right px-4 py-2 border-b">
+                    <a href="{{ route('dashboard.credit') }}" class="block w-full bg-white hover:bg-gray-200 text-right px-4 py-2 border-b">
                         <i class="las la-dollar-sign text-lg ml-2"></i>
                         الرصيد
                     </a>
-                    <a href="#" class="block w-full bg-white hover:bg-gray-200 text-right px-4 py-2 border-b">
+                    <a href="{{ route('dashboard.edit-profile') }}" class="block w-full bg-white hover:bg-gray-200 text-right px-4 py-2 border-b">
                         <i class="las la-cog text-lg ml-2"></i>
                         الإعدادات
                     </a>
-                    <a href="#" class="block w-full bg-white hover:bg-gray-200 text-right px-4 py-2 border-b">
-                        <i class="las la-pen text-lg ml-2"></i>
-                        تعديل الحساب
-                    </a>
-                    <a href="#" class="block w-full bg-white hover:bg-gray-200 text-right px-4 py-2 border-b">
+                    <a href="{{ route('logout') }}" class="block w-full bg-white hover:bg-gray-200 text-right px-4 py-2 border-b">
                         <i class="las la-sign-out-alt text-lg ml-2"></i>
                         خروج
                     </a>

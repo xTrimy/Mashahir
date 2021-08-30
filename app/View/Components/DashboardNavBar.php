@@ -4,7 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class ProfileSettingsNavbar extends Component
+class DashboardNavBar extends Component
 {
     /**
      * Create a new component instance.
@@ -12,11 +12,10 @@ class ProfileSettingsNavbar extends Component
      * @return void
      */
     private $page;
-    public function __construct($page = null)
+    public function __construct($page= null)
     {
         $this->page = $page;
     }
-
 
     /**
      * Get the view / contents that represent the component.
@@ -25,6 +24,6 @@ class ProfileSettingsNavbar extends Component
      */
     public function render()
     {
-        return view('components.profile-settings-navbar',['page'=>$this->page]);
+        return view('components.dashboard-nav-bar',['page'=>$this->page]);
     }
 }

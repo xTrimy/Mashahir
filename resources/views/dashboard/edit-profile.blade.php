@@ -7,7 +7,7 @@
             <h1 class="text-3xl lg:text-5xl font-extrabold mb-8">إدارة الملف </h1>
             
             <div class="w-full mt-8 flex flex-wrap lg:flex-nowrap">
-                <x-profile-settings-navbar />
+                <x-profile-settings-navbar page="edit-profile" />
                 <div class="lg:mr-8 flex-1 bg-white shadow-lg rounded-md py-8 px-2 lg:px-12">
                     @if($errors->any())
                         {!! implode('', $errors->all('<div class="text-red-500">:message</div>')) !!}
@@ -26,7 +26,7 @@
                             {{ Auth::user()->name }}
                         </div>
                     </div>
-                    <form method="POST" class="mt-8">
+                    <form method="POST" class="mt-8" enctype="multipart/form-data">
                         @csrf
                         <label >
                             <div class="text-lg">الأسم</div>
@@ -58,11 +58,11 @@
                         </label>
                         <label >
                             <div class="text-lg">ضريبة القيمة المضافة</div>
-                            <input type="file" name="vat" class="form-input w-full border border-curious-blue  mt-2 rounded mb-2" value="{{ $user_info->location ?? ""}}">
+                            <input type="file" name="vat" class="form-input w-full border border-curious-blue  mt-2 rounded mb-2" >
                         </label>
                         <label >
                             <div class="text-lg">رابط معروف</div>
-                            <input type="text" name="maroof_url" class="form-input w-full border border-curious-blue  mt-2 rounded mb-2" value="{{ $user_info->maarof_url ?? ""}}">
+                            <input type="text" name="maroof_url" class="form-input w-full border border-curious-blue  mt-2 rounded mb-2" value="{{ $user_info->maroof_url ?? ""}}">
                         </label>
                         <hr class="mt-8">
                         <h2 class="text-xl font-bold mt-4 text-gray-600 mb-8">

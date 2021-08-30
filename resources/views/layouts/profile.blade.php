@@ -26,7 +26,7 @@
                 </div>
                 <div class="mt-4">
                     <p class="text-xl text-black">{{$name}}</p>
-                    @if($username !== $user->username)
+                    @if(Auth::check() && $username !== $user->username)
                         <div class="mt-5 flex">
                             <form method="POST" action="" class="flex">
                                 @csrf

@@ -30,7 +30,7 @@ class AppServiceProvider extends ServiceProvider
         View::composer('*', function ($view) {
 
             $user = Auth::check()
-                    ? User::select('name','username','image')->where('id', '=', Auth::user()->id)->first()
+                    ? Auth::user()
                     : null;
 
             $view->with('user', $user);

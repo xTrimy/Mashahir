@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Message;
 use App\Models\Ticket;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -15,12 +16,14 @@ class MessageController extends Controller
 
     public function updateMessages(Request $request, $ticket)
     {
-        $date = $request->date ?? Ticket::find($ticket)->first()->created_at->todateString();
-
+        
+        $date = $request->date ?? Ticket::where('id',$ticket)->first()->created_at->todateString();
+        $date = Carbon::createFromFormat('Y-m-d H:i:s',$date);
         return [
             'Messages' => Message::where([
                 ['ticket_id', $ticket],
-                ['created_at', '>', $date]
+                ['created_at', '>', $date],
+                ['user_id', '!=', Auth::user()->id],
             ])->with('user')->get(),
             'date' => date('Y-m-d H:i:s', time())
         ];
@@ -29,16 +32,15 @@ class MessageController extends Controller
 
     public function store(Request $request, $ticket)
     {
-        $validator = Validator::make($request->all, [
-            "Message" => "required|min:4"
+        $validator = Validator::make($request->all(), [
+            "message" => "required|min:4"
         ]);
-
         if(!$validator->fails())
         {
             $message = new Message();
 
             $message->user_id = Auth::user()->id;
-            $message->message = $request->Message;
+            $message->message = $request->message;
             $message->ticket_id = $ticket;
 
             $message->save();

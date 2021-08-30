@@ -8,6 +8,7 @@
 </div>
 @endsection
 @section('contents')
+
     <div class="w-full  py-8">
         <div class="w-full grid grid-cols-1 lg:grid-cols-2 gap-12">
             <div class="w-full bg-white pb-8">

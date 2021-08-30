@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AgencyController;
 use App\Http\Controllers\Auth\SignInController;
 use App\Http\Controllers\Auth\SignUpController;
 use App\Http\Controllers\CelebrityController;
@@ -26,6 +27,7 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', [HomeController::class, "index"])->name('home');
+Route::get('/logout', [SignInController::class, 'logout'])->name('logout');
 
 Route::middleware('guest')->group(function () {
     Route::get('/signup', [SignUpController::class, 'index'])->name('signup');
@@ -68,6 +70,9 @@ Route::prefix('/messages')->middleware(['auth', 'verified'])->group(function(){
 
 });
 
+
+Route::get('/agencies', [AgencyController::class,'search'])->name('agencies');
+Route::get('/agency/request/{id}',[AgencyController::class,'agency_request'])->name('agency-request');
 Route::get('/celebrities', [CelebrityController::class, 'index']);
 
 Route::get('/message', function () {
@@ -79,7 +84,8 @@ Route::get('/messages', function () {
 
 Route::get('/profile/{username}', [ProfileController::class, 'index'])
     ->whereAlphaNumeric('username')
-    ->middleware('profile.exists');
+    ->middleware('profile.exists')
+    ->name('profile');
 
 Route::get('/profile-services', function () {
     return view('pages.profile-services');
@@ -94,35 +100,46 @@ Route::get('/profile-ads', function () {
 });
 
 
-Route::get('/service/{id}', [ServiceController::class,'index'])->name('service');
+Route::get( '/service/{id}', [ServiceController::class, 'index'])->name('service');
+Route::post('/service/{id}', [ServiceController::class, 'purchase']);
 
 
 Route::prefix('/dashboard')->as('dashboard.')->middleware('verified')->group(function () {
 
     Route::get('/', function () {
         return view('dashboard.main');
-    });
+    })->name('main');
     Route::get('/tasks', function () {
         return view('dashboard.tasks');
-    });
+    })->name('tasks');
     Route::get('/celebrities', function () {
         return view('dashboard.celebrities');
-    });
+    })->name('celebrities');
     Route::get('/credit', function () {
         return view('dashboard.credit');
-    });
+    })->name('credit');
 
     Route::get( '/edit-profile', [ProfileController::class, 'editProfile'])->name('edit-profile');
     Route::post('/edit-profile', [ProfileController::class, 'saveChanges']);
 
     Route::get('/ads', function () {
         return view('dashboard.ads');
-    });
+    })->name('ads');
+    
+    Route::get('/requests', function () {
+        return view('dashboard.requests');
+    })->name('requests');
 
-    Route::prefix('/services')->as('services')->middleware('user.hasPermission:publish services')->group(function () {
-        Route::get('/', function () {
-            return view('dashboard.services');
-        });
+    Route::get('/notifications', function () {
+        return view('dashboard.notifications');
+    })->name('notifications');;
+
+    Route::get('/send-notification', function () {
+        return view('dashboard.send-notification');
+    })->name('send-notification');;
+
+    Route::prefix('/services')->as('services.')->middleware('user.hasPermission:publish services')->group(function () {
+        Route::get('/', [ServiceController::class,'dashboard_review'])->name('main');
         Route::get('/add', [AddServiceController::class, 'index'])->name('add');
         Route::post('/add', [AddServiceController::class, 'store']);
 
@@ -135,32 +152,26 @@ Route::prefix('/dashboard')->as('dashboard.')->middleware('verified')->group(fun
      * ex: user.hasPermission:manage celebrities
      * @author Mohammad Salah
      */
-    Route::group(['prefix'=>'/celebrity/{username}', 'middleware'=>['user.hasPermission:manage celebrities', 'profile.exists', 'agency.hasCelebrity']], function(){
+    Route::group(['prefix'=>'/celebrity/{username}','as'=>"celebrity", 'middleware'=>['user.hasPermission:manage celebrities', 'profile.exists', 'agency.hasCelebrity']], function(){
 
         /**
          * ANY CONTROLLER HERE SHOULD Check if there is username parameter in the request first.
          * THIS IS AN EXAMPLE YOU SHOULD FOLLOW
          */
-        Route::prefix('/services')->as('services')->middleware('user.hasPermission:publish services')->group(function () {
+        Route::group(['prefix'=>'/services','as'=>'services.'],function ()  { 
             Route::get('/add', [AddServiceController::class, 'index'])->name('add');
             Route::post('/add', [AddServiceController::class, 'store']);
+
+            Route::get('/edit/{id}', [AddServiceController::class, 'edit_as_agency'])->name('edit');
+            Route::post('/edit/{id}', [AddServiceController::class, 'store']);
         });
+        
 
     });
-
+    
+    
 });
 
-    Route::get('/notifications', function () {
-        return view('dashboard.notifications');
-    });
-
-    Route::get('/send-notification', function () {
-        return view('dashboard.send-notification');
-    });
-
-    Route::get('/requests', function () {
-        return view('dashboard.requests');
-    });
 
     // Route::post('/saveChanges', [SignUpController::class, 'saveChanges']);
 

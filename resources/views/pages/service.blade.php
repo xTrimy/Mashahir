@@ -41,7 +41,10 @@
 
 @section('contents')
     <div class="flex w-full xl:px-12 2xl:px-52 flex-wrap">
-        <div class="w-full lg:w-auto lg:flex-1 p-3 md:p-4 lg:p-8 bg-white lg:ml-4 mb-4">
+        <form class="w-full lg:w-auto lg:flex-1" method="POST">
+            @csrf
+            <input name="service_id" value="{{ $service->id }}" type="hidden">
+            <div class=" p-3 md:p-4 lg:p-8 bg-white lg:ml-4 mb-4">
             <div class="w-full h-96">
                 <div class="w-full h-full">
                     <img src="{{ asset('image/placeholders/banner.jpg') }}" class="object-contain object-center w-full h-full" alt="">
@@ -59,16 +62,15 @@
                     </h1>
                     <ul class="mt-4">
                         @forelse ($service->upgrades as $upgrade)
-                            <li class="mb-4">
+                            <li class="mb-8 md:mb-4">
                                 <div class="flex sm:justify-between flex-wrap">
-                                    <label class="">
-                                        <input type="checkbox" class="form-checkbox border-curious-blue border-2 text-lg text-curious-blue rounded">
-                                        <span class="mr-4">{{ $upgrade->title }}</span>
+                                    <label class="block w-full md:w-auto">
+                                        <input name="upgrade[]" value="{{ $upgrade->id }}" type="checkbox" data-price="{{ $upgrade->price }}" class="form-checkbox border-curious-blue border-2 text-lg text-curious-blue rounded">
+                                        <span class="mr-1 lg:mr-4">{{ $upgrade->title }}</span>
                                     </label>
-                                    <div class="">
+                                    <div class="block w-full md:w-auto">
                                         <div class="text-lg mr-2 sm:mr-0">+{{ $upgrade->price }}$</div>
                                         <div class="text-lg mr-2 sm:mr-0">+{{ $upgrade->duration }} أيام</div>
-
                                     </div>
                                 </div>
                             </li>
@@ -78,11 +80,59 @@
                         
                     </ul>
                 </div>
-                <hr>
-                <div class="w-full mt-8">
-                    <div class="table mx-auto px-12 py-4 bg-curious-blue text-white text-lg"> طلب الخدمة </div>
+                
+            </div>
+            <div class="w-full lg:w-auto lg:flex-1 p-3 md:p-4 lg:p-8 bg-white lg:ml-4 mb-4">
+                @if($errors->any())
+                    {!! implode('', $errors->all('<div class="text-red-500">:message</div>')) !!}
+                @endif
+                <h1 class="text-xl font-bold text-gray-600">
+                    أشتري الخدمة
+                </h1>
+                <div class="text-center">
+                    <p class="text-gray-600 mb-4">
+                        سعر طلب الخدمة
+                        <span>$<span class="price" id="price">0</span></span>
+                    </p>
+                    <label class="text-gray-700">
+                        <span class='ml-2'>عدد مرات الطلب</span>
+                        <select name="quantity" id="quantity" class="border border-gray-200 py-2 px-4 ">
+                        @for ($i=1;$i<=10;$i++)
+                            <option class="{{ $i }}">{{ $i }}</option>
+                        @endfor
+                    </select>
+                    </label>
+                    <hr class="my-8">
+                    <p class="text-xl">
+                        المبلغ النهائي
+                        <span>$<span class="total_price" id="total_price">0</span></span>
+                    </p>
+                    <hr class="my-8">
+                    <div class="w-full mt-8">
+                    <button type="submit" class="table mx-auto px-12 py-4 bg-curious-blue text-white text-lg"> طلب الخدمة </button>
                 </div>
-        </div>
+                </div>
+            </div>
+        </form>
+        <script>
+            var price = 0;
+            var checkboxes = document.querySelectorAll('.form-checkbox');
+            for(let i = 0; i < checkboxes.length; i++){
+                checkboxes[i].addEventListener('change',function(){
+                    if(this.checked){
+                        price += parseInt(this.getAttribute('data-price'));
+                    }else{
+                        price -= parseInt(this.getAttribute('data-price'));
+                    }
+                    document.getElementById('price').innerHTML = price;
+                    document.getElementById('total_price').innerHTML = price * document.getElementById('quantity').value;
+                });
+            }
+            document.getElementById('quantity').addEventListener('change',function(){
+                    document.getElementById('total_price').innerHTML = price * parseInt(this.value);
+            });
+        </script>
+        
         <div class="w-full lg:w-64 mb-4 text-curious-blue-900">
             <div class="w-full bg-white py-8">
                 <h2 class="text-xl text-center mb-8">تقييم الخدمة</h2>

@@ -13,13 +13,15 @@
         <form id="form">
             <div class="w-full px-8 py-12 bg-white">
                 <div class="relative overflow-hidden">
-                    <div class="flex justify-between items-center mb-4">
-                        <h1 class="text-xl font-bold">الأقسام</h1>
-                        <div class="w-8 h-8 bg-white border-2 border-curious-blue flex items-center justify-center text-curious-blue rounded">
-                            <i class="las la-plus text-2xl"></i>
+                    <div class="show cat">
+                        <div class="flex justify-between items-center mb-4">
+                            <h1 class="text-xl font-bold">الأقسام</h1>
+                            <div class="w-8 h-8 bg-white border-2 border-curious-blue flex items-center justify-center text-curious-blue rounded">
+                                <i class="las la-plus text-2xl"></i>
+                            </div>
                         </div>
                     </div>
-                    <ul class="text-lg">
+                    <ul class="text-lg group">
                         @foreach ($categories as $category)
                             <li>
                                 <label class="cursor-pointer">
@@ -34,6 +36,16 @@
                         @endforeach
                     </ul>
                 </div>
+                <script>
+                  let cats =document.getElementsByClassName('cat');
+                  for(let i = 0; i<cats.length; i++){
+                      cats[i].getElementsByClassName('show-hide')[0].addEventListener('click',function(){
+                          cats[i].querySelector('.group').classList.toggle('hidden');
+                          cats[i].querySelector('.las').classList.toggle('la-plus');
+                          cats[i].querySelector('.las').classList.toggle('la-minus');
+                      });
+                  }
+                </script>
             </div>
             <div class="w-full px-2 py-2 bg-white mt-2">
                 <button class="table py-2 px-12 bg-curious-blue mx-auto text-white" type="submit">تحديث</button>
