@@ -10,6 +10,7 @@ use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ticketController;
+use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
@@ -61,11 +62,31 @@ Route::prefix('/email')->group(function(){
     })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 });
 
+Route::prefix('/profile/{username}')->middleware('profile.exists')->group(function(){
+    Route::get('/', [ProfileController::class, 'index'])
+        ->name('profile.main');
+
+    Route::get('/services', [ProfileController::class, 'services'])
+        ->name('profile.services')
+        ->middleware('profile.tabRoles:celebrity,digital marketer');
+
+    Route::get('/agent', [ProfileController::class, 'agent'])
+        ->name('profile.agent')
+        ->middleware('profile.tabRoles:celebrity');
+
+    Route::get('/celebrities', [ProfileController::class, 'celebrities'])
+        ->name('profile.celebrities')
+        ->middleware('profile.tabRoles:advertising agency');
+
+    Route::get('/ads', [ProfileController::class, 'ads'])
+        ->name('profile.ads')
+        ->middleware('profile.tabRoles:celebrity,digital marketer,advertising agency');
+});
 
 Route::prefix('/messages')->middleware(['auth', 'verified'])->group(function(){
 
-    Route::get('/create/{username}', [ticketController::class, 'index'])->middleware('profile.exists');
-    Route::post('/create/{username}', [ticketController::class, 'store'])->middleware('profile.exists');
+    Route::get('/create/{username}', [ticketController::class, 'index'])->middleware('profile.exists', 'user.notHimSelf');
+    Route::post('/create/{username}', [ticketController::class, 'store'])->middleware('profile.exists', 'user.notHimSelf');
     Route::get('/{ticket}',[ticketController::class, 'read'])->middleware('user.hasTicket:web');
 
 });
@@ -75,32 +96,7 @@ Route::get('/agencies', [AgencyController::class,'search'])->name('agencies');
 Route::get('/agency/request/{id}',[AgencyController::class,'agency_request'])->name('agency-request');
 Route::get('/celebrities', [CelebrityController::class, 'index']);
 
-Route::get('/message', function () {
-    return view('pages.message');
-});
-Route::get('/messages', function () {
-    return view('pages.messages');
-});
-
-Route::get('/profile/{username}', [ProfileController::class, 'index'])
-    ->whereAlphaNumeric('username')
-    ->middleware('profile.exists')
-    ->name('profile');
-
-Route::get('/profile-services', function () {
-    return view('pages.profile-services');
-});
-
-Route::get('/profile-agent', function () {
-    return view('pages.profile-agent');
-});
-
-Route::get('/profile-ads', function () {
-    return view('pages.profile-ads');
-});
-
-
-Route::get( '/service/{id}', [ServiceController::class, 'index'])->name('service');
+Route::get('/service/{id}', [ServiceController::class, 'index'])->name('service');
 Route::post('/service/{id}', [ServiceController::class, 'purchase']);
 
 
@@ -125,7 +121,7 @@ Route::prefix('/dashboard')->as('dashboard.')->middleware('verified')->group(fun
     Route::get('/ads', function () {
         return view('dashboard.ads');
     })->name('ads');
-    
+
     Route::get('/requests', function () {
         return view('dashboard.requests');
     })->name('requests');
@@ -158,18 +154,18 @@ Route::prefix('/dashboard')->as('dashboard.')->middleware('verified')->group(fun
          * ANY CONTROLLER HERE SHOULD Check if there is username parameter in the request first.
          * THIS IS AN EXAMPLE YOU SHOULD FOLLOW
          */
-        Route::group(['prefix'=>'/services','as'=>'services.'],function ()  { 
+        Route::group(['prefix'=>'/services','as'=>'services.'],function ()  {
             Route::get('/add', [AddServiceController::class, 'index'])->name('add');
             Route::post('/add', [AddServiceController::class, 'store']);
 
             Route::get('/edit/{id}', [AddServiceController::class, 'edit_as_agency'])->name('edit');
             Route::post('/edit/{id}', [AddServiceController::class, 'store']);
         });
-        
+
 
     });
-    
-    
+
+
 });
 
 

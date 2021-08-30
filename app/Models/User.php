@@ -55,8 +55,14 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function agency()
     {
-        return $this->belongsTo(User::class);
+        return $this->hasOne(AgencyCelebrity::class, 'celebrity_id');
     }
+
+    public function celebrities()
+    {
+        return $this->hasMany(AgencyCelebrity::class, 'agency_id');
+    }
+
     public function user_info()
     {
         return $this->hasOne(UserInfo::class);

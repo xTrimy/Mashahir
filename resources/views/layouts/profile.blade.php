@@ -22,21 +22,23 @@
         <div class="w-80 max-w-full shadow-lg mb-8 -mt-10">
             <div class="w-full p-4 bg-white border-0 border-b border-solid">
                 <div class="w-full h-64 bg-black">
-                    <img src="{{ asset($image ?? "avatars/images/default.png") }}" class="w-full h-full object-center object-cover" alt="">
+                    <img src="{{ asset($profile->image ?? "avatars/images/default.png") }}" class="w-full h-full object-center object-cover" alt="">
                 </div>
                 <div class="mt-4">
-                    <p class="text-xl text-black">{{$name}}</p>
-                    @if(Auth::check() && $username !== $user->username)
+                    <p class="text-xl text-black">{{$profile->name}}</p>
+                    @if(Auth::check() && $profile->username !== $user->username)
                         <div class="mt-5 flex">
                             <form method="POST" action="" class="flex">
                                 @csrf
-                                <input type="hidden" name="user_id" value="{{$id}}">
+                                <input type="hidden" name="user_id" value="{{$profile->id}}">
                                 <button type="submit" class="cursor-pointer text-center border-2 border-curious-blue bg-white text-white transition-colors px-5 py-2 text-lg font-bold">
                                     <i class="fas fa-star text-curious-blue"></i>
                                 </button>
                             </form>
                             <div class="p-1"></div>
-                            <div class="flex-1 text-center bg-curious-blue text-white px-8 py-2 text-lg font-bold cursor-pointer">طلب تواصل</div>
+                            <a href="/messages/create/{{$profile->username}}">
+                                <div class="flex-1 text-center bg-curious-blue text-white px-8 py-2 text-lg font-bold cursor-pointer">طلب تواصل</div>
+                            </a>
                         </div>
                     @endif
                 </div>
@@ -44,11 +46,11 @@
             <div class="w-full break-words p-4 bg-white border-0 border-b border-solid mb-5">
                 <div class="mb-3 flex">
                     <p class="text-base text-black flex-1">البلد</p>
-                    <p class="text-lg text-black font-semibold flex-1 text-left">{{ $user_info->location ?? "N/A"}}</p>
+                    <p class="text-lg text-black font-semibold flex-1 text-left">{{ $profile->user_info['location'] ?? "N/A"}}</p>
                 </div>
                 <div class="mb-3 flex">
                     <p class="text-base text-black flex-1">عدد المشاهدات</p>
-                    <p class="text-lg text-black font-semibold flex-1 text-left">{{ $user_info->viewers ?? "N/A"}}</p>
+                    <p class="text-lg text-black font-semibold flex-1 text-left">{{ $profile->user_info['viewers'] ?? "N/A"}}</p>
                 </div>
                 <div class="mb-3 flex">
                     <p class="text-base text-black flex-1">معدل التوظيف</p>
@@ -86,11 +88,15 @@
             <hr class="my-5">
             <div class="mb-3 flex">
                 <p class="text-base text-black flex-1">ضريبة القيمة المضافة</p>
-                <p class="text-lg text-black font-semibold text-left"><i class="fas fa-check text-curious-blue"></i></p>
+                <p class="text-lg text-black font-semibold text-left">
+                    <i class="fas fa-check text-curious-blue"></i>
+                </p>
             </div>
             <div class="mb-3 flex">
                 <p class="text-base text-black flex-1">معروف</p>
-                <p class="text-lg text-black font-semibold text-left"><i class="fas fa-check text-curious-blue"></i></p>
+                <p class="text-lg text-black font-semibold text-left">
+                    <i class="fas fa-check text-curious-blue"></i>
+                </p>
             </div>
         </div>
     </div>

@@ -64,8 +64,10 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'profile.exists' =>\App\Http\Middleware\ProfileExists::class,
+        'profile.tabRoles' => \App\Http\Middleware\roleTabAccess::class,
         'user.hasPermission' =>\App\Http\Middleware\PermissionExists::class,
         'user.hasTicket' => \App\Http\Middleware\hasTicket::class,
+        'user.notHimSelf' => \App\Http\Middleware\notThisUser::class,
         'agency.hasCelebrity' =>\App\Http\Middleware\hasCelebrity::class
 
     ];

@@ -14,4 +14,14 @@ class AgencyCelebrity extends Model
         'celebrity_id',
         'status'
     ];
+
+    public function agent()
+    {
+        return $this->belongsTo(User::class, 'agency_id');
+    }
+
+    public function celebrity()
+    {
+        return $this->belongsTo(User::class, 'celebrity_id');
+    }
 }

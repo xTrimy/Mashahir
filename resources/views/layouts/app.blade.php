@@ -29,13 +29,13 @@
                         <i class="fas fa-cubes text-xl ml-2"></i>
                         التصنيفات
                     </a>
-                    <a href="#" class="hidden lg:flex md:mr-5 lg:mr-6 hover:bg-curious-blue-200 h-full items-center lg:px-4 px-1 ">
+                    <a href="/celebrities" class="hidden lg:flex md:mr-5 lg:mr-6 hover:bg-curious-blue-200 h-full items-center lg:px-4 px-1 ">
                         <i class="fas fa-user text-xl ml-2"></i>
                         أبحث عن خدمة
                     </a>
                 </div>
             </div>
-        </div> 
+        </div>
         @auth
            <div class="flex items-center h-full text-white flex-row-reverse text-lg lg:text-xl">
                <button class="group mr-2 relative h-full hover:bg-curious-blue-200 px-4 focus:bg-curious-blue-200">

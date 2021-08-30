@@ -12,13 +12,15 @@
     <div class="w-full  py-8">
         <div class="w-full grid grid-cols-1 lg:grid-cols-2 gap-12">
             <div class="w-full bg-white pb-8">
-                <div class="w-full h-64 bg-black mb-8 relative">
-                    <div class="z-10 absolute top-0 left-0 w-full h-full flex justify-center items-center text-white text-3xl">
-                        اعلانات المشاهير
+                <a href="/celebrities/">
+                    <div class="w-full h-64 bg-black mb-8 relative">
+                        <div class="z-10 absolute top-0 left-0 w-full h-full flex justify-center items-center text-white text-3xl">
+                            اعلانات المشاهير
+                        </div>
+                        <div class="absolute top-0 left-0 bg-gray-600 opacity-60 w-full h-full"></div>
+                        <img src="{{ asset('image/placeholders/photo-1519944518895-f08a12d6dfd5.jpg') }}" class="w-full h-full object-cover object-center" alt="">
                     </div>
-                    <div class="absolute top-0 left-0 bg-gray-600 opacity-60 w-full h-full"></div>
-                    <img src="{{ asset('image/placeholders/photo-1519944518895-f08a12d6dfd5.jpg') }}" class="w-full h-full object-cover object-center" alt="">
-                </div>
+                </a>
                 <div class="w-full px-8 grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="w-full">
                         <div class="w-full h-56 bg-black">
