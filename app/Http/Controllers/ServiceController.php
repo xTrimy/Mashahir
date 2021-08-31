@@ -50,7 +50,7 @@ class ServiceController extends Controller
         $service_purchase->customer_id = Auth::user()->id;
         $service_purchase->service_id = $service->id;
         $service_purchase->price = $total_price;
-        $service_purchase->quantity = $service->quantity;
+        $service_purchase->quantity = $request->quantity;
         $service_purchase->save();
         foreach ($request->upgrade as $upgrade) {
             $service_upgrade = ServiceUpgrade::find($upgrade);
