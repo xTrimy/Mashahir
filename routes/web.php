@@ -10,6 +10,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RequestController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ticketController;
 use GuzzleHttp\Middleware;
@@ -87,9 +88,9 @@ Route::prefix('/profile/{username}')->middleware('profile.exists')->group(functi
 
 Route::prefix('/messages')->middleware(['auth', 'verified'])->group(function(){
 
-    Route::get('/create/{username}', [ticketController::class, 'index'])->middleware('profile.exists', 'user.notHimSelf');
+    Route::get('/create/{username}', [ticketController::class, 'index'])->middleware('profile.exists', 'user.notHimSelf')->name('new-ticket');
     Route::post('/create/{username}', [ticketController::class, 'store'])->middleware('profile.exists', 'user.notHimSelf');
-    Route::get('/{ticket}',[ticketController::class, 'read'])->middleware('user.hasTicket:web');
+    Route::get('/{ticket}',[ticketController::class, 'read'])->middleware('user.hasTicket:web')->name('ticket');
 
 });
 
@@ -121,10 +122,12 @@ Route::prefix('/dashboard')->as('dashboard.')->middleware('verified')->group(fun
     Route::post('/edit-profile', [ProfileController::class, 'saveChanges']);
 
 
-    Route::get('/requests', function () {
-        return view('dashboard.requests');
-    })->name('requests');
-
+    Route::get('/requests', [RequestController::class,'index'])->name('requests');
+    Route::middleware('user.hasPermission:view all tasks')->group(function () {
+        Route::get('/requests/accept/{id}', [RequestController::class, 'accept'])->name('accept-request');
+        Route::get('/requests/decline/{id}', [RequestController::class, 'decline'])->name('decline-request');
+    });
+    
     Route::get('/notifications', [NotificationsController::class, 'index'])->name('notifications');
 
     Route::middleware(['user.hasPermission:send important notifications'])->group(function () {

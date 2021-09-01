@@ -13,13 +13,18 @@ class ServicePurchase extends Model
         'service_id',
         'customer_id',
         'price',
-
+        'ticket_id',
+        'agreed_at',
+        'declined_at',
     ];
 
     public function service(){
         return $this->belongsTo(Service::class);
     }
-
+    public function ticket()
+    {
+        return $this->belongsTo(Ticket::class);
+    }
     public function customer()
     {
         return $this->belongsTo(User::class,'customer_id');

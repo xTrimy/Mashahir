@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Message;
+use App\Models\ServicePurchase;
 use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -46,12 +47,14 @@ class ticketController extends Controller
     {
 
         $ticketData = Ticket::where('id', $ticket)->with('messages.user')->first();
+        $service = ServicePurchase::where('ticket_id',$ticketData->id)->first();
 
         return view("pages.messages", [
             'ticket' => $ticketData,
             'nextUser' => User::find((Auth::user()->id == $ticketData->sender_id ) ? $ticketData->sender_id : $ticketData->reciever_id)->first(),
             'messages' => $ticketData->messages,
-            'date' => date('Y-m-d H:i:s', time())
+            'date' => date('Y-m-d H:i:s', time()),
+            'service'=>$service
         ]);
     }
 

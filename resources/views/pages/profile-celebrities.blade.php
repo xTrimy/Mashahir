@@ -24,7 +24,7 @@
                         </div>
                     </div>
 
-                    <a href="{{route('profile.main', $celebrity['celebrity']['username'] )}}"><button class="w-36 md:w-52 px-1 md:px-10 font-bold py-5 md:py-3 md:text-sm border-none bg-curious-blue text-white cursor-pointer">
+                    <a href="{{route('profile', $celebrity['celebrity']['username'] )}}"><button class="w-36 md:w-52 px-1 md:px-10 font-bold py-5 md:py-3 md:text-sm border-none bg-curious-blue text-white cursor-pointer">
                         عرض الملف الشخصي
                     </button></a>
                 </div>

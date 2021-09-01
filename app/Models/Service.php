@@ -53,4 +53,8 @@ class Service extends Model
         return $query->where('status', 0);
     }
 
+    public function purchases(){
+        return $this->hasMany(ServicePurchase::class);
+    }
+
 }

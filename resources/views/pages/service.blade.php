@@ -86,6 +86,11 @@
                 @if($errors->any())
                     {!! implode('', $errors->all('<div class="text-red-500">:message</div>')) !!}
                 @endif
+                @if(Session::has('error'))
+                <div class="text-red-500">
+                    {{ Session::get('error') }}
+                </div>
+                @endif
                 <h1 class="text-xl font-bold text-gray-600">
                     أشتري الخدمة
                 </h1>
@@ -109,7 +114,22 @@
                     </p>
                     <hr class="my-8">
                     <div class="w-full mt-8">
+                    @if($service->user->id != $user->id)
+                    @if(count($tickets) > 0)
+                        <p class="text-lg text-gray-600">عنوان الطلب</p>
+                    <select name="ticket" required class="border border-gray-200 py-2 px-4 my-2 ">
+                    <option value="" selected disabled >برجاء تحديد خيار</option>
+                    @foreach ($tickets as $ticket)
+                        <option value="{{ $ticket->id }}">{{ $ticket->subject }}</option>
+                    @endforeach
+                    </select>
                     <button type="submit" class="table mx-auto px-12 py-4 bg-curious-blue text-white text-lg"> طلب الخدمة </button>
+                    @else
+                        <p class="text-lg text-gray-700">برجاء مراسلة صاحب الخدمة حتى تتمكن من الطلب</p>
+                    <a href="{{ route('new-ticket',$service->user->username) }}" class="table mx-auto px-12 py-4 bg-curious-blue text-white text-lg mt-4"> طلب تواصل </a>
+
+                    @endif
+                    @endif
                 </div>
                 </div>
             </div>

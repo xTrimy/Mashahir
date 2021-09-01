@@ -20,6 +20,33 @@
                         <i class="fas fa-clock"></i>
                         <span class="mr-1">اخر تفاعل: {{$messages[count($messages) - 1]->created_at->diffForHumans()}}</span>
                     </p>
+                    
+                    @if($service)
+                    <p class="ml-4 ">
+                            <i class="fas fa-dollar-sign"></i>
+                            <span class="mr-1"> {{ $service->price }} </span>
+                        </p>
+                        <p class="ml-4
+                        @if($service->agreed_at)
+                         text-rose-500
+                         @elseif($service->declined_at)
+                         text-black
+                         @else
+                         text-yellow-500
+                        @endif
+                         ">
+                            <i class="fas fa-info-circle"></i>
+                            <span class="mr-1"> 
+                                @if($service->agreed_at)
+                                جاري التنفيذ
+                                @elseif($service->declined_at)
+                                تم رفض الطلب
+                                @else
+                                بأنتظار الموافقة
+                                @endif
+                            </span>
+                        </p>
+                    @endif
                 </div>
             </div>
         </div>
