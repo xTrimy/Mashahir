@@ -25,7 +25,7 @@
             </button>
         </form>
 
-        <p class="text-center mt-4">او قم بالتسجيل من خلال موقعنا من <a href="" class="text-curious-blue">هنا</a></p>
+        <p class="text-center mt-4">او قم بالتسجيل من خلال موقعنا من <a href="{{ route('login') }}" class="text-curious-blue">هنا</a></p>
         <hr class="my-10">
         <p class="text-center mb-5">بالنقر على التالي، فإنك تقر بأنك قد قرأت وقبلت <a href="" class="text-curious-blue">شروط الخدمة وسياسة الخصوصية.</a></p>
     </div>

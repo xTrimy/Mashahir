@@ -2,7 +2,7 @@
 
     {{-- Shown for every role --}}
     <div class="text-lg px-4 {{ ($page=="main") ? "text-center border-0 border-b-2 border-curious-blue border-solid -mb-2.5 font-bold" : ""}}">
-        <a href="{{route('profile.main', $profile->username)}}">عني</a>
+        <a href="{{route('profile', $profile->username)}}">عني</a>
     </div>
 
     {{-- Shown for celebrity & digital marketer --}}

@@ -24,7 +24,7 @@
                     <span>التقويم</span>
                 </div>
             </a>
-            <a href="{{ route('dashboard.ads') }}">
+            <a href="{{ route('dashboard.ads.main') }}">
                 <div class="w-full py-6 px-8 {{ $page == "ads"?$selected_style:$default }} border-b">
                     <i class="fas fa-cubes ml-4 text-2xl"></i>
                     <span>الإعلانات</span>

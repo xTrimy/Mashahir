@@ -28,8 +28,14 @@ return [
     |
     */
 
-    'disks' => [
+   
 
+    'disks' => [
+        'public_uploads' => [
+            'driver' => 'local',
+            'root'   => public_path() . '/uploads',
+            'visibility' => 'public',
+        ],
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
@@ -69,5 +75,5 @@ return [
     'links' => [
         public_path('storage') => storage_path('app/public'),
     ],
-
+    
 ];

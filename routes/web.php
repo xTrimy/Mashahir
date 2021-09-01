@@ -4,6 +4,7 @@ use App\Http\Controllers\AgencyController;
 use App\Http\Controllers\Auth\SignInController;
 use App\Http\Controllers\Auth\SignUpController;
 use App\Http\Controllers\CelebrityController;
+use App\Http\Controllers\Dashboard\AdController;
 use App\Http\Controllers\Dashboard\AddServiceController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MessagesController;
@@ -64,7 +65,7 @@ Route::prefix('/email')->group(function(){
 
 Route::prefix('/profile/{username}')->middleware('profile.exists')->group(function(){
     Route::get('/', [ProfileController::class, 'index'])
-        ->name('profile.main');
+        ->name('profile');
 
     Route::get('/services', [ProfileController::class, 'services'])
         ->name('profile.services')
@@ -118,9 +119,6 @@ Route::prefix('/dashboard')->as('dashboard.')->middleware('verified')->group(fun
     Route::get( '/edit-profile', [ProfileController::class, 'editProfile'])->name('edit-profile');
     Route::post('/edit-profile', [ProfileController::class, 'saveChanges']);
 
-    Route::get('/ads', function () {
-        return view('dashboard.ads');
-    })->name('ads');
 
     Route::get('/requests', function () {
         return view('dashboard.requests');
@@ -142,7 +140,14 @@ Route::prefix('/dashboard')->as('dashboard.')->middleware('verified')->group(fun
         Route::get('/edit/{id}', [AddServiceController::class, 'edit'])->name('edit');
         Route::post('/edit/{id}', [AddServiceController::class, 'store']);
     });
+    Route::prefix('/ads')->as('ads.')->middleware('user.hasPermission:publish services')->group(function () {
+        Route::get('/', [AdController::class,'review'])->name('main');
+        Route::get('/add', [AdController::class, 'add'])->name('add');
+        Route::post('/add', [AdController::class, 'store']);
 
+        // Route::get('/edit/{id}', [AddServiceController::class, 'edit'])->name('edit');
+        // Route::post('/edit/{id}', [AddServiceController::class, 'store']);
+    });
     /**
      * Notice that you can check any user permission by add it's role after the middleware
      * ex: user.hasPermission:manage celebrities
