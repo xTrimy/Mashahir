@@ -22,12 +22,21 @@ module.exports = {
           "900":"#11193C",
           "200":"#4f9ed3",
         },
+        'curious-red':{
+            DEFAULT:"#941616",
+        },
+        'curious-yellow':{
+            DEFAULT:"#b58403",
+        },
+        'curious-green':{
+            DEFAULT:"#0d9467",
+        },
       },
       borderWidth: {
        '12': '12px',
        '16': '16px',
       }
-      
+
     },
   },
   variants: {

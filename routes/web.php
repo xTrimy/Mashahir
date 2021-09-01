@@ -8,6 +8,7 @@ use App\Http\Controllers\Dashboard\AdController;
 use App\Http\Controllers\Dashboard\AddServiceController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MessagesController;
+use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ticketController;
@@ -124,13 +125,13 @@ Route::prefix('/dashboard')->as('dashboard.')->middleware('verified')->group(fun
         return view('dashboard.requests');
     })->name('requests');
 
-    Route::get('/notifications', function () {
-        return view('dashboard.notifications');
-    })->name('notifications');;
+    Route::get('/notifications', [NotificationsController::class, 'index'])->name('notifications');
 
-    Route::get('/send-notification', function () {
-        return view('dashboard.send-notification');
-    })->name('send-notification');;
+    Route::middleware(['user.hasPermission:send important notifications'])->group(function () {
+        Route::get('/send-notification', [NotificationsController::class, 'create'])->name('send-notification');
+        Route::post('/send-notification', [NotificationsController::class, 'store']);
+    });
+
 
     Route::prefix('/services')->as('services.')->middleware('user.hasPermission:publish services')->group(function () {
         Route::get('/', [ServiceController::class,'dashboard_review'])->name('main');
