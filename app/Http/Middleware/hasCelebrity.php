@@ -26,7 +26,7 @@ class hasCelebrity
          * Refactor to ORM later
          * @author Mohammad Salah
          */
-        if(DB::select('SELECT id FROM agency_celebrity WHERE agency_id = ? AND celebrity_id = ? AND status=1', [Auth::user()->id, $username])){
+        if(DB::select('SELECT id FROM agency_celebrity WHERE agency_id = ? AND celebrity_id = ? AND status=1', [Auth::user()->id, $username]) || $request->user()->hasPermissionTo('manage all celebrities')){
             return $next($request);
         }
 

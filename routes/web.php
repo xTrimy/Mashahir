@@ -168,7 +168,7 @@ Route::prefix('/dashboard')->as('dashboard.')->middleware('verified')->group(fun
         });
 
         Route::get('/edit-profile', [ProfileController::class, 'editCelebrityProfile']);
-        Route::post('/edit-profile', [ProfileController::class, 'saveCelebirtyChanges']);
+        Route::post('/edit-profile', [ProfileController::class, 'saveCelebirtyChanges'])->middleware('user.doesnothaverole:governmental organization');
         Route::get('/notifications', [NotificationsController::class, 'celebrityIndex'])->name('notifications');
 
 
@@ -178,7 +178,7 @@ Route::prefix('/dashboard')->as('dashboard.')->middleware('verified')->group(fun
             Route::post('/add', [AddServiceController::class, 'store']);
 
             Route::get('/edit/{id}', [AddServiceController::class, 'edit_as_agency'])->name('edit');
-            Route::post('/edit/{id}', [AddServiceController::class, 'store']);
+            Route::post('/edit/{id}', [AddServiceController::class, 'store'])->middleware('user.doesnothaverole:governmental organization');
         });
 
 
