@@ -15,7 +15,6 @@ class ticketController extends Controller
 
     public function index($username)
     {
-
         return view('pages.message', [
             'celebrity' => User::where('username', $username)->first()
         ]);

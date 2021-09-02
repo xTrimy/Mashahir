@@ -52,7 +52,7 @@
                     <div>
                         <b class="text-sm md:text-xl font-medium">{{ $request->ticket->subject ?? '' }}</b>
                         <div class="flex">
-                            <p class="mt-0 md:mt-2 text-xs md:text-base text-gray-400"> <i class="fas fa-user"></i> {{ $request->ticket->subject ?? '' }} </p>
+                            <p class="mt-0 md:mt-2 text-xs md:text-base text-gray-400"> <i class="fas fa-user"></i> {{ $request->ticket->sender->username ?? '' }} </p>
                             {{-- <p class="mt-0 md:mt-2 text-xs md:text-base text-gray-400 mr-5"> <i class="fas fa-user ml-1"></i> Ibrahim Ashraf </p> --}}
                             <p class="mt-0 md:mt-2 text-xs md:text-base text-gray-400 mr-5"> <i class="fas fa-dollar-sign ml-1"></i> {{ $request->price }}</p>
                             <p class="mt-0 md:mt-2 text-xs md:text-base mr-5
@@ -65,7 +65,7 @@
                         @endif
                          ">
                             <i class="fas fa-info-circle"></i>
-                            <span class="mr-1"> 
+                            <span class="mr-1">
                                 @if($request->agreed_at)
                                 جاري التنفيذ
                                 @elseif($request->declined_at)
@@ -79,7 +79,7 @@
                         </div>
                     </div>
                     </div>
-                    @if($request->agreed_at == null && $request->declined_at == null)
+                    @if($request->agreed_at == null && $request->declined_at == null && !$user->hasPermissionTo('manage all celebrities'))
                     <div class="flex items-center">
                         <a href="{{ route('dashboard.accept-request',$request->id) }}"><div class="py-2 px-4 border-2 border-curious-blue text-curious-blue hover:bg-curious-blue hover:text-white transition-colors">
                             قبول الطلب
@@ -92,7 +92,6 @@
                 </div>
             </div></a>
             @endforeach
-            
+
         </div>
 @endsection
-   

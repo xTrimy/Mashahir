@@ -24,4 +24,9 @@ class AgencyCelebrity extends Model
     {
         return $this->belongsTo(User::class, 'celebrity_id');
     }
+
+    public static function scopeAgency($query, $user_id)
+    {
+        return $query->where('agency_id', $user_id);
+    }
 }

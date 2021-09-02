@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\SignUpController;
 use App\Http\Controllers\CelebrityController;
 use App\Http\Controllers\Dashboard\AdController;
 use App\Http\Controllers\Dashboard\AddServiceController;
+use App\Http\Controllers\Dashboard\HomeController as DashboardHomeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\NotificationsController;
@@ -13,6 +14,9 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RequestController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ticketController;
+use App\Models\Service;
+use App\Models\User;
+use App\Models\ServicePurchase;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -105,11 +109,12 @@ Route::post('/service/{id}', [ServiceController::class, 'purchase']);
 
 Route::prefix('/dashboard')->as('dashboard.')->middleware('verified')->group(function () {
 
-    Route::get('/', function () {
-        return view('dashboard.main');
-    })->name('main');
-    Route::get('/tasks', function () {
-        return view('dashboard.tasks');
+    Route::get('/', [DashboardHomeController::class, 'index'])->name('main');
+
+    Route::get('/tasks', function (Request $request) {
+        $tasks = ServicePurchase::whereIn('service_id', Service::where('user_id', $request->user()->id)->get(['id']) )->whereNotNull('agreed_at')->with(['ticket', 'service.user'])->get();
+        return view('dashboard.tasks', ['tasks'=>$tasks]);
+
     })->name('tasks');
     Route::get('/celebrities', function () {
         return view('dashboard.celebrities');
@@ -123,11 +128,9 @@ Route::prefix('/dashboard')->as('dashboard.')->middleware('verified')->group(fun
 
 
     Route::get('/requests', [RequestController::class,'index'])->name('requests');
-    Route::middleware('user.hasPermission:view all tasks')->group(function () {
-        Route::get('/requests/accept/{id}', [RequestController::class, 'accept'])->name('accept-request');
-        Route::get('/requests/decline/{id}', [RequestController::class, 'decline'])->name('decline-request');
-    });
-    
+    Route::get('/requests/accept/{id}', [RequestController::class, 'accept'])->name('accept-request')->middleware('user.hasService');
+    Route::get('/requests/decline/{id}', [RequestController::class, 'decline'])->name('decline-request')->middleware('user.hasService');
+
     Route::get('/notifications', [NotificationsController::class, 'index'])->name('notifications');
 
     Route::middleware(['user.hasPermission:send important notifications'])->group(function () {
@@ -152,17 +155,24 @@ Route::prefix('/dashboard')->as('dashboard.')->middleware('verified')->group(fun
         // Route::get('/edit/{id}', [AddServiceController::class, 'edit'])->name('edit');
         // Route::post('/edit/{id}', [AddServiceController::class, 'store']);
     });
-    /**
-     * Notice that you can check any user permission by add it's role after the middleware
-     * ex: user.hasPermission:manage celebrities
-     * @author Mohammad Salah
-     */
-    Route::group(['prefix'=>'/celebrity/{username}','as'=>"celebrity", 'middleware'=>['user.hasPermission:manage celebrities', 'profile.exists', 'agency.hasCelebrity']], function(){
 
-        /**
-         * ANY CONTROLLER HERE SHOULD Check if there is username parameter in the request first.
-         * THIS IS AN EXAMPLE YOU SHOULD FOLLOW
-         */
+
+    Route::group(['prefix'=>'/celebrity/{username}','as'=>"celebrity", 'middleware'=>['profile.exists', 'agency.hasCelebrity']], function(){
+
+
+        Route::get('/', [DashboardHomeController::class, 'celebrityIndex']);
+        Route::get('/requests', [RequestController::class, 'celebrityIndex']);
+
+        Route::get('/credit', function () {
+            return view('dashboard.credit');
+        });
+
+        Route::get('/edit-profile', [ProfileController::class, 'editCelebrityProfile']);
+        Route::post('/edit-profile', [ProfileController::class, 'saveCelebirtyChanges']);
+        Route::get('/notifications', [NotificationsController::class, 'celebrityIndex'])->name('notifications');
+
+
+
         Route::group(['prefix'=>'/services','as'=>'services.'],function ()  {
             Route::get('/add', [AddServiceController::class, 'index'])->name('add');
             Route::post('/add', [AddServiceController::class, 'store']);
@@ -176,7 +186,4 @@ Route::prefix('/dashboard')->as('dashboard.')->middleware('verified')->group(fun
 
 
 });
-
-
-    // Route::post('/saveChanges', [SignUpController::class, 'saveChanges']);
 

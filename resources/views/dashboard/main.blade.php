@@ -7,106 +7,70 @@
             <h1 class="text-3xl lg:text-5xl font-extrabold mb-8">لوحة التحكم</h1>
             <x-dashboard-nav-bar page="main"/>
             <div class="flex mt-4  flex-wrap">
-                <div class="w-full lg:w-96">
-                    <div class="flex justify-between items-center">
-                        <h2 class="text-2xl">المشاهير</h2>
-                        <a href="" class="text-blue-600 text-sm">عرض المزيد</a>
-                    </div>
-                    <div class="w-full">
-                        <div class="w-full flex mt-4 shadow-lg py-4 px-8 rounded-md bg-white justify-between items-center">
-                            <div class="flex items-center">
-                                <div class="w-10 h-10  bg-black rounded-full overflow-hidden ml-4">
-                                    <img src="{{ asset('image/placeholders/face-1.jpg') }}" class="w-full h-full object-cover object-center" alt="">
-                                </div>
-                                <span class="text-lg">حلا الترك</span>
+                @if($user->hasPermissionTo('manage celebrities') || $user->hasPermissionTo('manage all celebrities'))
+                    <div class="w-full lg:w-96">
+                        @if($showCelebrities)
+                            <div class="flex justify-between items-center">
+                                <h2 class="text-2xl">المشاهير</h2>
+                                <a href="dashboard/celebrities" class="text-blue-600 text-sm">عرض المزيد</a>
                             </div>
-                            <div class="py-1 px-8 text-sm bg-blue-50 text-blue-600 rounded-full">إدارة</div>
-                        </div>
-                        <div class="w-full flex mt-4 shadow-lg py-4 px-8 rounded-md bg-white justify-between items-center">
-                            <div class="flex items-center">
-                                <div class="w-10 h-10  bg-black rounded-full overflow-hidden ml-4">
-                                    <img src="{{ asset('image/placeholders/face-3.jpg') }}" class="w-full h-full object-cover object-center" alt="">
-                                </div>
-                                <span class="text-lg">وائل كفوري</span>
+                            @if($celebrities)
+                            <div class="w-full">
+                                @foreach ($celebrities as $celebrity)
+                                        <div class="w-full flex mt-4 shadow-lg py-4 px-8 rounded-md bg-white justify-between items-center">
+                                            <div class="flex items-center">
+                                                <div class="w-10 h-10  bg-black rounded-full overflow-hidden ml-4">
+                                                    <img src="{{  $celebrity->image ?? asset('avatars/images/default.png') }}" class="w-full h-full object-cover object-center" alt="">
+                                                </div>
+                                                <span class="text-lg">{{$celebrity->name}}</span>
+                                            </div>
+                                            <a href="celebrity/{{$celebrity->username}}/"><div class="py-1 px-8 text-sm bg-blue-50 text-blue-600 rounded-full">إدارة</div></a>
+                                        </div>
+                                @endforeach
                             </div>
-                            <div class="py-1 px-8 text-sm bg-blue-50 text-blue-600 rounded-full">إدارة</div>
+                            @else
+                                لا يوجد لديك مشاهير حاليًا
+                            @endif
+                        @endif
+                        <div class="flex justify-between items-center mt-8">
+                            <h2 class="text-2xl">المهام</h2>
+                            <a href="requests" class="text-blue-600 text-sm">عرض المزيد</a>
                         </div>
-                        <div class="w-full flex mt-4 shadow-lg py-4 px-8 rounded-md bg-white justify-between items-center">
-                            <div class="flex items-center">
-                                <div class="w-10 h-10  bg-black rounded-full overflow-hidden ml-4">
-                                    <img src="{{ asset('image/placeholders/face-4.jpg') }}" class="w-full h-full object-cover object-center" alt="">
-                                </div>
-                                <span class="text-lg">ناصر القصبي</span>
-                            </div>
-                            <div class="py-1 px-8 text-sm bg-blue-50 text-blue-600 rounded-full">إدارة</div>
-                        </div>
-                        <div class="w-full flex mt-4 shadow-lg py-4 px-8 rounded-md bg-white justify-between items-center">
-                            <div class="flex items-center">
-                                <div class="w-10 h-10  bg-black rounded-full overflow-hidden ml-4">
-                                    <img src="{{ asset('image/placeholders/face-2.jpg') }}" class="w-full h-full object-cover object-center" alt="">
-                                </div>
-                                <span class="text-lg">ناصر القصبي</span>
-                            </div>
-                            <div class="py-1 px-8 text-sm bg-blue-50 text-blue-600 rounded-full">إدارة</div>
-                        </div>
-                    </div>
-                    <div class="flex justify-between items-center mt-8">
-                        <h2 class="text-2xl">المهام</h2>
-                        <a href="" class="text-blue-600 text-sm">عرض المزيد</a>
-                    </div>
-                    <div class="w-full">
-                        <div class="w-full flex mt-4 shadow-lg py-8 px-4 border-r-8 md:border-r-16 border-rose-600 rounded-md bg-white justify-between items-center">
-                            <div class="flex items-center flex-wrap sm:flex-nowrap">
-                                <div class="relative w-full sm:w-auto">
-                                    <div class="relative w-14 h-14  bg-black rounded-full overflow-hidden ml-4">
-                                    <img src="{{ asset('image/placeholders/face-2.jpg') }}" class="w-full h-full object-cover object-center" alt="">
-                                </div>
-                                <div class="absolute bottom-0 right-0 transform translate-x-2 translate-y-2 w-8 h-8 rounded-full overflow-hidden">
-                                        <img src="{{ asset('image/placeholders/face-4.jpg') }}" class="w-full h-full object-cover object-center" alt="">
+                        @if($tasks)
+                        <div class="w-full">
+                            @foreach ($tasks as $task)
+                                <div class="w-full flex mt-4 shadow-lg py-8 px-4 border-r-8 md:border-r-16 border-rose-600 rounded-md bg-white justify-between items-center">
+                                    <div class="flex items-center flex-wrap sm:flex-nowrap">
+                                        <div class="relative w-full sm:w-auto">
+                                            <div class="relative w-14 h-14  bg-black rounded-full overflow-hidden ml-4">
+                                            <img src="{{  $task->service->user->image ?? asset('avatars/images/default.png') }}" class="w-full h-full object-cover object-center" alt="">
+                                        </div>
+                                        <div class="absolute bottom-0 right-0 transform translate-x-2 translate-y-2 w-8 h-8 rounded-full overflow-hidden">
+                                                <img src="{{ $task->customer->image ?? asset('avatars/images/default.png') }}" class="w-full h-full object-cover object-center" alt="">
+                                            </div>
+                                        </div>
+                                        <div class="flex flex-col justify-between h-full">
+                                            <span class="text-lg font-bold md:text-xl mb-2 mt-4 lg:mt-0">{{$task->service->name}}</span>
+                                            <div class="flex text-sm text-gray-400">
+                                                <span class="ml-4">
+                                                    <i class="fas fa-user ml-1"></i>
+                                                    <span>{{$task->service->user->username}}</span>
+                                                </span>
+                                                <span class="ml-4">
+                                                    <i class="fas fa-dollar-sign ml-1"></i>
+                                                    <span>{{$task->price}}</span>
+                                                </span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="flex flex-col justify-between h-full">
-                                    <span class="text-lg font-bold md:text-xl mb-2 mt-4 lg:mt-0">طلب اعلان دعائي لمجلة سيدتي</span>
-                                    <div class="flex text-sm text-gray-400">
-                                        <span class="ml-4">
-                                            <i class="fas fa-user ml-1"></i>
-                                            <span>Sayidaty</span>
-                                        </span>
-                                        <span class="ml-4">
-                                            <i class="fas fa-dollar-sign ml-1"></i>
-                                            <span>450.00</span>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
-                        <div class="w-full flex mt-4 shadow-lg py-8 px-4  border-r-8 md:border-r-16 border-rose-600 rounded-md bg-white justify-between items-center">
-                            <div class="flex items-center flex-wrap sm:flex-nowrap">
-                                <div class="relative w-full sm:w-auto">
-                                    <div class="relative w-14 h-14  bg-black rounded-full overflow-hidden ml-4">
-                                    <img src="{{ asset('image/placeholders/face-2.jpg') }}" class="w-full h-full object-cover object-center" alt="">
-                                </div>
-                                <div class="absolute bottom-0 right-0 transform translate-x-2 translate-y-2 w-8 h-8 rounded-full overflow-hidden">
-                                        <img src="{{ asset('image/placeholders/face-4.jpg') }}" class="w-full h-full object-cover object-center" alt="">
-                                    </div>
-                                </div>
-                                <div class="flex flex-col justify-between h-full">
-                                    <span class="text-lg font-bold md:text-xl mb-2 mt-4 lg:mt-0">طلب اعلان دعائي لمجلة سيدتي</span>
-                                    <div class="flex text-sm text-gray-400">
-                                        <span class="ml-4">
-                                            <i class="fas fa-user ml-1"></i>
-                                            <span>Sayidaty</span>
-                                        </span>
-                                        <span class="ml-4">
-                                            <i class="fas fa-dollar-sign ml-1"></i>
-                                            <span>450.00</span>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @else
+                            لا يوجد مهام حاليًا
+                        @endif
                     </div>
-                </div>
+                @endif
                 <div class="flex-1 mt-4 lg:mt-0 lg:mr-8 ">
                     <div class="flex justify-between">
                         <h2 class="text-2xl">الرصيد</h2>
@@ -158,7 +122,7 @@
                                         <i class="las la-caret-left"></i>
                                     </span>
                                 </div>
-                                
+
                             </div>
                             <div class="w-full gap-1 md:gap-2 xl:gap-4 border-b text-sm xl:text-base py-2 mt-2 mb-4 border-gray-400 text-gray-400 grid grid-cols-7 grid-rows-1">
                                 <div>الأحد</div>
@@ -200,8 +164,8 @@
                                 $.ajax({
                                     url: "{{ url('/api/calender') }}",
                                     type: "get", //send it through get method
-                                    data: { 
-                                        year: year_value | null, 
+                                    data: {
+                                        year: year_value | null,
                                         month: month_value | null
                                     },
                                     success: function(response) {
@@ -216,7 +180,7 @@
                                         document.getElementById('year-date').innerHTML = year;
                                         // Get first day of the month
                                         var first_day = new Date(year,month,1).getDay();
-                                        
+
                                         for(let i = 0; i<first_day; i++){
                                             var day_element = document.createElement('div');
                                             days_container.appendChild(day_element);
@@ -250,7 +214,7 @@
                                             day_element.setAttribute('class',style);
                                             days_container.appendChild(day_element);
                                         }
-                                        
+
                                     },
                                     error: function(xhr) {
                                         console.log(xhr);
@@ -290,4 +254,3 @@
             </div>
             </div>
 @endsection
-   

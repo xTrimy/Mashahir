@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\AgencyCelebrity;
 use App\Models\Ticket;
 use Closure;
 use Illuminate\Http\Request;
@@ -19,7 +20,13 @@ class hasTicket
      */
     public function handle(Request $request, Closure $next, ...$roles)
     {
-        if(DB::select('SELECT id FROM tickets WHERE id = ? AND (sender_id = ? OR reciever_id = ?)', [$request->ticket, Auth::user()->id, Auth::user()->id]))
+        $ticket = Ticket::find($request->ticket)->first();
+
+        if(!$ticket){
+            abort(404);
+        }
+
+        if(DB::select('SELECT id FROM tickets WHERE id = ? AND (sender_id = ? OR reciever_id = ?)', [$request->ticket, Auth::user()->id, Auth::user()->id]) || AgencyCelebrity::where(["agency_id"=> $request->user()->id, "celebrity_id"=>$ticket->reciever_id]) || $request->user()->hasPermissionTo('view all tasks'))
         {
             return $next($request);
         }

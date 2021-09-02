@@ -66,7 +66,9 @@ class Kernel extends HttpKernel
         'profile.exists' =>\App\Http\Middleware\ProfileExists::class,
         'profile.tabRoles' => \App\Http\Middleware\roleTabAccess::class,
         'user.hasPermission' =>\App\Http\Middleware\PermissionExists::class,
+        'user.doesnothaverole' => \App\Http\Middleware\hasNotRole::class,
         'user.hasTicket' => \App\Http\Middleware\hasTicket::class,
+        'user.hasService' => \App\Http\Middleware\hasService::class,
         'user.notHimSelf' => \App\Http\Middleware\notThisUser::class,
         'agency.hasCelebrity' =>\App\Http\Middleware\hasCelebrity::class
 
