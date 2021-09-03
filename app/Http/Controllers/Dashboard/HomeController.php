@@ -45,7 +45,7 @@ class HomeController extends Controller
                 ->paginate(5);
 
         return view('dashboard.main',[
-            'showCelebrities' => true,
+            'showCelebrities' => false,
             'celebrities' => null,
             'tasks' => $tasks,
         ]);

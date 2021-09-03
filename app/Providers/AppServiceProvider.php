@@ -27,6 +27,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
 
+        View::share('requestInfo', $this->app->request);
+
         View::composer('*', function ($view) {
 
             $user = Auth::check()
@@ -35,5 +37,7 @@ class AppServiceProvider extends ServiceProvider
 
             $view->with('user', $user);
         });
+
+
     }
 }

@@ -74,7 +74,7 @@
                 <div class="flex-1 mt-4 lg:mt-0 lg:mr-8 ">
                     <div class="flex justify-between">
                         <h2 class="text-2xl">الرصيد</h2>
-                        <a class="text-blue-600" href="#">عرض الجميع</a>
+                        <a class="text-blue-600" href="credits">عرض الجميع</a>
                     </div>
                     <div class="grid gap-4 grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 grid-rows-3 xl:grid-rows-2 2xl:grid-rows-1 w-full mt-4">
                         <div class="w-full h-full bg-white rounded-lg shadow-lg py-4 px-4 lg:px-8">
