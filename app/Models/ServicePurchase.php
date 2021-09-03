@@ -29,4 +29,8 @@ class ServicePurchase extends Model
     {
         return $this->belongsTo(User::class,'customer_id');
     }
+    public function rating()
+    {
+        return $this->hasOne(ServicePurchaseRating::class);
+    }
 }

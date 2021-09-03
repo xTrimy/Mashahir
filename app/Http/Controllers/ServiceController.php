@@ -16,13 +16,18 @@ use Illuminate\Support\Facades\Auth;
 class ServiceController extends Controller
 {
     public function index($id){
-        $service = Service::where('id',$id)->with(['user','category', 'upgrades'])->first();
+        $service = Service::where('id',$id)->with(['user','category', 'upgrades','ratings','images'])->first();
+        
         if(!$service){
             return abort(404);
         }
         $tickets = Ticket::where([['sender_id',Auth::user()->id],['reciever_id',$service->user->id],['task_started',null]])->get();
         $time_ago = new Carbon($service->updated_at);
-        return view('pages.service',['service'=>$service,"time_ago"=>$time_ago,'tickets'=> $tickets]);
+        if(count($service->ratings) > 0)
+        $rating = number_format(count($service->ratings->where('rating',1))/count($service->ratings)*5,1,'.','');
+        else
+        $rating = 0;
+        return view('pages.service',['service'=>$service,"time_ago"=>$time_ago,'tickets'=> $tickets,'rating'=>$rating]);
     }
 
     public function dashboard_review(){

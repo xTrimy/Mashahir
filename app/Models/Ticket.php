@@ -22,4 +22,7 @@ class Ticket extends Model
     {
         return $this->hasMany(Message::class);
     }
+    public function purchase(){
+        return $this->hasOne(ServicePurchase::class);
+    }
 }

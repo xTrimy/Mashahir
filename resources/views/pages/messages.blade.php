@@ -55,6 +55,37 @@
                 <span>أبلاغ عن مشكلة</span>
                 <i class="las la-life-ring text-2xl mr-2"></i>
             </div>
+            @if($ticket->purchase->service->user->id == Auth::user()->id && $ticket->finished_at == null)
+            <form method="POST">
+                @csrf
+                <input type="hidden" name="_id" value="{{ $ticket->id }}">
+                <button type="submit" class="bg-green-500 hover:bg-green-600 px-8 py-2 text-white flex items-center ">
+                    <span>تسليم الخدمة</span>
+                    <i class="las la-shopping-cart text-2xl mr-2"></i>
+                </button>
+            </form>
+            @endif
+            @if($ticket->purchase->service->user->id != Auth::user()->id && $ticket->finished_at != null && $ticket->purchase->finished_at == null)
+            <form method="POST" action="{{ route('finish_ticket',$ticket->id) }}">
+                @csrf
+                <input type="hidden" name="_id" value="{{ $ticket->id }}">
+                <input type="hidden" name="response" value="1">
+                <button type="submit" class="bg-green-500 hover:bg-green-600 px-8 py-2 text-white flex items-center ">
+                    <span>أستلام الطلب</span>
+                    <i class="las la-shopping-cart text-2xl mr-2"></i>
+                </button>
+            </form>
+            <form method="POST" action="{{ route('finish_ticket',$ticket->id) }}">
+                @csrf
+                <input type="hidden" name="_id" value="{{ $ticket->id }}">
+                <input type="hidden" name="response" value="2">
+                <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 px-8 py-2 text-white flex items-center ">
+                    <span>طلب تعديلات</span>
+                    <i class="las la-pen text-2xl mr-2"></i>
+                </button>
+            </form>
+            @endif
+            
         </div>
 
     </div>
@@ -63,23 +94,42 @@
 @endsection
 
 @section('contents')
+@if(Session::has('success'))
+<div class="w-full text-green-500 bg-green-200 px-8 py-4">
+    {{  Session::get('success') }}
+</div>
+@endif
 <div class="w-full bg-white">
     <div  id="messages">
     @foreach ($messages as  $message)
-        <div class="w-full px-8 py-12">
+        <div class="w-full
+        @if($message->auto_message)
+         px-8 py-4 bg-gray-100
+        @else
+         px-8 py-12
+        @endif
+         ">
             <div class="flex">
+                @if(!$message->auto_message)
                 <div class="w-16 h-16 bg-black rounded-full overflow-hidden">
                     <img src="{{ asset($message->user->image ?? 'avatars/images/default.png') }}" class="w-full h-full object-cover object-center" alt="">
                 </div>
+                @endif
                 <div class="flex flex-col justify-around mr-4">
-                    <h2 class="text-xl">{{$message->user->name}} </h2>
-                    <span class="text-sm text-gray-400">
-                        <i class="fas fa-clock ml-1"></i>
-                        <span>{{$message->created_at->diffForHumans()}}</span>
-                    </span>
+                    @if(!$message->auto_message)
+                        <h2 class="text-xl">{{$message->user->name}} </h2>
+                        <span class="text-sm text-gray-400">
+                            <i class="fas fa-clock ml-1"></i>
+                            <span>{{$message->created_at->diffForHumans()}}</span>
+                        </span>
+                    @endif
                 </div>
             </div>
-            <div class="text-lg mt-4">
+            <div class="text-lg 
+            @if(!$message->auto_message)
+            mt-4
+            @endif
+            ">
                 {{$message->message}}
             </div>
         </div>
@@ -106,6 +156,31 @@
         </div>
     <hr>
     </div>
+    @if($ticket->purchase->service->user->id != Auth::user()->id 
+    && $ticket->finished_at != null 
+    && $ticket->purchase->finished_at != null 
+    && $ticket->purchase->rating == null)
+    <form method="POST" class="w-full px-8 py-4 border-b" action="{{ route('rate_service',$ticket->id) }}">
+        @csrf
+        <input type="hidden" name="id" value="{{ $ticket->id }}">
+        <h2 class="text-xl text-center mb-4">
+            تقييم الخدمة
+        </h2>
+        <div class="w-full flex items-center justify-center">
+            <label class="cursor-pointer w-12 h-12 hover:bg-gray-100 rounded-full text-4xl flex justify-center items-center">
+                <input class="hidden peer" type="radio" name="rating" value="1">
+                <i class="peer-checked:text-curious-blue las la-thumbs-up"></i>
+            </label>
+            <label class="cursor-pointer w-12 h-12 hover:bg-gray-100 rounded-full text-4xl flex justify-center items-center">
+                <input class="hidden peer" type="radio" name="rating" value="0">
+                <i class="peer-checked:text-curious-blue las la-thumbs-down"></i>
+            </label>
+        </div>
+        <button type="submit" class="mx-auto table py-4 px-12 mt-4 bg-curious-blue text-lg text-white hover:bg-curious-blue-200">
+            تقييم 
+        </button>
+    </form>
+    @endif
     <div class="w-full py-12 px-8">
         <form method="POST" class="w-full">
             @csrf
@@ -135,21 +210,7 @@
     </div>
 </div>
 <script>
-    Date.prototype.getFromFormat = function(format) {
-        var yyyy = this.getFullYear().toString();
-        format = format.replace(/yyyy/g, yyyy)
-        var mm = (this.getMonth()+1).toString(); 
-        format = format.replace(/mm/g, (mm[1]?mm:"0"+mm[0]));
-        var dd  = this.getDate().toString();
-        format = format.replace(/dd/g, (dd[1]?dd:"0"+dd[0]));
-        var hh = this.getHours().toString();
-        format = format.replace(/hh/g, (hh[1]?hh:"0"+hh[0]));
-        var ii = this.getMinutes().toString();
-        format = format.replace(/ii/g, (ii[1]?ii:"0"+ii[0]));
-        var ss  = this.getSeconds().toString();
-        format = format.replace(/ss/g, (ss[1]?ss:"0"+ss[0]));
-        return format;
-    };
+    
 
     function sendMessage(message){
         $.ajax({

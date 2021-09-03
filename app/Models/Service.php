@@ -56,5 +56,11 @@ class Service extends Model
     public function purchases(){
         return $this->hasMany(ServicePurchase::class);
     }
-
+    public function ratings()
+    {
+        return $this->hasMany(ServicePurchaseRating::class);
+    }
+    public function images(){
+        return $this->hasMany(ServiceImage::class);
+    }
 }

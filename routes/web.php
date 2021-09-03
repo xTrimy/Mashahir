@@ -68,7 +68,8 @@ Route::prefix('/email')->group(function(){
 Route::prefix('/profile/{username}')->middleware('profile.exists')->group(function(){
     Route::get('/', [ProfileController::class, 'index'])
         ->name('profile');
-
+    Route::post('/cover-photo', [ProfileController::class, 'change_cover'])
+        ->name('change-cover');
     Route::get('/services', [ProfileController::class, 'services'])
         ->name('profile.services')
         ->middleware('profile.tabRoles:celebrity,digital marketer');
@@ -91,6 +92,9 @@ Route::prefix('/messages')->middleware(['auth', 'verified'])->group(function(){
     Route::get('/create/{username}', [ticketController::class, 'index'])->middleware('profile.exists', 'user.notHimSelf')->name('new-ticket');
     Route::post('/create/{username}', [ticketController::class, 'store'])->middleware('profile.exists', 'user.notHimSelf');
     Route::get('/{ticket}',[ticketController::class, 'read'])->middleware('user.hasTicket:web')->name('ticket');
+    Route::post('/{ticket}',[ticketController::class, 'finish_service_request'])->middleware('user.hasTicket:web')->name('ticket-finish');
+    Route::post('/{ticket}/finish_request',[ticketController::class, 'finish_service'])->middleware('user.hasTicket:web')->name('finish_ticket');
+    Route::post('/{ticket}/rate',[ticketController::class, 'rate_service'])->middleware('user.hasTicket:web')->name('rate_service');
 
 });
 

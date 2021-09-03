@@ -4,14 +4,34 @@
     ملفي
 @endsection
 @section('before-contents')
+
 <div class="group w-full h-80  bg-black relative">
-    <div class="opacity-70 lg:opacity-0 group-hover:opacity-75 w-auto h-auto px-4 md:px-12 py-2 lg:w-full lg:h-full absolute top-0 left-0 bg-black flex transition-all cursor-pointer justify-center items-center z-10 text-white text-base md:text-lg lg:text-xl">
-        <div>
-            <i class="fas fa-pen ml-4"></i>
-            <span class="hover:underline">تغيير صورة الغلاف</span>
-        </div>
+    @if($errors->any())
+    <div class="z-20 w-full absolute top-0 py-2 px-8 bg-red-200 text-red-500">
+        {!! implode('', $errors->all('<p>:message</p>')) !!}
     </div>
-    <img class="w-full h-full object-cover" src="{{ asset('image/placeholders/photo-1519944518895-f08a12d6dfd5.jpg') }}" alt="">
+    @endif
+
+    @if($user->id == $profile->id)
+        <form method="POST" id="form-cover" action="{{ route('change-cover',$profile->username) }}" enctype='multipart/form-data'>
+            @csrf
+            <label class="opacity-70 lg:opacity-0 group-hover:opacity-75 w-auto h-auto px-4 md:px-12 py-2 lg:w-full lg:h-full absolute top-0 left-0 bg-black flex transition-all cursor-pointer justify-center items-center z-10 text-white text-base md:text-lg lg:text-xl">
+                <input id="cover" type="file" class="hidden" name="cover">
+                <div>
+                    <i class="fas fa-pen ml-4"></i>
+                    <span class="hover:underline">تغيير صورة الغلاف</span>
+                </div>
+            </label>
+        </form>
+        <script>
+            var cover_input = document.getElementById('cover');
+            var cover_form = document.getElementById('form-cover');
+            cover_input.addEventListener('change',function(){
+                cover_form.submit();
+            });
+        </script>
+    @endif
+    <img class="w-full h-full object-cover" src="{{ asset($profile->cover ?? "image/gradients-design.png") }}" alt="">
 </div>
 @endsection
 

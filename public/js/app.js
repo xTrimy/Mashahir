@@ -1,4 +1,5 @@
 /******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
 /***/ "./resources/js/app.js":
@@ -7,48 +8,89 @@
   \*****************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var color_calendar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! color-calendar */ "./node_modules/color-calendar/dist/bundle.js");
-/* harmony import */ var color_calendar__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(color_calendar__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _css_calendar_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../css/calendar.css */ "./resources/css/calendar.css");
+/* harmony import */ var _embla__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./embla */ "./resources/js/embla.js");
 
 
-var calendar_element = document.getElementById('calendar');
+Date.prototype.getFromFormat = function (format) {
+  var yyyy = this.getFullYear().toString();
+  format = format.replace(/yyyy/g, yyyy);
+  var mm = (this.getMonth() + 1).toString();
+  format = format.replace(/mm/g, mm[1] ? mm : "0" + mm[0]);
+  var dd = this.getDate().toString();
+  format = format.replace(/dd/g, dd[1] ? dd : "0" + dd[0]);
+  var hh = this.getHours().toString();
+  format = format.replace(/hh/g, hh[1] ? hh : "0" + hh[0]);
+  var ii = this.getMinutes().toString();
+  format = format.replace(/ii/g, ii[1] ? ii : "0" + ii[0]);
+  var ss = this.getSeconds().toString();
+  format = format.replace(/ss/g, ss[1] ? ss : "0" + ss[0]);
+  return format;
+};
 
-if (calendar_element) {
-  new (color_calendar__WEBPACK_IMPORTED_MODULE_0___default())({
-    id: "#calendar",
-    calendarSize: "large"
+/***/ }),
+
+/***/ "./resources/js/embla.js":
+/*!*******************************!*\
+  !*** ./resources/js/embla.js ***!
+  \*******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var embla_carousel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! embla-carousel */ "./node_modules/embla-carousel/embla-carousel.esm.js");
+/* harmony import */ var _prevAndNextButtons__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./prevAndNextButtons */ "./resources/js/prevAndNextButtons.js");
+/* harmony import */ var _css_embla_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../css/embla.css */ "./resources/css/embla.css");
+
+
+
+
+if (document.getElementById('embla')) {
+  var wrap = document.querySelector(".embla");
+  var viewPort = wrap.querySelector(".embla__viewport");
+  var prevBtn = wrap.querySelector(".embla__button--prev");
+  var nextBtn = wrap.querySelector(".embla__button--next");
+  var embla = (0,embla_carousel__WEBPACK_IMPORTED_MODULE_2__.default)(viewPort, {
+    loop: false,
+    skipSnaps: false
   });
+  var disablePrevAndNextBtns = (0,_prevAndNextButtons__WEBPACK_IMPORTED_MODULE_0__.disablePrevNextBtns)(prevBtn, nextBtn, embla);
+  (0,_prevAndNextButtons__WEBPACK_IMPORTED_MODULE_0__.setupPrevNextBtns)(prevBtn, nextBtn, embla);
+  embla.on("select", disablePrevAndNextBtns);
+  embla.on("init", disablePrevAndNextBtns);
 }
 
 /***/ }),
 
-/***/ "./node_modules/color-calendar/dist/bundle.js":
-/*!****************************************************!*\
-  !*** ./node_modules/color-calendar/dist/bundle.js ***!
-  \****************************************************/
-/***/ (function(module) {
+/***/ "./resources/js/prevAndNextButtons.js":
+/*!********************************************!*\
+  !*** ./resources/js/prevAndNextButtons.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-/**
- * color-calendar
- * v1.0.6
- * by Pawan Kolhe <contact@pawankolhe.com> (https://pawankolhe.com/)
- */
-
-!function(e,t){ true?module.exports=t():0}(this,(function(){"use strict";class e{constructor(e={}){var t,a,i,r,n,s,o,l,d,c,h,y,p;if(this.CAL_NAME="color-calendar",this.DAYS_TO_DISPLAY=42,this.weekdayDisplayTypeOptions={short:["S","M","T","W","T","F","S"],"long-lower":["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],"long-upper":["SUN","MON","TUE","WED","THU","FRI","SAT"]},this.id=null!==(t=e.id)&&void 0!==t?t:"#color-calendar",this.calendarSize=null!==(a=e.calendarSize)&&void 0!==a?a:"large",this.layoutModifiers=null!==(i=e.layoutModifiers)&&void 0!==i?i:[],this.eventsData=null!==(r=e.eventsData)&&void 0!==r?r:[],this.theme=null!==(n=e.theme)&&void 0!==n?n:"basic",this.primaryColor=e.primaryColor,this.headerColor=e.headerColor,this.headerBackgroundColor=e.headerBackgroundColor,this.weekdaysColor=e.weekdaysColor,this.weekdayDisplayType=null!==(s=e.weekdayDisplayType)&&void 0!==s?s:"long-lower",this.monthDisplayType=null!==(o=e.monthDisplayType)&&void 0!==o?o:"long",this.startWeekday=null!==(l=e.startWeekday)&&void 0!==l?l:0,this.fontFamilyHeader=e.fontFamilyHeader,this.fontFamilyWeekdays=e.fontFamilyWeekdays,this.fontFamilyBody=e.fontFamilyBody,this.dropShadow=e.dropShadow,this.border=e.border,this.borderRadius=e.borderRadius,this.disableMonthYearPickers=null!==(d=e.disableMonthYearPickers)&&void 0!==d&&d,this.disableDayClick=null!==(c=e.disableDayClick)&&void 0!==c&&c,this.disableMonthArrowClick=null!==(h=e.disableMonthArrowClick)&&void 0!==h&&h,this.customMonthValues=e.customMonthValues,this.customWeekdayValues=e.customWeekdayValues,this.monthChanged=e.monthChanged,this.dateChanged=e.dateChanged,this.selectedDateClicked=e.selectedDateClicked,this.customWeekdayValues&&7===this.customWeekdayValues.length?this.weekdays=this.customWeekdayValues:this.weekdays=null!==(y=this.weekdayDisplayTypeOptions[this.weekdayDisplayType])&&void 0!==y?y:this.weekdayDisplayTypeOptions.short,this.today=new Date,this.currentDate=new Date,this.pickerType="month",this.eventDayMap={},this.oldSelectedNode=null,this.filteredEventsThisMonth=[],this.daysIn_PrevMonth=[],this.daysIn_CurrentMonth=[],this.daysIn_NextMonth=[],this.firstDay_PrevMonth=0,this.firstDay_CurrentMonth=0,this.firstDay_NextMonth=0,this.numOfDays_PrevMonth=0,this.numOfDays_CurrentMonth=0,this.numOfDays_NextMonth=0,this.yearPickerOffset=0,this.yearPickerOffsetTemporary=0,this.calendar=document.querySelector(this.id),!this.calendar)throw new Error(`[COLOR-CALENDAR] Element with selector '${this.id}' not found`);this.calendar.innerHTML=`\n      <div class="${this.CAL_NAME} ${this.theme} color-calendar--${this.calendarSize}">\n        <div class="calendar__header">\n          <div class="calendar__arrow calendar__arrow-prev"><div class="calendar__arrow-inner"></div></div>\n          <div class="calendar__monthyear">\n            <span class="calendar__month"></span>&nbsp;\n            <span class="calendar__year"></span>\n          </div>\n          <div class="calendar__arrow calendar__arrow-next"><div class="calendar__arrow-inner"></div></div>\n        </div>\n        <div class="calendar__body">\n          <div class="calendar__weekdays"></div>\n          <div class="calendar__days"></div>\n          <div class="calendar__picker">\n            <div class="calendar__picker-month">\n              ${(null!==(p=this.customMonthValues)&&void 0!==p?p:["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]).map((e,t)=>`<div class="calendar__picker-month-option" data-value="${t}">${e}</div>`).join("")}\n            </div>\n            <div class="calendar__picker-year">\n              <div class="calendar__picker-year-option" data-value="0"></div>\n              <div class="calendar__picker-year-option" data-value="1"></div>\n              <div class="calendar__picker-year-option" data-value="2"></div>\n              <div class="calendar__picker-year-option" data-value="3"></div>\n              <div class="calendar__picker-year-option" data-value="4"></div>\n              <div class="calendar__picker-year-option" data-value="5"></div>\n              <div class="calendar__picker-year-option" data-value="6"></div>\n              <div class="calendar__picker-year-option" data-value="7"></div>\n              <div class="calendar__picker-year-option" data-value="8"></div>\n              <div class="calendar__picker-year-option" data-value="9"></div>\n              <div class="calendar__picker-year-option" data-value="10"></div>\n              <div class="calendar__picker-year-option" data-value="11"></div>\n              <div class="calendar__picker-year-arrow calendar__picker-year-arrow-left">\n                <div class="chevron-thin chevron-thin-left"></div>\n              </div>\n              <div class="calendar__picker-year-arrow calendar__picker-year-arrow-right">\n                <div class="chevron-thin chevron-thin-right"></div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    `,this.calendarRoot=document.querySelector(`${this.id} .${this.CAL_NAME}`),this.calendarHeader=document.querySelector(this.id+" .calendar__header"),this.calendarWeekdays=document.querySelector(this.id+" .calendar__weekdays"),this.calendarDays=document.querySelector(this.id+" .calendar__days"),this.pickerContainer=document.querySelector(this.id+" .calendar__picker"),this.pickerMonthContainer=document.querySelector(this.id+" .calendar__picker-month"),this.pickerYearContainer=document.querySelector(this.id+" .calendar__picker-year"),this.yearPickerChevronLeft=document.querySelector(this.id+" .calendar__picker-year-arrow-left"),this.yearPickerChevronRight=document.querySelector(this.id+" .calendar__picker-year-arrow-right"),this.pickerMonthContainer.children[this.today.getMonth()].classList.add("calendar__picker-month-today"),this.layoutModifiers.forEach(e=>{this.calendarRoot.classList.add(e)}),this.layoutModifiers.includes("month-left-align")&&(this.calendarHeader.innerHTML='\n        <div class="calendar__monthyear">\n          <span class="calendar__month"></span>&nbsp;\n          <span class="calendar__year"></span>\n        </div>\n        <div class="calendar__arrow calendar__arrow-prev"><div class="calendar__arrow-inner"></div></div>\n        <div class="calendar__arrow calendar__arrow-next"><div class="calendar__arrow-inner"></div></div>\n      '),this.monthyearDisplay=document.querySelector(this.id+" .calendar__monthyear"),this.monthDisplay=document.querySelector(this.id+" .calendar__month"),this.yearDisplay=document.querySelector(this.id+" .calendar__year"),this.prevButton=document.querySelector(this.id+" .calendar__arrow-prev .calendar__arrow-inner"),this.nextButton=document.querySelector(this.id+" .calendar__arrow-next .calendar__arrow-inner"),this.togglePicker(!1),this.configureStylePreferences(),this.addEventListeners(),this.reset(new Date)}reset(e){this.currentDate=e||new Date,this.clearCalendarDays(),this.updateMonthYear(),this.updateMonthPickerSelection(this.currentDate.getMonth()),this.generatePickerYears(),this.updateYearPickerSelection(this.currentDate.getFullYear(),4),this.updateYearPickerTodaySelection(),this.generateWeekdays(),this.generateDays(),this.selectDayInitial(!!e),this.renderDays(),this.setOldSelectedNode(),this.dateChanged&&this.dateChanged(this.currentDate,this.getDateEvents(this.currentDate)),this.monthChanged&&this.monthChanged(this.currentDate,this.getMonthEvents())}}return e.prototype.addEventListeners=function(){this.prevButton.addEventListener("click",this.handlePrevMonthButtonClick.bind(this)),this.nextButton.addEventListener("click",this.handleNextMonthButtonClick.bind(this)),this.monthyearDisplay.addEventListener("click",this.handleMonthYearDisplayClick.bind(this)),this.calendarDays.addEventListener("click",this.handleCalendarDayClick.bind(this)),this.pickerMonthContainer.addEventListener("click",this.handleMonthPickerClick.bind(this)),this.pickerYearContainer.addEventListener("click",this.handleYearPickerClick.bind(this)),this.yearPickerChevronLeft.addEventListener("click",this.handleYearChevronLeftClick.bind(this)),this.yearPickerChevronRight.addEventListener("click",this.handleYearChevronRightClick.bind(this))},e.prototype.configureStylePreferences=function(){let e=this.calendarRoot;this.primaryColor&&e.style.setProperty("--cal-color-primary",this.primaryColor),this.fontFamilyHeader&&e.style.setProperty("--cal-font-family-header",this.fontFamilyHeader),this.fontFamilyWeekdays&&e.style.setProperty("--cal-font-family-weekdays",this.fontFamilyWeekdays),this.fontFamilyBody&&e.style.setProperty("--cal-font-family-body",this.fontFamilyBody),this.dropShadow&&e.style.setProperty("--cal-drop-shadow",this.dropShadow),this.border&&e.style.setProperty("--cal-border",this.border),this.borderRadius&&e.style.setProperty("--cal-border-radius",this.borderRadius),this.headerColor&&e.style.setProperty("--cal-header-color",this.headerColor),this.headerBackgroundColor&&e.style.setProperty("--cal-header-background-color",this.headerBackgroundColor),this.weekdaysColor&&e.style.setProperty("--cal-weekdays-color",this.weekdaysColor)},e.prototype.togglePicker=function(e){!0===e?(this.pickerContainer.style.visibility="visible",this.pickerContainer.style.opacity="1","year"===this.pickerType&&this.generatePickerYears(),this.removeYearPickerSelection(),this.updateYearPickerSelection(this.currentDate.getFullYear())):!1===e?(this.pickerContainer.style.visibility="hidden",this.pickerContainer.style.opacity="0",this.monthDisplay&&this.yearDisplay&&(this.monthDisplay.style.opacity="1",this.yearDisplay.style.opacity="1"),this.yearPickerOffsetTemporary=0):"hidden"===this.pickerContainer.style.visibility?(this.pickerContainer.style.visibility="visible",this.pickerContainer.style.opacity="1","year"===this.pickerType&&this.generatePickerYears(),this.removeYearPickerSelection(),this.updateYearPickerSelection(this.currentDate.getFullYear())):(this.pickerContainer.style.visibility="hidden",this.pickerContainer.style.opacity="0",this.monthDisplay&&this.yearDisplay&&(this.monthDisplay.style.opacity="1",this.yearDisplay.style.opacity="1"),this.yearPickerOffsetTemporary=0)},e.prototype.handleMonthPickerClick=function(e){if(!e.target.classList.contains("calendar__picker-month-option"))return;const t=parseInt(e.target.dataset.value,10);this.updateMonthPickerSelection(t),this.updateCurrentDate(0,void 0,t),this.togglePicker(!1)},e.prototype.updateMonthPickerSelection=function(e){e<0?e=11:e%=12,this.removeMonthPickerSelection(),this.pickerMonthContainer.children[e].classList.add("calendar__picker-month-selected")},e.prototype.removeMonthPickerSelection=function(){for(let e=0;e<12;e++)this.pickerMonthContainer.children[e].classList.contains("calendar__picker-month-selected")&&this.pickerMonthContainer.children[e].classList.remove("calendar__picker-month-selected")},e.prototype.handleYearPickerClick=function(e){if(!e.target.classList.contains("calendar__picker-year-option"))return;this.yearPickerOffset+=this.yearPickerOffsetTemporary;const t=parseInt(e.target.innerText),a=parseInt(e.target.dataset.value);this.updateYearPickerSelection(t,a),this.updateCurrentDate(0,void 0,void 0,t),this.togglePicker(!1)},e.prototype.updateYearPickerSelection=function(e,t){if(void 0===t){for(let a=0;a<12;a++){let i=this.pickerYearContainer.children[a];if(parseInt(i.innerHTML)===e&&i.dataset.value){t=parseInt(i.dataset.value);break}}if(void 0===t)return}this.removeYearPickerSelection(),this.pickerYearContainer.children[t].classList.add("calendar__picker-year-selected")},e.prototype.updateYearPickerTodaySelection=function(){parseInt(this.pickerYearContainer.children[4].innerHTML)===this.today.getFullYear()?this.pickerYearContainer.children[4].classList.add("calendar__picker-year-today"):this.pickerYearContainer.children[4].classList.remove("calendar__picker-year-today")},e.prototype.removeYearPickerSelection=function(){for(let e=0;e<12;e++)this.pickerYearContainer.children[e].classList.contains("calendar__picker-year-selected")&&this.pickerYearContainer.children[e].classList.remove("calendar__picker-year-selected")},e.prototype.generatePickerYears=function(){const e=this.today.getFullYear()+this.yearPickerOffset+this.yearPickerOffsetTemporary;let t=0;for(let a=e-4;a<=e+7;a++){this.pickerYearContainer.children[t].innerText=a.toString(),t++}this.updateYearPickerTodaySelection()},e.prototype.handleYearChevronLeftClick=function(){this.yearPickerOffsetTemporary-=12,this.generatePickerYears(),this.removeYearPickerSelection(),this.updateYearPickerSelection(this.currentDate.getFullYear()),this.updateYearPickerTodaySelection()},e.prototype.handleYearChevronRightClick=function(){this.yearPickerOffsetTemporary+=12,this.generatePickerYears(),this.removeYearPickerSelection(),this.updateYearPickerSelection(this.currentDate.getFullYear()),this.updateYearPickerTodaySelection()},e.prototype.setMonthDisplayType=function(e){this.monthDisplayType=e,this.updateMonthYear()},e.prototype.handleMonthYearDisplayClick=function(e){if(!e.target.classList.contains("calendar__month")&&!e.target.classList.contains("calendar__year"))return;if(this.disableMonthYearPickers)return;const t=this.pickerType,a=e.target.classList;a.contains("calendar__month")?(this.pickerType="month",this.monthDisplay.style.opacity="1",this.yearDisplay.style.opacity="0.7",this.pickerMonthContainer.style.display="grid",this.pickerYearContainer.style.display="none"):a.contains("calendar__year")&&(this.pickerType="year",this.monthDisplay.style.opacity="0.7",this.yearDisplay.style.opacity="1",this.pickerMonthContainer.style.display="none",this.pickerYearContainer.style.display="grid"),t===this.pickerType?this.togglePicker():this.togglePicker(!0)},e.prototype.handlePrevMonthButtonClick=function(){if(this.disableMonthArrowClick)return;const e=this.currentDate.getMonth()-1;this.currentDate.getFullYear()<=this.today.getFullYear()+this.yearPickerOffset-4&&e<0&&(this.yearPickerOffset-=12,this.generatePickerYears()),e<0&&this.updateYearPickerSelection(this.currentDate.getFullYear()-1),this.updateMonthPickerSelection(e),this.updateCurrentDate(-1),this.togglePicker(!1)},e.prototype.handleNextMonthButtonClick=function(){if(this.disableMonthArrowClick)return;const e=this.currentDate.getMonth()+1;this.currentDate.getFullYear()>=this.today.getFullYear()+this.yearPickerOffset+7&&e>11&&(this.yearPickerOffset+=12,this.generatePickerYears()),e>11&&this.updateYearPickerSelection(this.currentDate.getFullYear()+1),this.updateMonthPickerSelection(e),this.updateCurrentDate(1),this.togglePicker(!1)},e.prototype.updateMonthYear=function(){this.oldSelectedNode=null,this.customMonthValues?this.monthDisplay.innerHTML=this.customMonthValues[this.currentDate.getMonth()]:this.monthDisplay.innerHTML=new Intl.DateTimeFormat("default",{month:this.monthDisplayType}).format(this.currentDate),this.yearDisplay.innerHTML=this.currentDate.getFullYear().toString()},e.prototype.setWeekdayDisplayType=function(e){var t;this.weekdayDisplayType=e,this.weekdays=null!==(t=this.weekdayDisplayTypeOptions[this.weekdayDisplayType])&&void 0!==t?t:this.weekdayDisplayTypeOptions.short,this.generateWeekdays()},e.prototype.generateWeekdays=function(){let e="";for(let t=0;t<7;t++)e+=`\n      <div class="calendar__weekday">${this.weekdays[(t+this.startWeekday)%7]}</div>\n    `;this.calendarWeekdays.innerHTML=e},e.prototype.setDate=function(e){e&&(e instanceof Date?this.reset(e):this.reset(new Date(e)))},e.prototype.getSelectedDate=function(){return this.currentDate},e.prototype.clearCalendarDays=function(){this.daysIn_PrevMonth=[],this.daysIn_CurrentMonth=[],this.daysIn_NextMonth=[]},e.prototype.updateCalendar=function(e){e&&(this.updateMonthYear(),this.clearCalendarDays(),this.generateDays(),this.selectDayInitial()),this.renderDays(),e&&this.setOldSelectedNode()},e.prototype.setOldSelectedNode=function(){if(!this.oldSelectedNode){let e=void 0;for(let t=1;t<this.calendarDays.childNodes.length;t+=2){let a=this.calendarDays.childNodes[t];if(a.classList&&a.classList.contains("calendar__day-active")&&a.innerText===this.currentDate.getDate().toString()){e=a;break}}e&&(this.oldSelectedNode=[e,parseInt(e.innerText)])}},e.prototype.selectDayInitial=function(e){if(e)this.daysIn_CurrentMonth[this.currentDate.getDate()-1].selected=!0;else{let e=this.today.getMonth()===this.currentDate.getMonth(),t=this.today.getDate()===this.currentDate.getDate();e&&t?this.daysIn_CurrentMonth[this.today.getDate()-1].selected=!0:this.daysIn_CurrentMonth[0].selected=!0}},e.prototype.handleCalendarDayClick=function(e){if(!(e.target.classList.contains("calendar__day-box")||e.target.classList.contains("calendar__day-text")||e.target.classList.contains("calendar__day-box-today")||e.target.classList.contains("calendar__day-bullet")))return;if(this.disableDayClick)return;if(this.oldSelectedNode&&!this.oldSelectedNode[0])return;if(e.target.parentElement.classList.contains("calendar__day-selected"))return void(this.selectedDateClicked&&this.selectedDateClicked(this.currentDate,this.getDateEvents(this.currentDate)));let t,a;t=e.target.parentElement.innerText,a=parseInt(t,10),this.removeOldDaySelection(),t&&(this.updateCurrentDate(0,a),Object.assign(this.daysIn_CurrentMonth[a-1],{selected:!0}),this.rerenderSelectedDay(e.target.parentElement,a,!0))},e.prototype.removeOldDaySelection=function(){this.oldSelectedNode&&(Object.assign(this.daysIn_CurrentMonth[this.oldSelectedNode[1]-1],{selected:!1}),this.rerenderSelectedDay(this.oldSelectedNode[0],this.oldSelectedNode[1]))},e.prototype.updateCurrentDate=function(e,t,a,i){this.currentDate=new Date(i||this.currentDate.getFullYear(),null!=a?a:this.currentDate.getMonth()+e,0===e&&t?t:1),(0!==e||null!=a||i)&&(this.updateCalendar(!0),this.monthChanged&&this.monthChanged(this.currentDate,this.getMonthEvents())),this.dateChanged&&this.dateChanged(this.currentDate,this.getDateEvents(this.currentDate))},e.prototype.generateDays=function(){this.numOfDays_PrevMonth=new Date(this.currentDate.getFullYear(),this.currentDate.getMonth(),0).getDate(),this.firstDay_CurrentMonth=new Date(this.currentDate.getFullYear(),this.currentDate.getMonth(),1).getDay(),this.numOfDays_CurrentMonth=new Date(this.currentDate.getFullYear(),this.currentDate.getMonth()+1,0).getDate();for(let e=0;e<this.numOfDays_CurrentMonth;e++)this.daysIn_CurrentMonth.push({day:e+1,selected:!1})},e.prototype.renderDays=function(){let e=0;const t=this.currentDate.getFullYear(),a=this.currentDate.getMonth();let i;this.filteredEventsThisMonth=this.eventsData.filter(e=>{const i=new Date(e.start);return i.getFullYear()===t&&i.getMonth()===a}),this.eventDayMap={},this.filteredEventsThisMonth.forEach(e=>{const t=new Date(e.start).getDate(),a=new Date(e.end).getDate();for(let e=t;e<=a;e++)this.eventDayMap[e]=!0}),i=this.firstDay_CurrentMonth<this.startWeekday?7+this.firstDay_CurrentMonth-this.startWeekday:this.firstDay_CurrentMonth-this.startWeekday;let r="";for(let t=0;t<i;t++)r+=`\n      <div class="calendar__day calendar__day-other">${this.numOfDays_PrevMonth+1-i+t}</div>\n    `,e++;let n=this.today.getFullYear()===this.currentDate.getFullYear(),s=this.today.getMonth()===this.currentDate.getMonth()&&n;this.daysIn_CurrentMonth.forEach(t=>{let a=s&&t.day===this.today.getDate();r+=`\n      <div class="calendar__day calendar__day-active${a?" calendar__day-today":""}${this.eventDayMap[t.day]?" calendar__day-event":" calendar__day-no-event"}${t.selected?" calendar__day-selected":""}">\n        <span class="calendar__day-text">${t.day}</span>\n        <div class="calendar__day-bullet"></div>\n        <div class="calendar__day-box"></div>\n      </div>\n    `,e++});for(let t=0;t<this.DAYS_TO_DISPLAY-e;t++)r+=`\n      <div class="calendar__day calendar__day-other">${t+1}</div>\n    `;this.calendarDays.innerHTML=r},e.prototype.rerenderSelectedDay=function(e,t,a){let i=e.previousElementSibling,r=this.today.getFullYear()===this.currentDate.getFullYear(),n=this.today.getMonth()===this.currentDate.getMonth()&&r&&t===this.today.getDate(),s=document.createElement("div");s.className+=`calendar__day calendar__day-active${n?" calendar__day-today":""}${this.eventDayMap[t]?" calendar__day-event":" calendar__day-no-event"}${this.daysIn_CurrentMonth[t-1].selected?" calendar__day-selected":""}`,s.innerHTML=`\n    <span class="calendar__day-text">${t}</span>\n    <div class="calendar__day-bullet"></div>\n    <div class="calendar__day-box"></div>\n  `,i?i.parentElement?i.parentElement.insertBefore(s,i.nextSibling):console.log("Previous element does not have parent"):this.calendarDays.insertBefore(s,e),a&&(this.oldSelectedNode=[s,t]),e.remove()},e.prototype.getEventsData=function(){return JSON.parse(JSON.stringify(this.eventsData))},e.prototype.setEventsData=function(e){return this.eventsData=JSON.parse(JSON.stringify(e)),this.setDate(this.currentDate),this.eventsData.length},e.prototype.addEventsData=function(e=[]){const t=this.eventsData.push(...e);return this.setDate(this.currentDate),t},e.prototype.getDateEvents=function(e){return this.filteredEventsThisMonth.filter(t=>{const a=new Date(t.start).getDate(),i=new Date(t.end).getDate();return e.getDate()>=a&&e.getDate()<=i})},e.prototype.getMonthEvents=function(){return this.filteredEventsThisMonth},e}));
-
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "setupPrevNextBtns": () => (/* binding */ setupPrevNextBtns),
+/* harmony export */   "disablePrevNextBtns": () => (/* binding */ disablePrevNextBtns)
+/* harmony export */ });
+var setupPrevNextBtns = function setupPrevNextBtns(prevBtn, nextBtn, embla) {
+  prevBtn.addEventListener('click', embla.scrollPrev, false);
+  nextBtn.addEventListener('click', embla.scrollNext, false);
+};
+var disablePrevNextBtns = function disablePrevNextBtns(prevBtn, nextBtn, embla) {
+  return function () {
+    if (embla.canScrollPrev()) prevBtn.removeAttribute('disabled');else prevBtn.setAttribute('disabled', 'disabled');
+    if (embla.canScrollNext()) nextBtn.removeAttribute('disabled');else nextBtn.setAttribute('disabled', 'disabled');
+  };
+};
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[2]!./resources/css/calendar.css":
-/*!**********************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[2]!./resources/css/calendar.css ***!
-  \**********************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[2]!./resources/css/embla.css":
+/*!*******************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[2]!./resources/css/embla.css ***!
+  \*******************************************************************************************************************************************************************************************/
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
@@ -59,7 +101,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".color-calendar {\r\n    position: relative;\r\n    display: inline-flex;\r\n    flex-direction: column;\r\n    width: auto;\r\n    height: auto;\r\n    box-sizing: border-box;\r\n    -webkit-user-select: none;\r\n    -moz-user-select: none;\r\n    -ms-user-select: none;\r\n    user-select: none;\r\n    overflow: hidden;\r\n    font-family: var(--cal-font-family-body);\r\n    font-size: 1rem;\r\n}\r\n\r\n.color-calendar .calendar__header {\r\n    position: relative;\r\n    display: grid;\r\n    grid-template-columns: repeat(7, minmax(20px, 150px));\r\n    font-family: var(--cal-font-family-header);\r\n    grid-auto-flow: dense;\r\n    direction: ltr;\r\n}\r\n\r\n.color-calendar .calendar__monthyear {\r\n    font-size: 1.5rem;\r\n    margin: 0 auto;\r\n    text-align: center;\r\n    grid-column: 2/span 5;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n}\r\n\r\n.color-calendar .calendar__monthyear .calendar__month {\r\n    cursor: pointer;\r\n}\r\n\r\n.color-calendar .calendar__monthyear .calendar__year {\r\n    cursor: pointer;\r\n}\r\n\r\n.color-calendar .calendar__arrow {\r\n    height: 35px;\r\n    width: 100%;\r\n    position: relative;\r\n    -webkit-touch-callout: none;\r\n    -webkit-user-select: none;\r\n    -moz-user-select: none;\r\n    -ms-user-select: none;\r\n    user-select: none;\r\n    -webkit-tap-highlight-color: transparent;\r\n    z-index: 101;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n}\r\n\r\n.color-calendar .calendar__arrow-inner {\r\n    width: 35px;\r\n    height: 35px;\r\n    position: relative;\r\n    cursor: pointer;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n}\r\n\r\n.color-calendar .calendar__arrow-prev {\r\n    position: relative;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n}\r\n\r\n.color-calendar .calendar__arrow-prev .calendar__arrow-inner::before {\r\n    margin-left: 0.3em;\r\n    transform: rotate(-135deg);\r\n}\r\n\r\n.color-calendar .calendar__arrow-next {\r\n    position: relative;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n}\r\n\r\n.color-calendar .calendar__arrow-next .calendar__arrow-inner::before {\r\n    margin-right: 0.3em;\r\n    transform: rotate(45deg);\r\n}\r\n\r\n.color-calendar .calendar__body {\r\n    height: auto;\r\n    overflow: hidden;\r\n}\r\n\r\n.color-calendar .calendar__weekdays {\r\n    display: grid;\r\n    grid-template-columns: repeat(7, minmax(20px, 55px));\r\n    margin-bottom: 5px;\r\n    font-family: var(--cal-font-family-weekdays);\r\n}\r\n\r\n.color-calendar .calendar__weekdays .calendar__weekday {\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    height: 40px;\r\n}\r\n\r\n.color-calendar .calendar__days {\r\n    display: grid;\r\n    grid-template-columns: repeat(7, minmax(20px, 150px));\r\n    grid-template-rows: repeat(6, minmax(30px, 60px));\r\n    font-family: var(--cal-font-family-body);\r\n}\r\n\r\n.color-calendar .calendar__days .calendar__day {\r\n    position: relative;\r\n    z-index: 101;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n}\r\n\r\n.color-calendar .calendar__days .calendar__day-text {\r\n    cursor: pointer;\r\n}\r\n\r\n.color-calendar .calendar__days .calendar__day-box {\r\n    position: absolute;\r\n    top: 50%;\r\n    left: 50%;\r\n    transform: translate(-50%, -50%);\r\n    width: calc(55% + 8px);\r\n    height: 90%;\r\n    opacity: 0;\r\n    z-index: -1;\r\n    cursor: pointer;\r\n    transition: opacity 0.3s ease-out;\r\n    will-change: opacity;\r\n}\r\n\r\n.color-calendar .calendar__days .calendar__day-event {\r\n    /* Event Bullet */\r\n}\r\n\r\n.color-calendar .calendar__days .calendar__day-event .calendar__day-bullet {\r\n    position: absolute;\r\n    top: 80%;\r\n    border-radius: 50%;\r\n    width: 4px;\r\n    height: 4px;\r\n    left: 50%;\r\n    transform: translateX(-50%);\r\n    overflow: hidden;\r\n    cursor: pointer;\r\n}\r\n\r\n.color-calendar .calendar__days .calendar__day-selected:not(.calendar__day-today) .calendar__day-box {\r\n    position: absolute;\r\n    top: 50%;\r\n    left: 50%;\r\n    transform: translate(-50%, -50%);\r\n    width: calc(55% + 8px);\r\n    height: 90%;\r\n    z-index: -1;\r\n    cursor: pointer;\r\n}\r\n\r\n.color-calendar .calendar__picker {\r\n    position: absolute;\r\n    z-index: 201;\r\n    width: 100%;\r\n    top: 75px;\r\n    left: 0;\r\n    bottom: 0;\r\n    background-color: white;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    visibility: hidden;\r\n    opacity: 0;\r\n    transition: all 0.3s ease;\r\n    font-family: var(--cal-font-family-body);\r\n}\r\n\r\n.color-calendar .calendar__picker .calendar__picker-month {\r\n    width: 100%;\r\n    display: grid;\r\n    grid-template-columns: repeat(3, minmax(0, 1fr));\r\n    grid-template-rows: repeat(4, minmax(0, 1fr));\r\n    grid-gap: 1rem 6%;\r\n    gap: 1rem 6%;\r\n    margin: 8%;\r\n    transition: none;\r\n}\r\n\r\n.color-calendar .calendar__picker .calendar__picker-month-option {\r\n    position: relative;\r\n    text-align: center;\r\n    padding: 15px 0;\r\n    font-weight: 700;\r\n    color: #323232;\r\n    border-radius: var(--cal-border-radius);\r\n    align-self: center;\r\n    cursor: pointer;\r\n}\r\n\r\n.color-calendar .calendar__picker .calendar__picker-month-option::after {\r\n    content: \"\";\r\n    width: 100%;\r\n    height: 50px;\r\n    position: absolute;\r\n    top: 50%;\r\n    left: 50%;\r\n    transform: translate(-50%, -50%);\r\n    background-color: #2386c9;\r\n    border-radius: var(--cal-border-radius);\r\n    opacity: 0.1;\r\n    z-index: -1;\r\n}\r\n\r\n.color-calendar .calendar__picker .calendar__picker-month-option:hover:after {\r\n    opacity: 0.08;\r\n}\r\n\r\n.color-calendar .calendar__picker .calendar__picker-month-selected {\r\n    color: white;\r\n}\r\n\r\n.color-calendar .calendar__picker .calendar__picker-month-selected::after {\r\n    opacity: 1;\r\n}\r\n\r\n.color-calendar .calendar__picker .calendar__picker-month-selected:hover:after {\r\n    opacity: 0.9;\r\n}\r\n\r\n.color-calendar .calendar__picker .calendar__picker-year {\r\n    width: 100%;\r\n    display: grid;\r\n    grid-template-columns: repeat(3, minmax(0, 1fr));\r\n    grid-template-rows: repeat(4, minmax(0, 1fr));\r\n    grid-gap: 1rem 6%;\r\n    gap: 1rem 6%;\r\n    margin: 8%;\r\n    transition: none;\r\n}\r\n\r\n.color-calendar .calendar__picker .calendar__picker-year-option {\r\n    position: relative;\r\n    text-align: center;\r\n    padding: 15px 0;\r\n    font-weight: 700;\r\n    color: #323232;\r\n    border-radius: var(--cal-border-radius);\r\n    align-self: center;\r\n    cursor: pointer;\r\n}\r\n\r\n.color-calendar .calendar__picker .calendar__picker-year-option::after {\r\n    content: \"\";\r\n    width: 100%;\r\n    height: 50px;\r\n    position: absolute;\r\n    top: 50%;\r\n    left: 50%;\r\n    transform: translate(-50%, -50%);\r\n    background-color: #2386c9;\r\n    border-radius: var(--cal-border-radius);\r\n    opacity: 0.1;\r\n    z-index: -1;\r\n}\r\n\r\n.color-calendar .calendar__picker .calendar__picker-year-option:hover:after {\r\n    opacity: 0.08;\r\n}\r\n\r\n.color-calendar .calendar__picker .calendar__picker-year-selected {\r\n    color: white;\r\n}\r\n\r\n.color-calendar .calendar__picker .calendar__picker-year-selected::after {\r\n    opacity: 1;\r\n}\r\n\r\n.color-calendar .calendar__picker .calendar__picker-year-selected:hover:after {\r\n    opacity: 0.9;\r\n}\r\n\r\n.color-calendar .calendar__picker .calendar__picker-year-arrow {\r\n    position: absolute;\r\n    opacity: 0.4;\r\n    border-radius: var(--cal-border-radius);\r\n    cursor: pointer;\r\n    transition: all 0.3s ease;\r\n}\r\n\r\n.color-calendar .calendar__picker .calendar__picker-year-arrow-left {\r\n    top: 0;\r\n    bottom: 0;\r\n    left: 0;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    padding-left: 10px;\r\n    padding-right: 4px;\r\n}\r\n\r\n.color-calendar .calendar__picker .calendar__picker-year-arrow-right {\r\n    top: 0;\r\n    bottom: 0;\r\n    right: 0;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    padding-left: 4px;\r\n    padding-right: 10px;\r\n}\r\n\r\n.color-calendar .calendar__picker .calendar__picker-year-arrow:hover {\r\n    opacity: 1;\r\n    background-color: #f8f8f8;\r\n}\r\n\r\n.chevron-thin-left {\r\n    display: inline-block;\r\n    border-right: 2px solid #2386c9;\r\n    border-bottom: 2px solid #2386c9;\r\n    width: 10px;\r\n    height: 10px;\r\n    transform: rotate(-225deg);\r\n}\r\n\r\n.chevron-thin-right {\r\n    display: inline-block;\r\n    border-right: 2px solid #2386c9;\r\n    border-bottom: 2px solid #2386c9;\r\n    width: 10px;\r\n    height: 10px;\r\n    transform: rotate(-45deg);\r\n}\r\n\r\n.color-calendar.month-left-align .calendar__header .calendar__monthyear {\r\n    grid-column: 1/span 5;\r\n    margin: 0;\r\n    justify-content: flex-start;\r\n    padding-left: 5%;\r\n}\r\n\r\n.color-calendar.basic {\r\n    --cal-color-primary: #000000;\r\n    --cal-font-family-header: \"Work Sans\", sans-serif;\r\n    --cal-font-family-weekdays: \"Work Sans\", sans-serif;\r\n    --cal-font-family-body: \"Work Sans\", sans-serif;\r\n    --cal-drop-shadow: 0 7px 30px -10px rgba(150, 170, 180, 0.5);\r\n    --cal-border: none;\r\n    --cal-border-radius: 0.5rem;\r\n    --cal-header-color: black;\r\n    --cal-weekdays-color: black;\r\n    border-radius: var(--cal-border-radius);\r\n    box-shadow: var(--cal-drop-shadow);\r\n    color: #2386c9;\r\n    background-color: white;\r\n    border: var(--cal-border);\r\n}\r\n\r\n.color-calendar.basic .calendar__header {\r\n    padding: 20px 14px 0px 14px;\r\n    color: var(--cal-header-color);\r\n}\r\n\r\n.color-calendar.basic .calendar__monthyear {\r\n    font-weight: 600;\r\n    color: var(--cal-header-color);\r\n}\r\n\r\n.color-calendar.basic .calendar__arrow-inner {\r\n    border-radius: 50%;\r\n}\r\n\r\n.color-calendar.basic .calendar__arrow-inner::before {\r\n    content: \"\";\r\n    width: 0.6em;\r\n    height: 0.6em;\r\n    position: absolute;\r\n    border-style: solid;\r\n    border-width: 0.15em 0.15em 0 0;\r\n    display: inline-block;\r\n    transform-origin: center center;\r\n    transform: rotate(-45deg);\r\n    border-radius: 1px;\r\n    color: var(--cal-header-color);\r\n}\r\n\r\n.color-calendar.basic .calendar__arrow-inner::after {\r\n    content: \"\";\r\n    position: absolute;\r\n    top: 50%;\r\n    left: 50%;\r\n    transform: translate(-50%, -50%);\r\n    width: 35px;\r\n    height: 35px;\r\n    border-radius: 50%;\r\n    background-color: var(--cal-header-color);\r\n    opacity: 0;\r\n    z-index: -1;\r\n    transition: opacity 0.3s ease;\r\n    will-change: opacity;\r\n}\r\n\r\n.color-calendar.basic .calendar__arrow-inner:hover::after {\r\n    transition: opacity 0.3s ease;\r\n    opacity: 0.05;\r\n}\r\n\r\n.color-calendar.basic .calendar__arrow-prev {\r\n    position: relative;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n}\r\n\r\n.color-calendar.basic .calendar__arrow-prev .calendar__arrow-inner::before {\r\n    margin-left: 0.3em;\r\n    transform: rotate(-135deg);\r\n}\r\n\r\n.color-calendar.basic .calendar__arrow-next {\r\n    position: relative;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n}\r\n\r\n.color-calendar.basic .calendar__arrow-next .calendar__arrow-inner::before {\r\n    margin-right: 0.3em;\r\n    transform: rotate(45deg);\r\n}\r\n\r\n.color-calendar.basic .calendar__body {\r\n    padding: 14px;\r\n}\r\n\r\n.color-calendar.basic .calendar__weekdays {\r\n    display: grid;\r\n    grid-template-columns: repeat(7, minmax(20px, 150px));\r\n    margin-bottom: 5px;\r\n}\r\n\r\n.color-calendar.basic .calendar__weekdays .calendar__weekday {\r\n    font-weight: 500;\r\n    opacity: 0.6;\r\n    color: var(--cal-weekdays-color);\r\n}\r\n\r\n.color-calendar.basic .calendar__days .calendar__day-other {\r\n    color: #2386c9;\r\n    opacity: 0.2;\r\n}\r\n\r\n.color-calendar.basic .calendar__days .calendar__day {\r\n    font-weight: 600;\r\n}\r\n\r\n.color-calendar.basic .calendar__days .calendar__day-today {\r\n    font-weight: 700;\r\n    color: #2386c9;\r\n}\r\n\r\n.color-calendar.basic .calendar__days .calendar__day-today .calendar__day-box {\r\n    border-radius: 0.5rem;\r\n    background-color: #2386c9;\r\n    opacity: 0.1;\r\n}\r\n\r\n.color-calendar.basic .calendar__days .calendar__day-text:hover~.calendar__day-box {\r\n    opacity: 0.1;\r\n}\r\n\r\n.color-calendar.basic .calendar__days .calendar__day-bullet {\r\n    background-color: #2386c9;\r\n}\r\n\r\n.color-calendar.basic .calendar__days .calendar__day-bullet:hover~.calendar__day-box {\r\n    opacity: 0.1;\r\n}\r\n\r\n.color-calendar.basic .calendar__days .calendar__day-box {\r\n    border-radius: 0.5rem;\r\n    background-color: #2386c9;\r\n    box-shadow: 0 3px 15px -5px #2386c9;\r\n}\r\n\r\n.color-calendar.basic .calendar__days .calendar__day-box:hover {\r\n    opacity: 0.1;\r\n}\r\n\r\n.color-calendar.basic .calendar__days .calendar__day-event {\r\n    font-weight: 700;\r\n}\r\n\r\n.color-calendar.basic .calendar__days .calendar__day-selected {\r\n    color: white;\r\n    font-weight: 700;\r\n}\r\n\r\n.color-calendar.basic .calendar__days .calendar__day-selected .calendar__day-box {\r\n    border-radius: 0.5rem;\r\n    background-color: #2386c9;\r\n    opacity: 1;\r\n    box-shadow: 0 3px 15px -5px #2386c9;\r\n}\r\n\r\n.color-calendar.basic .calendar__days .calendar__day-selected .calendar__day-text:hover~.calendar__day-box {\r\n    opacity: 1;\r\n}\r\n\r\n.color-calendar.basic .calendar__days .calendar__day-selected .calendar__day-bullet {\r\n    background-color: white;\r\n}\r\n\r\n.color-calendar.basic .calendar__days .calendar__day-selected .calendar__day-bullet:hover~.calendar__day-box {\r\n    opacity: 1;\r\n}\r\n\r\n.color-calendar.basic .calendar__picker {\r\n    background-color: white;\r\n    border-radius: var(--cal-border-radius);\r\n}\r\n\r\n.color-calendar.basic .calendar__picker-month-today {\r\n    box-shadow: inset 0px 0px 0px 1px #2386c9;\r\n}\r\n\r\n.color-calendar.basic .calendar__picker-year-today {\r\n    box-shadow: inset 0px 0px 0px 1px #2386c9;\r\n}\r\n\r\n.color-calendar.basic.color-calendar--small {\r\n    font-size: 0.8rem;\r\n}\r\n\r\n.color-calendar.basic.color-calendar--small .calendar__header {\r\n    padding: 10px 10px 0 10px;\r\n    grid-template-columns: repeat(7, minmax(25px, 41px));\r\n}\r\n\r\n.color-calendar.basic.color-calendar--small .calendar__header .calendar__monthyear {\r\n    font-size: 1.2rem;\r\n}\r\n\r\n.color-calendar.basic.color-calendar--small .calendar__header .calendar__arrow-inner,\r\n.color-calendar.basic.color-calendar--small .calendar__header .calendar__arrow-inner::after {\r\n    width: 30px;\r\n    height: 30px;\r\n}\r\n\r\n.color-calendar.basic.color-calendar--small .calendar__body {\r\n    padding: 0 10px 10px 10px;\r\n}\r\n\r\n.color-calendar.basic.color-calendar--small .calendar__body .calendar__weekdays {\r\n    grid-template-columns: repeat(7, minmax(25px, 41px));\r\n    margin-bottom: 0;\r\n}\r\n\r\n.color-calendar.basic.color-calendar--small .calendar__body .calendar__days {\r\n    grid-template-columns: repeat(7, minmax(25px, 41px));\r\n    grid-template-rows: repeat(6, minmax(30px, 35px));\r\n}\r\n\r\n.color-calendar.basic.color-calendar--small .calendar__body .calendar__picker {\r\n    top: 55px;\r\n}\r\n\r\n.color-calendar.basic.color-calendar--small .calendar__body .calendar__picker .calendar__picker-month-option {\r\n    padding: 10px 0;\r\n}\r\n\r\n.color-calendar.basic.color-calendar--small .calendar__body .calendar__picker .calendar__picker-month-option::after {\r\n    height: 40px;\r\n}\r\n\r\n.color-calendar.basic.color-calendar--small .calendar__body .calendar__picker .calendar__picker-year-option {\r\n    padding: 10px 0;\r\n}\r\n\r\n.color-calendar.basic.color-calendar--small .calendar__body .calendar__picker .calendar__picker-year-option::after {\r\n    height: 40px;\r\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".embla {\r\n    position: relative;\r\n    background-color: #f7f7f7;\r\n    padding: 20px;\r\n    max-width: 670px;\r\n    margin-left: auto;\r\n    margin-right: auto;\r\n}\r\n\r\n.embla__viewport {\r\n    overflow: hidden;\r\n    width: 100%;\r\n}\r\n\r\n.embla__viewport.is-draggable {\r\n    cursor: move;\r\n    cursor: -webkit-grab;\r\n    cursor: grab;\r\n}\r\n\r\n.embla__viewport.is-dragging {\r\n    cursor: -webkit-grabbing;\r\n    cursor: grabbing;\r\n}\r\n\r\n.embla__container {\r\n    display: flex;\r\n    -webkit-user-select: none;\r\n       -moz-user-select: none;\r\n        -ms-user-select: none;\r\n            user-select: none;\r\n    -webkit-touch-callout: none;\r\n    -khtml-user-select: none;\r\n    -webkit-tap-highlight-color: transparent;\r\n}\r\n\r\n.embla__slide {\r\n    position: relative;\r\n    min-width: 100%;\r\n    margin-right: 10px;\r\n    overflow: hidden;\r\n    height: 190px;\r\n}\r\n\r\n.embla__slide__img {\r\n    position: absolute;\r\n    display: block;\r\n    top: 50%;\r\n    left: 50%;\r\n    width: auto;\r\n    min-height: 100%;\r\n    min-width: 100%;\r\n    max-width: none;\r\n    transform: translate(-50%, -50%);\r\n}\r\n\r\n.embla__button {\r\n    outline: 0;\r\n    cursor: pointer;\r\n    background-color: transparent;\r\n    touch-action: manipulation;\r\n    position: absolute;\r\n    z-index: 1;\r\n    top: 50%;\r\n    transform: translateY(-50%);\r\n    border: 0;\r\n    width: 30px;\r\n    height: 30px;\r\n    justify-content: center;\r\n    align-items: center;\r\n    fill: #1bcacd;\r\n    padding: 0;\r\n}\r\n\r\n.embla__button:disabled {\r\n    cursor: default;\r\n    opacity: 0.3;\r\n}\r\n\r\n.embla__button__svg {\r\n    width: 100%;\r\n    height: 100%;\r\n}\r\n\r\n.embla__button--prev {\r\n    left: 27px;\r\n}\r\n\r\n.embla__button--next {\r\n    right: 27px;\r\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -72,7 +114,6 @@ ___CSS_LOADER_EXPORT___.push([module.id, ".color-calendar {\r\n    position: rel
   \*****************************************************/
 /***/ ((module) => {
 
-"use strict";
 
 
 /*
@@ -142,33 +183,1597 @@ module.exports = function (cssWithMappingToString) {
 
 /***/ }),
 
+/***/ "./node_modules/embla-carousel/embla-carousel.esm.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/embla-carousel/embla-carousel.esm.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+function _extends() {
+  _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return _extends.apply(this, arguments);
+}
+
+function Alignment(align, viewSize) {
+  var predefined = {
+    start: start,
+    center: center,
+    end: end
+  };
+
+  function start() {
+    return 0;
+  }
+
+  function center(n) {
+    return end(n) / 2;
+  }
+
+  function end(n) {
+    return viewSize - n;
+  }
+
+  function percent() {
+    return viewSize * Number(align);
+  }
+
+  function measure(n) {
+    if (typeof align === 'number') return percent();
+    return predefined[align](n);
+  }
+
+  var self = {
+    measure: measure
+  };
+  return self;
+}
+
+function Animation(callback) {
+  var animationFrame = 0;
+
+  function ifAnimating(active, cb) {
+    return function () {
+      if (active === !!animationFrame) cb();
+    };
+  }
+
+  function start() {
+    animationFrame = window.requestAnimationFrame(callback);
+  }
+
+  function stop() {
+    window.cancelAnimationFrame(animationFrame);
+    animationFrame = 0;
+  }
+
+  var self = {
+    proceed: ifAnimating(true, start),
+    start: ifAnimating(false, start),
+    stop: ifAnimating(true, stop)
+  };
+  return self;
+}
+
+function Axis(axis, contentDirection) {
+  var scroll = axis === 'y' ? 'y' : 'x';
+  var cross = axis === 'y' ? 'x' : 'y';
+  var startEdge = getStartEdge();
+  var endEdge = getEndEdge();
+
+  function measureSize(rect) {
+    var width = rect.width,
+        height = rect.height;
+    return scroll === 'x' ? width : height;
+  }
+
+  function getStartEdge() {
+    if (scroll === 'y') return 'top';
+    return contentDirection === 'rtl' ? 'right' : 'left';
+  }
+
+  function getEndEdge() {
+    if (scroll === 'y') return 'bottom';
+    return contentDirection === 'rtl' ? 'left' : 'right';
+  }
+
+  var self = {
+    scroll: scroll,
+    cross: cross,
+    startEdge: startEdge,
+    endEdge: endEdge,
+    measureSize: measureSize
+  };
+  return self;
+}
+
+function Limit(min, max) {
+  var length = Math.abs(min - max);
+
+  function reachedMin(n) {
+    return n < min;
+  }
+
+  function reachedMax(n) {
+    return n > max;
+  }
+
+  function reachedAny(n) {
+    return reachedMin(n) || reachedMax(n);
+  }
+
+  function constrain(n) {
+    if (!reachedAny(n)) return n;
+    return reachedMin(n) ? min : max;
+  }
+
+  function removeOffset(n) {
+    if (!length) return n;
+    return n - length * Math.ceil((n - max) / length);
+  }
+
+  var self = {
+    constrain: constrain,
+    length: length,
+    max: max,
+    min: min,
+    reachedAny: reachedAny,
+    reachedMax: reachedMax,
+    reachedMin: reachedMin,
+    removeOffset: removeOffset
+  };
+  return self;
+}
+
+function Counter(max, start, loop) {
+  var _a = Limit(0, max),
+      min = _a.min,
+      constrain = _a.constrain;
+
+  var loopEnd = max + 1;
+  var counter = withinLimit(start);
+
+  function withinLimit(n) {
+    return !loop ? constrain(n) : Math.abs((loopEnd + n) % loopEnd);
+  }
+
+  function get() {
+    return counter;
+  }
+
+  function set(n) {
+    counter = withinLimit(n);
+    return self;
+  }
+
+  function add(n) {
+    return set(get() + n);
+  }
+
+  function clone() {
+    return Counter(max, get(), loop);
+  }
+
+  var self = {
+    add: add,
+    clone: clone,
+    get: get,
+    set: set,
+    min: min,
+    max: max
+  };
+  return self;
+}
+
+function Direction(direction) {
+  var sign = direction === 'rtl' ? -1 : 1;
+
+  function applyTo(n) {
+    return n * sign;
+  }
+
+  var self = {
+    applyTo: applyTo
+  };
+  return self;
+}
+
+function EventStore() {
+  var listeners = [];
+
+  function add(node, type, handler, options) {
+    if (options === void 0) {
+      options = false;
+    }
+
+    node.addEventListener(type, handler, options);
+    listeners.push(function () {
+      return node.removeEventListener(type, handler, options);
+    });
+    return self;
+  }
+
+  function removeAll() {
+    listeners = listeners.filter(function (remove) {
+      return remove();
+    });
+    return self;
+  }
+
+  var self = {
+    add: add,
+    removeAll: removeAll
+  };
+  return self;
+}
+
+function Vector1D(value) {
+  var vector = value;
+
+  function get() {
+    return vector;
+  }
+
+  function set(n) {
+    vector = readNumber(n);
+    return self;
+  }
+
+  function add(n) {
+    vector += readNumber(n);
+    return self;
+  }
+
+  function subtract(n) {
+    vector -= readNumber(n);
+    return self;
+  }
+
+  function multiply(n) {
+    vector *= n;
+    return self;
+  }
+
+  function divide(n) {
+    vector /= n;
+    return self;
+  }
+
+  function normalize() {
+    if (vector !== 0) divide(vector);
+    return self;
+  }
+
+  function readNumber(n) {
+    return typeof n === 'number' ? n : n.get();
+  }
+
+  var self = {
+    add: add,
+    divide: divide,
+    get: get,
+    multiply: multiply,
+    normalize: normalize,
+    set: set,
+    subtract: subtract
+  };
+  return self;
+}
+
+function map(value, iStart, iStop, oStart, oStop) {
+  return oStart + (oStop - oStart) * ((value - iStart) / (iStop - iStart));
+}
+function mathSign(n) {
+  return !n ? 0 : n / Math.abs(n);
+}
+function deltaAbs(valueB, valueA) {
+  return Math.abs(valueB - valueA);
+}
+function factorAbs(valueB, valueA) {
+  if (valueB === 0 || valueA === 0) return 0;
+  if (Math.abs(valueB) <= Math.abs(valueA)) return 0;
+  var diff = deltaAbs(Math.abs(valueB), Math.abs(valueA));
+  return Math.abs(diff / valueB);
+}
+function roundToDecimals(decimalPoints) {
+  var pow = Math.pow(10, decimalPoints);
+  return function (n) {
+    return Math.round(n * pow) / pow;
+  };
+}
+function debounce(callback, time) {
+  var timeout = 0;
+  return function () {
+    window.clearTimeout(timeout);
+    timeout = window.setTimeout(callback, time) || 0;
+  };
+}
+function groupArray(array, size) {
+  var groups = [];
+
+  for (var i = 0; i < array.length; i += size) {
+    groups.push(array.slice(i, i + size));
+  }
+
+  return groups;
+}
+function arrayKeys(array) {
+  return Object.keys(array).map(Number);
+}
+function arrayLast(array) {
+  return array[lastIndex(array)];
+}
+function lastIndex(array) {
+  return Math.max(0, array.length - 1);
+}
+function removeClass(node, className) {
+  var cl = node.classList;
+  if (className && cl.contains(className)) cl.remove(className);
+}
+function addClass(node, className) {
+  var cl = node.classList;
+  if (className && !cl.contains(className)) cl.add(className);
+}
+
+function DragHandler(axis, direction, rootNode, target, dragFree, dragTracker, location, animation, scrollTo, scrollBody, scrollTarget, index, events, loop, skipSnaps) {
+  var scrollAxis = axis.scroll,
+      crossAxis = axis.cross;
+  var focusNodes = ['INPUT', 'SELECT', 'TEXTAREA'];
+  var startScroll = Vector1D(0);
+  var startCross = Vector1D(0);
+  var dragStartPoint = Vector1D(0);
+  var activationEvents = EventStore();
+  var interactionEvents = EventStore();
+  var snapForceBoost = {
+    mouse: 2.5,
+    touch: 3.5
+  };
+  var freeForceBoost = {
+    mouse: 5,
+    touch: 7
+  };
+  var baseSpeed = dragFree ? 5 : 16;
+  var baseMass = 1;
+  var dragThreshold = 20;
+  var pointerIsDown = false;
+  var preventScroll = false;
+  var preventClick = false;
+  var isMouse = false;
+
+  function addActivationEvents() {
+    var node = rootNode;
+    activationEvents.add(node, 'touchmove', function () {
+      return undefined;
+    }).add(node, 'touchend', function () {
+      return undefined;
+    }).add(node, 'touchstart', down).add(node, 'mousedown', down).add(node, 'touchcancel', up).add(node, 'contextmenu', up).add(node, 'click', click);
+  }
+
+  function addInteractionEvents() {
+    var node = !isMouse ? rootNode : document;
+    interactionEvents.add(node, 'touchmove', move).add(node, 'touchend', up).add(node, 'mousemove', move).add(node, 'mouseup', up);
+  }
+
+  function removeAllEvents() {
+    activationEvents.removeAll();
+    interactionEvents.removeAll();
+  }
+
+  function isFocusNode(node) {
+    var name = node.nodeName || '';
+    return focusNodes.indexOf(name) > -1;
+  }
+
+  function forceBoost() {
+    var boost = dragFree ? freeForceBoost : snapForceBoost;
+    var type = isMouse ? 'mouse' : 'touch';
+    return boost[type];
+  }
+
+  function allowedForce(force, targetChanged) {
+    var next = index.clone().add(mathSign(force) * -1);
+    var isEdge = next.get() === index.min || next.get() === index.max;
+    var baseForce = scrollTarget.byDistance(force, !dragFree).distance;
+    if (dragFree || Math.abs(force) < dragThreshold) return baseForce;
+    if (!loop && isEdge) return baseForce * 0.6;
+    if (skipSnaps && targetChanged) return baseForce * 0.5;
+    return scrollTarget.byIndex(next.get(), 0).distance;
+  }
+
+  function down(evt) {
+    isMouse = evt.type === 'mousedown';
+    if (isMouse && evt.button !== 0) return;
+    var isMoving = deltaAbs(target.get(), location.get()) >= 2;
+    var clearPreventClick = isMouse || !isMoving;
+    var isNotFocusNode = !isFocusNode(evt.target);
+    var preventDefault = isMoving || isMouse && isNotFocusNode;
+    pointerIsDown = true;
+    dragTracker.pointerDown(evt);
+    dragStartPoint.set(target);
+    target.set(location);
+    scrollBody.useBaseMass().useSpeed(80);
+    addInteractionEvents();
+    startScroll.set(dragTracker.readPoint(evt, scrollAxis));
+    startCross.set(dragTracker.readPoint(evt, crossAxis));
+    events.emit('pointerDown');
+    if (clearPreventClick) preventClick = false;
+    if (preventDefault) evt.preventDefault();
+  }
+
+  function move(evt) {
+    if (!preventScroll && !isMouse) {
+      if (!evt.cancelable) return up();
+      var moveScroll = dragTracker.readPoint(evt, scrollAxis).get();
+      var moveCross = dragTracker.readPoint(evt, crossAxis).get();
+      var diffScroll = deltaAbs(moveScroll, startScroll.get());
+      var diffCross = deltaAbs(moveCross, startCross.get());
+      preventScroll = diffScroll > diffCross;
+      if (!preventScroll && !preventClick) return up();
+    }
+
+    var diff = dragTracker.pointerMove(evt);
+    if (!preventClick && diff) preventClick = true;
+    animation.start();
+    target.add(direction.applyTo(diff));
+    evt.preventDefault();
+  }
+
+  function up() {
+    var currentLocation = scrollTarget.byDistance(0, false);
+    var targetChanged = currentLocation.index !== index.get();
+    var rawForce = dragTracker.pointerUp() * forceBoost();
+    var force = allowedForce(direction.applyTo(rawForce), targetChanged);
+    var forceFactor = factorAbs(rawForce, force);
+    var isMoving = deltaAbs(target.get(), dragStartPoint.get()) >= 0.5;
+    var isVigorous = targetChanged && forceFactor > 0.75;
+    var isBelowThreshold = Math.abs(rawForce) < dragThreshold;
+    var speed = isVigorous ? 10 : baseSpeed;
+    var mass = isVigorous ? baseMass + 2.5 * forceFactor : baseMass;
+    if (isMoving && !isMouse) preventClick = true;
+    preventScroll = false;
+    pointerIsDown = false;
+    interactionEvents.removeAll();
+    scrollBody.useSpeed(isBelowThreshold ? 9 : speed).useMass(mass);
+    scrollTo.distance(force, !dragFree);
+    isMouse = false;
+    events.emit('pointerUp');
+  }
+
+  function click(evt) {
+    if (preventClick) evt.preventDefault();
+  }
+
+  function clickAllowed() {
+    return !preventClick;
+  }
+
+  function pointerDown() {
+    return pointerIsDown;
+  }
+
+  var self = {
+    addActivationEvents: addActivationEvents,
+    clickAllowed: clickAllowed,
+    pointerDown: pointerDown,
+    removeAllEvents: removeAllEvents
+  };
+  return self;
+}
+
+function DragTracker(axis, pxToPercent) {
+  var scrollAxis = axis.scroll;
+  var coords = {
+    x: 'clientX',
+    y: 'clientY'
+  };
+  var startDrag = Vector1D(0);
+  var diffDrag = Vector1D(0);
+  var lastDrag = Vector1D(0);
+  var pointValue = Vector1D(0);
+  var trackInterval = 10;
+  var trackLength = 5;
+  var trackTime = 100;
+  var trackPoints = [];
+  var lastMoveTime = new Date().getTime();
+  var isMouse = false;
+
+  function readPoint(evt, type) {
+    isMouse = !evt.touches;
+    var c = coords[type];
+    var value = isMouse ? evt[c] : evt.touches[0][c];
+    return pointValue.set(value);
+  }
+
+  function pointerDown(evt) {
+    var point = readPoint(evt, scrollAxis);
+    startDrag.set(point);
+    lastDrag.set(point);
+    return pxToPercent.measure(startDrag.get());
+  }
+
+  function pointerMove(evt) {
+    var point = readPoint(evt, scrollAxis);
+    var nowTime = new Date().getTime();
+    var diffTime = nowTime - lastMoveTime;
+
+    if (diffTime >= trackInterval) {
+      if (diffTime >= trackTime) trackPoints = [];
+      trackPoints.push(point.get());
+      lastMoveTime = nowTime;
+    }
+
+    diffDrag.set(point).subtract(lastDrag);
+    lastDrag.set(point);
+    return pxToPercent.measure(diffDrag.get());
+  }
+
+  function pointerUp() {
+    var nowTime = new Date().getTime();
+    var diffTime = nowTime - lastMoveTime;
+    var currentPoint = lastDrag.get();
+    var force = trackPoints.slice(-trackLength).map(function (trackPoint) {
+      return currentPoint - trackPoint;
+    }).sort(function (p1, p2) {
+      return Math.abs(p1) < Math.abs(p2) ? 1 : -1;
+    })[0];
+    lastDrag.set(diffTime > trackTime || !force ? 0 : force);
+    trackPoints = [];
+    return pxToPercent.measure(lastDrag.get());
+  }
+
+  var self = {
+    pointerDown: pointerDown,
+    pointerMove: pointerMove,
+    pointerUp: pointerUp,
+    readPoint: readPoint
+  };
+  return self;
+}
+
+function PxToPercent(viewInPx) {
+  var totalPercent = 100;
+
+  function measure(n) {
+    if (viewInPx === 0) return 0;
+    return n / viewInPx * totalPercent;
+  }
+
+  var self = {
+    measure: measure,
+    totalPercent: totalPercent
+  };
+  return self;
+}
+
+function ScrollBody(location, baseSpeed, baseMass) {
+  var roundToTwoDecimals = roundToDecimals(2);
+  var velocity = Vector1D(0);
+  var acceleration = Vector1D(0);
+  var attraction = Vector1D(0);
+  var attractionDirection = 0;
+  var speed = baseSpeed;
+  var mass = baseMass;
+
+  function update() {
+    velocity.add(acceleration);
+    location.add(velocity);
+    acceleration.multiply(0);
+  }
+
+  function applyForce(v) {
+    v.divide(mass);
+    acceleration.add(v);
+  }
+
+  function seek(v) {
+    attraction.set(v).subtract(location);
+    var magnitude = map(attraction.get(), 0, 100, 0, speed);
+    attractionDirection = mathSign(attraction.get());
+    attraction.normalize().multiply(magnitude).subtract(velocity);
+    applyForce(attraction);
+    return self;
+  }
+
+  function settle(v) {
+    var diff = v.get() - location.get();
+    var hasSettled = !roundToTwoDecimals(diff);
+    if (hasSettled) location.set(v);
+    return hasSettled;
+  }
+
+  function direction() {
+    return attractionDirection;
+  }
+
+  function useBaseSpeed() {
+    return useSpeed(baseSpeed);
+  }
+
+  function useBaseMass() {
+    return useMass(baseMass);
+  }
+
+  function useSpeed(n) {
+    speed = n;
+    return self;
+  }
+
+  function useMass(n) {
+    mass = n;
+    return self;
+  }
+
+  var self = {
+    direction: direction,
+    seek: seek,
+    settle: settle,
+    update: update,
+    useBaseMass: useBaseMass,
+    useBaseSpeed: useBaseSpeed,
+    useMass: useMass,
+    useSpeed: useSpeed
+  };
+  return self;
+}
+
+function ScrollBounds(limit, location, target, scrollBody) {
+  var pullBackThreshold = 10;
+  var disabled = false;
+
+  function shouldConstrain() {
+    if (disabled) return false;
+    if (!limit.reachedAny(target.get())) return false;
+    if (!limit.reachedAny(location.get())) return false;
+    return true;
+  }
+
+  function constrain(pointerDown) {
+    if (!shouldConstrain()) return;
+    var friction = pointerDown ? 0.7 : 0.45;
+    var diffToTarget = target.get() - location.get();
+    target.subtract(diffToTarget * friction);
+
+    if (!pointerDown && Math.abs(diffToTarget) < pullBackThreshold) {
+      target.set(limit.constrain(target.get()));
+      scrollBody.useSpeed(10).useMass(3);
+    }
+  }
+
+  function toggleActive(active) {
+    disabled = !active;
+  }
+
+  var self = {
+    constrain: constrain,
+    toggleActive: toggleActive
+  };
+  return self;
+}
+
+function ScrollContain(viewSize, contentSize, snaps, snapsAligned, containScroll) {
+  var scrollBounds = Limit(-contentSize + viewSize, snaps[0]);
+  var snapsBounded = snapsAligned.map(scrollBounds.constrain);
+  var snapsContained = measureContained();
+
+  function findDuplicates() {
+    var startSnap = snapsBounded[0];
+    var endSnap = arrayLast(snapsBounded);
+    var min = snapsBounded.lastIndexOf(startSnap);
+    var max = snapsBounded.indexOf(endSnap) + 1;
+    return Limit(min, max);
+  }
+
+  function measureContained() {
+    if (contentSize <= viewSize) return [scrollBounds.max];
+    if (containScroll === 'keepSnaps') return snapsBounded;
+
+    var _a = findDuplicates(),
+        min = _a.min,
+        max = _a.max;
+
+    return snapsBounded.slice(min, max);
+  }
+
+  var self = {
+    snapsContained: snapsContained
+  };
+  return self;
+}
+
+function ScrollLimit(contentSize, scrollSnaps, loop) {
+  var limit = measureLimit();
+
+  function measureLimit() {
+    var startSnap = scrollSnaps[0];
+    var endSnap = arrayLast(scrollSnaps);
+    var min = loop ? startSnap - contentSize : endSnap;
+    var max = startSnap;
+    return Limit(min, max);
+  }
+
+  var self = {
+    limit: limit
+  };
+  return self;
+}
+
+function ScrollLooper(contentSize, pxToPercent, limit, location, vectors) {
+  var min = limit.min + pxToPercent.measure(0.1);
+  var max = limit.max + pxToPercent.measure(0.1);
+
+  var _a = Limit(min, max),
+      reachedMin = _a.reachedMin,
+      reachedMax = _a.reachedMax;
+
+  function shouldLoop(direction) {
+    if (direction === 1) return reachedMax(location.get());
+    if (direction === -1) return reachedMin(location.get());
+    return false;
+  }
+
+  function loop(direction) {
+    if (!shouldLoop(direction)) return;
+    var loopDistance = contentSize * (direction * -1);
+    vectors.forEach(function (v) {
+      return v.add(loopDistance);
+    });
+  }
+
+  var self = {
+    loop: loop
+  };
+  return self;
+}
+
+function ScrollProgress(limit) {
+  var max = limit.max,
+      scrollLength = limit.length;
+
+  function get(n) {
+    var currentLocation = n - max;
+    return currentLocation / -scrollLength;
+  }
+
+  var self = {
+    get: get
+  };
+  return self;
+}
+
+function ScrollSnap(axis, alignment, pxToPercent, containerRect, slideRects, slidesToScroll) {
+  var startEdge = axis.startEdge,
+      endEdge = axis.endEdge;
+  var snaps = measureUnaligned();
+  var snapsAligned = measureAligned();
+
+  function measureSizes() {
+    return groupArray(slideRects, slidesToScroll).map(function (rects) {
+      return arrayLast(rects)[endEdge] - rects[0][startEdge];
+    }).map(pxToPercent.measure).map(Math.abs);
+  }
+
+  function measureUnaligned() {
+    return slideRects.map(function (rect) {
+      return containerRect[startEdge] - rect[startEdge];
+    }).map(pxToPercent.measure).map(function (snap) {
+      return -Math.abs(snap);
+    });
+  }
+
+  function measureAligned() {
+    var groupedSnaps = groupArray(snaps, slidesToScroll).map(function (g) {
+      return g[0];
+    });
+    var alignments = measureSizes().map(alignment.measure);
+    return groupedSnaps.map(function (snap, index) {
+      return snap + alignments[index];
+    });
+  }
+
+  var self = {
+    snaps: snaps,
+    snapsAligned: snapsAligned
+  };
+  return self;
+}
+
+function ScrollTarget(loop, scrollSnaps, contentSize, limit, targetVector) {
+  var reachedAny = limit.reachedAny,
+      removeOffset = limit.removeOffset,
+      constrain = limit.constrain;
+
+  function minDistance(d1, d2) {
+    return Math.abs(d1) < Math.abs(d2) ? d1 : d2;
+  }
+
+  function findTargetSnap(target) {
+    var distance = loop ? removeOffset(target) : constrain(target);
+    var ascDiffsToSnaps = scrollSnaps.map(function (scrollSnap) {
+      return scrollSnap - distance;
+    }).map(function (diffToSnap) {
+      return shortcut(diffToSnap, 0);
+    }).map(function (diff, i) {
+      return {
+        diff: diff,
+        index: i
+      };
+    }).sort(function (d1, d2) {
+      return Math.abs(d1.diff) - Math.abs(d2.diff);
+    });
+    var index = ascDiffsToSnaps[0].index;
+    return {
+      index: index,
+      distance: distance
+    };
+  }
+
+  function shortcut(target, direction) {
+    var t1 = target;
+    var t2 = target + contentSize;
+    var t3 = target - contentSize;
+    if (!loop) return t1;
+    if (!direction) return minDistance(minDistance(t1, t2), t3);
+    var shortest = minDistance(t1, direction === 1 ? t2 : t3);
+    return Math.abs(shortest) * direction;
+  }
+
+  function byIndex(index, direction) {
+    var diffToSnap = scrollSnaps[index] - targetVector.get();
+    var distance = shortcut(diffToSnap, direction);
+    return {
+      index: index,
+      distance: distance
+    };
+  }
+
+  function byDistance(distance, snap) {
+    var target = targetVector.get() + distance;
+
+    var _a = findTargetSnap(target),
+        index = _a.index,
+        targetSnapDistance = _a.distance;
+
+    var reachedBound = !loop && reachedAny(target);
+    if (!snap || reachedBound) return {
+      index: index,
+      distance: distance
+    };
+    var diffToSnap = scrollSnaps[index] - targetSnapDistance;
+    var snapDistance = distance + shortcut(diffToSnap, 0);
+    return {
+      index: index,
+      distance: snapDistance
+    };
+  }
+
+  var self = {
+    byDistance: byDistance,
+    byIndex: byIndex,
+    shortcut: shortcut
+  };
+  return self;
+}
+
+function ScrollTo(animation, indexCurrent, indexPrevious, scrollTarget, targetVector, events) {
+  function scrollTo(target) {
+    var distanceDiff = target.distance;
+    var indexDiff = target.index !== indexCurrent.get();
+
+    if (distanceDiff) {
+      animation.start();
+      targetVector.add(distanceDiff);
+    }
+
+    if (indexDiff) {
+      indexPrevious.set(indexCurrent.get());
+      indexCurrent.set(target.index);
+      events.emit('select');
+    }
+  }
+
+  function distance(n, snap) {
+    var target = scrollTarget.byDistance(n, snap);
+    scrollTo(target);
+  }
+
+  function index(n, direction) {
+    var targetIndex = indexCurrent.clone().set(n);
+    var target = scrollTarget.byIndex(targetIndex.get(), direction);
+    scrollTo(target);
+  }
+
+  var self = {
+    distance: distance,
+    index: index
+  };
+  return self;
+}
+
+function SlideLooper(axis, viewSize, contentSize, slideSizesWithGaps, scrollSnaps, slidesInView, scrollLocation, slides) {
+  var ascItems = arrayKeys(slideSizesWithGaps);
+  var descItems = arrayKeys(slideSizesWithGaps).reverse();
+  var loopPoints = startPoints().concat(endPoints());
+
+  function removeSlideSizes(indexes, from) {
+    return indexes.reduce(function (a, i) {
+      return a - slideSizesWithGaps[i];
+    }, from);
+  }
+
+  function slidesInGap(indexes, gap) {
+    return indexes.reduce(function (a, i) {
+      var remainingGap = removeSlideSizes(a, gap);
+      return remainingGap > 0 ? a.concat([i]) : a;
+    }, []);
+  }
+
+  function findLoopPoints(indexes, edge) {
+    var isStartEdge = edge === 'start';
+    var offset = isStartEdge ? -contentSize : contentSize;
+    var slideBounds = slidesInView.findSlideBounds(offset);
+    return indexes.map(function (index) {
+      var initial = isStartEdge ? 0 : -contentSize;
+      var altered = isStartEdge ? contentSize : 0;
+      var bounds = slideBounds.filter(function (b) {
+        return b.index === index;
+      })[0];
+      var point = bounds[isStartEdge ? 'end' : 'start'];
+
+      var getTarget = function getTarget() {
+        return scrollLocation.get() > point ? initial : altered;
+      };
+
+      return {
+        point: point,
+        getTarget: getTarget,
+        index: index,
+        location: -1
+      };
+    });
+  }
+
+  function startPoints() {
+    var gap = scrollSnaps[0] - 1;
+    var indexes = slidesInGap(descItems, gap);
+    return findLoopPoints(indexes, 'end');
+  }
+
+  function endPoints() {
+    var gap = viewSize - scrollSnaps[0] - 1;
+    var indexes = slidesInGap(ascItems, gap);
+    return findLoopPoints(indexes, 'start');
+  }
+
+  function canLoop() {
+    return loopPoints.every(function (_a) {
+      var index = _a.index;
+      var otherIndexes = ascItems.filter(function (i) {
+        return i !== index;
+      });
+      return removeSlideSizes(otherIndexes, viewSize) <= 0;
+    });
+  }
+
+  function loop() {
+    loopPoints.forEach(function (loopPoint) {
+      var getTarget = loopPoint.getTarget,
+          location = loopPoint.location,
+          index = loopPoint.index;
+      var target = getTarget();
+
+      if (target !== location) {
+        slides[index].style[axis.startEdge] = target + "%";
+        loopPoint.location = target;
+      }
+    });
+  }
+
+  function clear() {
+    loopPoints.forEach(function (_a) {
+      var index = _a.index;
+      slides[index].style[axis.startEdge] = '';
+    });
+  }
+
+  var self = {
+    canLoop: canLoop,
+    clear: clear,
+    loop: loop,
+    loopPoints: loopPoints
+  };
+  return self;
+}
+
+function SlideFocus(rootNode, scrollTo, slidesToScroll) {
+  var eventStore = EventStore();
+  var removeAllEvents = eventStore.removeAll;
+  var lastTabPressTime = 0;
+
+  function registerTabPress(event) {
+    if (event.keyCode !== 9) return;
+    lastTabPressTime = new Date().getTime();
+  }
+
+  function addFocusEvent(slide, index) {
+    var focus = function focus() {
+      var nowTime = new Date().getTime();
+      var diffTime = nowTime - lastTabPressTime;
+      if (diffTime > 10) return;
+      rootNode.scrollLeft = 0;
+      var selectedIndex = Math.floor(index / slidesToScroll);
+      scrollTo.index(selectedIndex, 0);
+    };
+
+    eventStore.add(slide, 'focus', focus, true);
+  }
+
+  function addActivationEvents(slides) {
+    eventStore.add(document, 'keydown', registerTabPress, false);
+    slides.forEach(addFocusEvent);
+  }
+
+  var self = {
+    addActivationEvents: addActivationEvents,
+    removeAllEvents: removeAllEvents
+  };
+  return self;
+}
+
+function SlidesInView(viewSize, contentSize, slideSizes, snaps, loop, inViewThreshold) {
+  var threshold = Math.min(Math.max(inViewThreshold, 0.01), 0.99);
+  var offsets = loop ? [0, contentSize, -contentSize] : [0];
+  var slideBounds = offsets.reduce(function (a, offset) {
+    return a.concat(findSlideBounds(offset, threshold));
+  }, []);
+
+  function findSlideBounds(offset, threshold) {
+    var thresholds = slideSizes.map(function (s) {
+      return s * (threshold || 0);
+    });
+    return snaps.map(function (snap, index) {
+      return {
+        start: snap - slideSizes[index] + thresholds[index] + offset,
+        end: snap + viewSize - thresholds[index] + offset,
+        index: index
+      };
+    });
+  }
+
+  function check(location) {
+    return slideBounds.reduce(function (list, slideBound) {
+      var index = slideBound.index,
+          start = slideBound.start,
+          end = slideBound.end;
+      var inList = list.indexOf(index) !== -1;
+      var inView = start < location && end > location;
+      return !inList && inView ? list.concat([index]) : list;
+    }, []);
+  }
+
+  var self = {
+    check: check,
+    findSlideBounds: findSlideBounds
+  };
+  return self;
+}
+
+function SlideSizes(axis, pxToPercent, slides, slideRects, loop) {
+  var measureSize = axis.measureSize,
+      startEdge = axis.startEdge,
+      endEdge = axis.endEdge;
+  var sizesInPx = slideRects.map(measureSize);
+  var slideSizes = sizesInPx.map(pxToPercent.measure);
+  var slideSizesWithGaps = measureWithGaps();
+
+  function measureWithGaps() {
+    return slideRects.map(function (rect, index, rects) {
+      var isLast = index === lastIndex(rects);
+      var style = window.getComputedStyle(arrayLast(slides));
+      var endGap = parseFloat(style.getPropertyValue("margin-" + endEdge));
+      if (isLast) return sizesInPx[index] + (loop ? endGap : 0);
+      return rects[index + 1][startEdge] - rect[startEdge];
+    }).map(pxToPercent.measure).map(Math.abs);
+  }
+
+  var self = {
+    slideSizes: slideSizes,
+    slideSizesWithGaps: slideSizesWithGaps
+  };
+  return self;
+}
+
+function Translate(axis, direction, container) {
+  var containerStyle = container.style;
+  var translate = axis.scroll === 'x' ? x : y;
+  var disabled = false;
+
+  function x(n) {
+    return "translate3d(" + n + "%,0px,0px)";
+  }
+
+  function y(n) {
+    return "translate3d(0px," + n + "%,0px)";
+  }
+
+  function to(target) {
+    if (disabled) return;
+    containerStyle.transform = translate(direction.applyTo(target.get()));
+  }
+
+  function toggleActive(active) {
+    disabled = !active;
+  }
+
+  function clear() {
+    containerStyle.transform = '';
+  }
+
+  var self = {
+    clear: clear,
+    to: to,
+    toggleActive: toggleActive
+  };
+  return self;
+}
+
+function Engine(root, container, slides, options, events) {
+  // Options
+  var align = options.align,
+      scrollAxis = options.axis,
+      contentDirection = options.direction,
+      startIndex = options.startIndex,
+      inViewThreshold = options.inViewThreshold,
+      loop = options.loop,
+      speed = options.speed,
+      dragFree = options.dragFree,
+      slidesToScroll = options.slidesToScroll,
+      skipSnaps = options.skipSnaps,
+      containScroll = options.containScroll; // Measurements
+
+  var containerRect = container.getBoundingClientRect();
+  var slideRects = slides.map(function (slide) {
+    return slide.getBoundingClientRect();
+  });
+  var direction = Direction(contentDirection);
+  var axis = Axis(scrollAxis, contentDirection);
+  var pxToPercent = PxToPercent(axis.measureSize(containerRect));
+  var viewSize = pxToPercent.totalPercent;
+  var alignment = Alignment(align, viewSize);
+
+  var _a = SlideSizes(axis, pxToPercent, slides, slideRects, loop),
+      slideSizes = _a.slideSizes,
+      slideSizesWithGaps = _a.slideSizesWithGaps;
+
+  var _b = ScrollSnap(axis, alignment, pxToPercent, containerRect, slideRects, slidesToScroll),
+      snaps = _b.snaps,
+      snapsAligned = _b.snapsAligned;
+
+  var contentSize = -arrayLast(snaps) + arrayLast(slideSizesWithGaps);
+  var snapsContained = ScrollContain(viewSize, contentSize, snaps, snapsAligned, containScroll).snapsContained;
+  var contain = !loop && containScroll !== '';
+  var scrollSnaps = contain ? snapsContained : snapsAligned;
+  var limit = ScrollLimit(contentSize, scrollSnaps, loop).limit; // Indexes
+
+  var index = Counter(lastIndex(scrollSnaps), startIndex, loop);
+  var indexPrevious = index.clone();
+  var slideIndexes = arrayKeys(slides); // Draw
+
+  var update = function update() {
+    if (!loop) engine.scrollBounds.constrain(engine.dragHandler.pointerDown());
+    engine.scrollBody.seek(target).update();
+    var settled = engine.scrollBody.settle(target);
+
+    if (settled && !engine.dragHandler.pointerDown()) {
+      engine.animation.stop();
+      events.emit('settle');
+    }
+
+    if (!settled) {
+      events.emit('scroll');
+    }
+
+    if (loop) {
+      engine.scrollLooper.loop(engine.scrollBody.direction());
+      engine.slideLooper.loop();
+    }
+
+    engine.translate.to(location);
+    engine.animation.proceed();
+  }; // Shared
+
+
+  var animation = Animation(update);
+  var startLocation = scrollSnaps[index.get()];
+  var location = Vector1D(startLocation);
+  var target = Vector1D(startLocation);
+  var scrollBody = ScrollBody(location, speed, 1);
+  var scrollTarget = ScrollTarget(loop, scrollSnaps, contentSize, limit, target);
+  var scrollTo = ScrollTo(animation, index, indexPrevious, scrollTarget, target, events);
+  var slidesInView = SlidesInView(viewSize, contentSize, slideSizes, snaps, loop, inViewThreshold); // DragHandler
+
+  var dragHandler = DragHandler(axis, direction, root, target, dragFree, DragTracker(axis, pxToPercent), location, animation, scrollTo, scrollBody, scrollTarget, index, events, loop, skipSnaps); // Slider
+
+  var engine = {
+    animation: animation,
+    axis: axis,
+    direction: direction,
+    dragHandler: dragHandler,
+    pxToPercent: pxToPercent,
+    index: index,
+    indexPrevious: indexPrevious,
+    limit: limit,
+    location: location,
+    options: options,
+    scrollBody: scrollBody,
+    scrollBounds: ScrollBounds(limit, location, target, scrollBody),
+    scrollLooper: ScrollLooper(contentSize, pxToPercent, limit, location, [location, target]),
+    scrollProgress: ScrollProgress(limit),
+    scrollSnaps: scrollSnaps,
+    scrollTarget: scrollTarget,
+    scrollTo: scrollTo,
+    slideFocus: SlideFocus(root, scrollTo, slidesToScroll),
+    slideLooper: SlideLooper(axis, viewSize, contentSize, slideSizesWithGaps, scrollSnaps, slidesInView, location, slides),
+    slidesInView: slidesInView,
+    slideIndexes: slideIndexes,
+    target: target,
+    translate: Translate(axis, direction, container)
+  };
+  return engine;
+}
+
+function EventEmitter() {
+  var listeners = {};
+
+  function getListeners(evt) {
+    var eventListeners = listeners[evt];
+    return eventListeners || [];
+  }
+
+  function emit(evt) {
+    getListeners(evt).forEach(function (e) {
+      return e(evt);
+    });
+    return self;
+  }
+
+  function on(evt, cb) {
+    listeners[evt] = getListeners(evt).concat([cb]);
+    return self;
+  }
+
+  function off(evt, cb) {
+    listeners[evt] = getListeners(evt).filter(function (e) {
+      return e !== cb;
+    });
+    return self;
+  }
+
+  var self = {
+    emit: emit,
+    off: off,
+    on: on
+  };
+  return self;
+}
+
+var defaultOptions = {
+  align: 'center',
+  axis: 'x',
+  containScroll: '',
+  direction: 'ltr',
+  dragFree: false,
+  draggable: true,
+  draggableClass: 'is-draggable',
+  draggingClass: 'is-dragging',
+  inViewThreshold: 0,
+  loop: false,
+  skipSnaps: true,
+  selectedClass: 'is-selected',
+  slidesToScroll: 1,
+  speed: 10,
+  startIndex: 0
+};
+
+function OptionsPseudo(node) {
+  var pseudoString = getComputedStyle(node, ':before').content;
+
+  function get() {
+    try {
+      return JSON.parse(pseudoString.slice(1, -1).replace(/\\/g, ''));
+    } catch (error) {} // eslint-disable-line no-empty
+
+
+    return {};
+  }
+
+  var self = {
+    get: get
+  };
+  return self;
+}
+
+function EmblaCarousel(sliderRoot, userOptions) {
+  var events = EventEmitter();
+  var eventStore = EventStore();
+  var debouncedResize = debounce(resize, 500);
+  var reInit = reActivate;
+  var on = events.on,
+      off = events.off;
+  var engine;
+  var activated = false;
+
+  var optionsBase = _extends({}, defaultOptions);
+
+  var options = _extends({}, optionsBase);
+
+  var optionsPseudo;
+  var rootNodeSize = 0;
+  var container;
+  var slides;
+  activate(userOptions);
+
+  function setupElements() {
+    if (!sliderRoot) throw new Error('Missing root node 😢');
+    var sliderContainer = sliderRoot.querySelector('*');
+    if (!sliderContainer) throw new Error('Missing container node 😢');
+    container = sliderContainer;
+    slides = Array.prototype.slice.call(container.children);
+    optionsPseudo = OptionsPseudo(sliderRoot);
+  }
+
+  function activate(partialOptions) {
+    setupElements();
+    optionsBase = _extends({}, optionsBase, partialOptions);
+    options = _extends({}, optionsBase, optionsPseudo.get());
+    engine = Engine(sliderRoot, container, slides, options, events);
+    eventStore.add(window, 'resize', debouncedResize);
+    engine.translate.to(engine.location);
+    rootNodeSize = engine.axis.measureSize(sliderRoot.getBoundingClientRect());
+
+    if (options.loop) {
+      if (!engine.slideLooper.canLoop()) {
+        deActivate();
+        return activate({
+          loop: false
+        });
+      }
+
+      engine.slideLooper.loop();
+    }
+
+    if (options.draggable && container.offsetParent && slides.length) {
+      engine.dragHandler.addActivationEvents();
+
+      if (options.draggableClass) {
+        addClass(sliderRoot, options.draggableClass);
+      }
+
+      if (options.draggingClass) {
+        events.on('pointerDown', toggleDraggingClass).on('pointerUp', toggleDraggingClass);
+      }
+    }
+
+    if (slides.length) {
+      engine.slideFocus.addActivationEvents(slides);
+    }
+
+    if (options.selectedClass) {
+      toggleSelectedClass();
+      events.on('select', toggleSelectedClass).on('pointerUp', toggleSelectedClass);
+    }
+
+    if (!activated) {
+      setTimeout(function () {
+        return events.emit('init');
+      }, 0);
+      activated = true;
+    }
+  }
+
+  function toggleDraggingClass(evt) {
+    var draggingClass = options.draggingClass;
+    if (evt === 'pointerDown') addClass(sliderRoot, draggingClass);else removeClass(sliderRoot, draggingClass);
+  }
+
+  function toggleSelectedClass() {
+    var selectedClass = options.selectedClass;
+    var inView = slidesInView(true);
+    var notInView = slidesNotInView(true);
+    notInView.forEach(function (index) {
+      return removeClass(slides[index], selectedClass);
+    });
+    inView.forEach(function (index) {
+      return addClass(slides[index], selectedClass);
+    });
+  }
+
+  function deActivate() {
+    engine.dragHandler.removeAllEvents();
+    engine.slideFocus.removeAllEvents();
+    engine.animation.stop();
+    eventStore.removeAll();
+    engine.translate.clear();
+    engine.slideLooper.clear();
+    removeClass(sliderRoot, options.draggableClass);
+    slides.forEach(function (slide) {
+      return removeClass(slide, options.selectedClass);
+    });
+    events.off('select', toggleSelectedClass).off('pointerUp', toggleSelectedClass).off('pointerDown', toggleDraggingClass).off('pointerUp', toggleDraggingClass);
+  }
+
+  function reActivate(partialOptions) {
+    if (!activated) return;
+    var startIndex = selectedScrollSnap();
+
+    var newOptions = _extends({
+      startIndex: startIndex
+    }, partialOptions);
+
+    deActivate();
+    activate(newOptions);
+    events.emit('reInit');
+  }
+
+  function destroy() {
+    if (!activated) return;
+    deActivate();
+    activated = false;
+    events.emit('destroy');
+  }
+
+  function resize() {
+    if (!activated) return;
+    var size = engine.axis.measureSize(sliderRoot.getBoundingClientRect());
+    if (rootNodeSize !== size) reActivate();
+    events.emit('resize');
+  }
+
+  function slidesInView(target) {
+    var location = engine[target ? 'target' : 'location'].get();
+    var type = options.loop ? 'removeOffset' : 'constrain';
+    return engine.slidesInView.check(engine.limit[type](location));
+  }
+
+  function slidesNotInView(target) {
+    var inView = slidesInView(target);
+    return engine.slideIndexes.filter(function (index) {
+      return inView.indexOf(index) === -1;
+    });
+  }
+
+  function scrollTo(index, jump, direction) {
+    engine.scrollBody.useBaseMass().useSpeed(jump ? 100 : options.speed);
+    if (activated) engine.scrollTo.index(index, direction || 0);
+  }
+
+  function scrollNext(jump) {
+    var next = engine.index.clone().add(1);
+    scrollTo(next.get(), jump === true, -1);
+  }
+
+  function scrollPrev(jump) {
+    var prev = engine.index.clone().add(-1);
+    scrollTo(prev.get(), jump === true, 1);
+  }
+
+  function canScrollNext() {
+    var next = engine.index.clone().add(1);
+    return next.get() !== selectedScrollSnap();
+  }
+
+  function canScrollPrev() {
+    var prev = engine.index.clone().add(-1);
+    return prev.get() !== selectedScrollSnap();
+  }
+
+  function scrollSnapList() {
+    return engine.scrollSnaps.map(engine.scrollProgress.get);
+  }
+
+  function scrollProgress() {
+    return engine.scrollProgress.get(engine.location.get());
+  }
+
+  function selectedScrollSnap() {
+    return engine.index.get();
+  }
+
+  function previousScrollSnap() {
+    return engine.indexPrevious.get();
+  }
+
+  function clickAllowed() {
+    return engine.dragHandler.clickAllowed();
+  }
+
+  function dangerouslyGetEngine() {
+    return engine;
+  }
+
+  function rootNode() {
+    return sliderRoot;
+  }
+
+  function containerNode() {
+    return container;
+  }
+
+  function slideNodes() {
+    return slides;
+  }
+
+  var self = {
+    canScrollNext: canScrollNext,
+    canScrollPrev: canScrollPrev,
+    clickAllowed: clickAllowed,
+    containerNode: containerNode,
+    dangerouslyGetEngine: dangerouslyGetEngine,
+    destroy: destroy,
+    off: off,
+    on: on,
+    previousScrollSnap: previousScrollSnap,
+    reInit: reInit,
+    rootNode: rootNode,
+    scrollNext: scrollNext,
+    scrollPrev: scrollPrev,
+    scrollProgress: scrollProgress,
+    scrollSnapList: scrollSnapList,
+    scrollTo: scrollTo,
+    selectedScrollSnap: selectedScrollSnap,
+    slideNodes: slideNodes,
+    slidesInView: slidesInView,
+    slidesNotInView: slidesNotInView
+  };
+  return self;
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (EmblaCarousel);
+//# sourceMappingURL=embla-carousel.esm.js.map
+
+
+/***/ }),
+
 /***/ "./resources/css/app.css":
 /*!*******************************!*\
   !*** ./resources/css/app.css ***!
   \*******************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 // extracted by mini-css-extract-plugin
 
 
 /***/ }),
 
-/***/ "./resources/css/calendar.css":
-/*!************************************!*\
-  !*** ./resources/css/calendar.css ***!
-  \************************************/
+/***/ "./resources/css/embla.css":
+/*!*********************************!*\
+  !*** ./resources/css/embla.css ***!
+  \*********************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_2_calendar_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[1]!../../node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[2]!./calendar.css */ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[2]!./resources/css/calendar.css");
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_2_embla_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[1]!../../node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[2]!./embla.css */ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[2]!./resources/css/embla.css");
 
             
 
@@ -177,11 +1782,11 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_2_calendar_css__WEBPACK_IMPORTED_MODULE_1__.default, options);
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_2_embla_css__WEBPACK_IMPORTED_MODULE_1__.default, options);
 
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_2_calendar_css__WEBPACK_IMPORTED_MODULE_1__.default.locals || {});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_2_embla_css__WEBPACK_IMPORTED_MODULE_1__.default.locals || {});
 
 /***/ }),
 
@@ -191,7 +1796,6 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
   \****************************************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-"use strict";
 
 
 var isOldIE = function isOldIE() {
@@ -484,7 +2088,7 @@ module.exports = function (list, options) {
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
 /******/ 	
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\CalenderController;
 use App\Http\Controllers\API\MessageController;
+use App\Http\Controllers\API\NotificationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,7 +20,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/calender', [CalenderController::class, 'getTasks'])->middleware('auth.apicustom');
 Route::get('/messages/{ticket}', [MessageController::class, 'updateMessages'])->middleware(['auth.apicustom', 'user.hasTicket']);
-Route::post('/messages/{ticket}', [MessageController::class, 'store'])->middleware(['auth.apicustom', 'user.hasTicket:api']);
+Route::post( '/messages/{ticket}', [MessageController::class, 'store'])->middleware(['auth.apicustom', 'user.hasTicket:api']);
+Route::get('/notifications', [NotificationController::class, 'updateNotification'])->middleware(['auth.apicustom']);
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();

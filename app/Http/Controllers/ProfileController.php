@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\UserInfo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -13,34 +14,34 @@ class ProfileController extends Controller
 
     public function index($username)
     {
-        $profile = User::select('id','name','username','image')->with('user_info')->where('username', '=', $username)->first();
+        $profile = User::select('id','name','username','image','cover')->with('user_info')->where('username', '=', $username)->first();
         return view('pages.profile', ["profile"=>$profile]);
     }
 
     public function services($username)
     {
-        $profile = User::select('id','name','username','image')->with('services', 'user_info')->where('username', '=', $username)->first();
+        $profile = User::select('id','name','username','image','cover')->with('services', 'user_info')->where('username', '=', $username)->first();
 
         return view('pages.profile-services', ["profile"=>$profile]);
     }
 
     public function agent($username)
     {
-        $profile = User::select('id','name','username','image')->with('user_info', 'agency.agent')->where('username', '=', $username)->first();
+        $profile = User::select('id','name','username','image','cover')->with('user_info', 'agency.agent')->where('username', '=', $username)->first();
 
         return view('pages.profile-agent',["profile"=>$profile]);
     }
 
     public function celebrities($username)
     {
-        $profile = User::select('id','name','username','image')->with('user_info', 'celebrities.celebrity')->where('username', '=', $username)->first();
+        $profile = User::select('id','name','username','image','cover')->with('user_info', 'celebrities.celebrity')->where('username', '=', $username)->first();
 
         return view('pages.profile-celebrities', ["profile"=>$profile]);
     }
 
     public function ads($username)
     {
-        $profile = User::select('id','name','username','image')->with('user_info')->where('username', '=', $username)->first();
+        $profile = User::select('id','name','username','image','cover')->with('user_info')->where('username', '=', $username)->first();
 
         return view('pages.profile-ads', ["profile"=>$profile]);
     }
@@ -98,4 +99,16 @@ class ProfileController extends Controller
         return redirect()->route('dashboard.edit-profile');
     }
 
+    public function change_cover(Request $request){
+        $request->validate(['cover'=>'mimes:png,jpg']);
+        $file = $request->file('cover');
+        $time = time();
+        $file_name = $time . '.' . $file->getClientOriginalExtension();
+        $file_path = $file_name;
+        Storage::disk('public_uploads')->put($file_path, $file->getContent());
+        $user = User::find(Auth::user()->id);
+        $user->cover = "uploads/" . $file_path;
+        $user->save();
+        return redirect()->back();
+    }
 }

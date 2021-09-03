@@ -65,16 +65,45 @@
                 </div>
                </button>
 
-            <div class="mr-6 lg:mr-8">
-                <i class="fas fa-bell"></i>
-            </div>
-            <div class="mr-6 lg:mr-8">
+            <button class="group lg:mr-2 relative h-full flex items-center hover:bg-curious-blue-200 focus:bg-curious-blue-200 px-4 cursor-pointer">
+                <i class="fas fa-bell relative">
+                    <input type="hidden" name="_date">
+                    <div id="notification_count" class="absolute bottom-full left-full w-5 transform -translate-x-1/2 translate-y-1/2 h-5 text-sm text-white bg-red-500 rounded-full">
+                        2
+                    </div>
+                </i>
+                <div  class=" absolute w-72 bg-white top-full -left-8 z-20 hidden group-focus:block">
+                    <div class="w-6 overflow-hidden inline-block absolute left-12 bottom-full">
+                        <div class=" h-3 w-6 bg-white rotate-45 transform origin-bottom-left"></div>
+                    </div>
+                    <div style="max-height:500px;" class="overflow-y-auto" id="notification_container">
+                        <div class="hidden" id="notification_cloner">
+                            <div id="notification" class="border-b w-full py-4 px-4 bg-white hover:bg-gray-100 cursor-pointer text-black">
+                                <div class="flex w-full">
+                                    <div class="flex-initial w-12 h-12 bg-black rounded-full ml-2 overflow-hidden">
+                                        <img src="{{ asset('image/placeholders/face-2.jpg') }}" class="w-full h-full object-cover" alt="">
+                                    </div>
+                                    <p class="text-sm flex-1 text-right" id="content"></p>
+                                </div>
+                                <div class="w-full text-gray-400 flex items-center">
+                                    <i class="las la-clock"></i>
+                                    <span class="text-sm flex-1 text-right" id="date"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex w-full py-2 px-4 bg-white hover:bg-gray-100 cursor-pointer text-black">
+                        <p class="text-sm flex-1 text-center text-curious-blue">عرض جميع الأشعارات</p>
+                    </div>
+                </div>
+            </button>
+            <div class="lg:mr-2 relative h-full flex items-center hover:bg-curious-blue-200 px-4 cursor-pointer">
                 <i class="fas fa-envelope"></i>
             </div>
-            <div class="mr-6 lg:mr-8 sm:block hidden">
+            <div class="lg:mr-2 relative h-full  items-center hover:bg-curious-blue-200 px-4 sm:flex hidden cursor-pointer">
                 <i class="fas fa-shopping-cart"></i>
             </div>
-            <div class="mr-6 lg:mr-8 sm:block hidden">
+            <div class="lg:mr-2 relative h-full  items-center hover:bg-curious-blue-200 px-4 sm:flex hidden cursor-pointer">
                 <i class="fas fa-globe"></i>
             </div>
         </div>
@@ -93,7 +122,6 @@
         @endguest
 
     </div>
-    <link rel="stylesheet" href="{{ asset('js/app.js') }}">
     <div class="w-full">
         @yield('before-contents')
     </div>
@@ -148,5 +176,53 @@
                 </div>
             </div>
     </div>
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script>
+        let append_notification = (notification)=>{
+        let notification_data = JSON.parse(notification.data);
+        let notification_clone = document.querySelector('#notification_cloner #notification').cloneNode(true);
+        notification_clone.querySelector('#content').innerHTML = notification_data.message;
+        notification_clone.querySelector('#date').innerHTML = notification.created_diff;
+        document.querySelector('#notification_container').appendChild(notification_clone);
+    }
+    function updateNotifications(date){
+        $.ajax({
+            url : "/api/notifications/",
+            type: "GET",
+            
+            data : {
+                "date":date,
+            },
+            success: function(data, textStatus, jqXHR)
+            {
+                var notifications = data['notifications'];
+                for(let i = 0;i < notifications.length; i++){
+                    append_notification(notifications[i]);
+                    console.log(notifications[i].created_at);
+                    
+                }
+                if(notifications[0]){
+                    var date = new Date(notifications[0].created_at);
+                    $('input[name="_date"]').val(date.getFromFormat('yyyy-mm-dd hh:ii:ss'));
+                }
+                document.querySelector('#notification_count').innerHTML = 
+                    parseInt(document.querySelector('#notification_count').innerHTML) +
+                    notifications.length;
+                console.log(data);
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                console.log(jqXHR,textStatus,errorThrown);
+            }
+        });
+    }
+    setInterval(function(){
+        console.log('checked');
+        console.log($('input[name="_date"]').val());
+        updateNotifications($('input[name="_date"]').val());
+    },5000);
+    
+    </script>
+    @yield('scripts')
 </body>
 </html>
