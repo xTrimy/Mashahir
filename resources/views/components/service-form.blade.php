@@ -1,4 +1,4 @@
-<form class="flex items-center py-4 rounded-md" method="POST">
+<form class="flex items-center py-4 rounded-md" method="POST" enctype="multipart/form-data">
     @csrf
     @if ($service)
     <input type="hidden" name="service_id" value="{{ $service->id }}">
@@ -7,6 +7,11 @@
                             <div class="w-full lg:w-auto lg:flex-1 p-3 md:p-4 lg:p-8 bg-white lg:ml-4 mb-4 shadow-lg rounded-md">
                                 @if($errors->any())
                                     {!! implode('', $errors->all('<div class="text-red-500">:message</div>')) !!}
+                                @endif
+                                @if(Session::has('error'))
+                                <div class="text-red-500">
+                                    {{ Session::get('error') }}
+                                </div>
                                 @endif
                                 <div class="w-full h-96">
                                     <div class="w-full h-full">
@@ -37,8 +42,60 @@
                                             <div class="flex-1 border-l-2 border-t-2 border-b-2 border-blue-200 text-lg flex items-center">أيام</div>
                                         </div>
 
-                                        <p class="mb-2 font-semibold text-gray-800">الأيام المتاحة للعمل</p>
-                                        <input type="text" name="days" class="w-full  border-blue-200 border-2 outline-none p-2 mb-3 rounded-sm" value="">
+                                        <p class="mb-2 font-semibold text-gray-800">أضف صور للخدمة</p>
+                                        <div class="w-full py-4 px-4 bg-gray-100" id="upload_image_container">
+                                            <label class="mt-4 cursor-pointer table px-12 py-2 bg-curious-blue hover:bg-curious-blue-200 text-white">
+                                                <input type="file" class="hidden image_upload" accept="image/*">
+                                                <div class="name">
+                                                <i class="las la-image"></i>
+                                                    أضف صورة
+                                                </div>
+                                                <div class="hidden remove mr-4 table py-1 text-sm float-left cursor-pointer px-4 border border-red-700 text-red-700 bg-white hover:bg-red-700 hover:text-white transition-colors">
+                                                    <i class="las la-trash-alt"></i>
+                                                </div>
+                                            </label>
+                                            <div class="hidden" id="image_input_cloner">
+                                                <label class="mt-4 cursor-pointer table px-12 py-2 bg-curious-blue hover:bg-curious-blue-200 text-white">
+                                                    <input type="file" class="hidden " accept="image/*">
+                                                    <div class="name">
+                                                    <i class="las la-image"></i>
+                                                        أضف صورة
+                                                    </div>
+                                                    <div class="hidden remove mr-4 table py-1 text-sm float-left cursor-pointer px-4 border border-red-700 text-red-700 bg-white hover:bg-red-700 hover:text-white transition-colors">
+                                                        <i class="las la-trash-alt"></i>
+                                                    </div>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <script>
+                                            function image_selected(element){
+                                                let self = element;
+                                                var path =self.value;
+                                                var tokens= path.split('\\');
+                                                var filename = tokens[tokens.length-1];
+                                                self.parentElement.setAttribute('class','flex');
+                                                self.parentElement.querySelector('.name').innerHTML = filename;
+                                                self.parentElement.querySelector('.remove').classList.remove('hidden');
+                                                self.parentElement.querySelector('.remove').addEventListener('click',function(){
+                                                    this.parentElement.remove();
+                                                });
+                                                self.parentElement.querySelector('input').setAttribute('name','images[]');
+                                                self.addEventListener('click',function(e){
+                                                    e.preventDefault();
+                                                });
+                                                var clone_upload = document.querySelector('#image_input_cloner label').cloneNode(true);
+                                                clone_upload.querySelector('input').addEventListener('change',function(){
+                                                    image_selected(this);
+                                                });
+                                                document.getElementById('upload_image_container').appendChild(clone_upload);
+                                            }
+                                            var image_upload_input = document.getElementsByClassName('image_upload');
+                                            for(let i =0; i<image_upload_input.length;i++){
+                                                image_upload_input[i].addEventListener('change',function(){
+                                                    image_selected(this);
+                                                });
+                                            }
+                                        </script>
 
                                         <p class="mb-2 font-semibold text-gray-800">تعليمات للمشتري</p>
                                         <textarea required name="instructions" id="" cols="30" rows="6" class="w-full border-blue-200 border-2 outline-none p-2 mb-3 rounded-sm">{{ old('instructions') ?? $service->instructions ?? "" }}</textarea>

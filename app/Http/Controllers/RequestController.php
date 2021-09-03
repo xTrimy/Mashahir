@@ -32,7 +32,7 @@ class RequestController extends Controller
     }
 
     public function accept($id){
-        $request = ServicePurchase::where('id', $id)->with('customer')->first();
+        $request = ServicePurchase::where('id', $id)->with('customer')->with('ticket')->first();
         if(!$request){
             return abort(404);
         }

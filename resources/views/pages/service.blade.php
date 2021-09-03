@@ -44,12 +44,26 @@
         <form class="w-full lg:w-auto lg:flex-1" method="POST">
             @csrf
             <input name="service_id" value="{{ $service->id }}" type="hidden">
-            <div class=" p-3 md:p-4 lg:p-8 bg-white lg:ml-4 mb-4">
-            <div class="w-full h-96">
-                <div class="w-full h-full">
-                    <img src="{{ asset('image/placeholders/banner.jpg') }}" class="object-contain object-center w-full h-full" alt="">
+            
+            <div class="p-3 md:p-4 lg:p-8 bg-white lg:ml-4 mb-4">
+                <div dir="ltr" class="relative max-w-full mx-auto my-auto embla bg-white" id="embla">
+                <div class="embla__viewport bg-white">
+                    <div class="embla__container">
+                        @foreach ($service->images as $image)
+                            <div class="embla__slide" style="height:350px;">
+                                <img class="w-full h-full object-contain" src={{ asset($image->image) }} />
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
-            </div>
+                <button class="embla__button embla__button--prev" type="button">
+                    <i class="fas fa-caret-left text-5xl text-curious-blue"></i>
+                </button>
+                <button class="embla__button embla__button--next" type="button">
+                    <i class="fas fa-caret-right text-5xl text-curious-blue"></i>
+                </button>
+                </div>
+            
                 <div class="py-8 ">
                     <p>
                         {{ $service->description }}
@@ -160,22 +174,36 @@
                 <div class="px-8 mt-8 font-bold">
                     <div class="relative group flex w-full justify-center flex-row-reverse text-2xl text-yellow-400">
                         <div class="absolute opacity-60 transition-all text-sm hidden group-hover:block -right-4 px-4 py-1 bg-black text-white">
-                            3.5
+                            {{ $rating }}
                         </div>
-                        <i class="las la-star"></i>
-                        <i class="las la-star"></i>
-                        <i class="las la-star"></i>
+                        @for($i = $rating; $i>=0;$i--)
+                        @if($i < 1 && $i >= 0.4)
                         <i class="las la-star-half-alt"></i>
-                        <i class="lar la-star"></i>
+                        @elseif($i >= 1)
+                        <i class="las la-star"></i>
+                        @endif
+                        @endfor
+
+                        @for($i = $rating; $i<=4.4;$i++)
+                            <i class="lar la-star"></i>
+                        @endfor
                     </div>
                     <div class="flex justify-center mt-4 ">
                         <div class="ml-4">
                             <i class="fas fa-thumbs-up"></i>
-                            <span class="">60%</span>
+                            @if(count($service->ratings)>0)
+                            <span class="">{{ count($service->ratings->where('rating',1))/count($service->ratings)*100 }}%</span>
+                            @else
+                            <span class="">0%</span>
+                            @endif
                         </div>
                         <div>
                             <i class="fas fa-thumbs-down"></i>
-                            <span class="">40%</span>
+                            @if(count($service->ratings)>0)
+                            <span class="">{{ count($service->ratings->where('rating',0))/count($service->ratings)*100 }}%</span>
+                            @else
+                            <span class="">0%</span>
+                            @endif
                         </div>
                     </div>
                     <div class="w-full mt-8 text-center lg:text-right text-sm">
@@ -197,4 +225,13 @@
 
         </div>
     </div>
+    
+@endsection
+
+@section('scripts')
+<script>
+    new Splide( '#splide' ).mount();
+
+</script>
+
 @endsection
