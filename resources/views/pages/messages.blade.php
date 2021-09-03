@@ -20,7 +20,7 @@
                         <i class="fas fa-clock"></i>
                         <span class="mr-1">اخر تفاعل: {{$messages[count($messages) - 1]->created_at->diffForHumans()}}</span>
                     </p>
-                    
+
                     @if($service)
                     <p class="ml-4 ">
                             <i class="fas fa-dollar-sign"></i>
@@ -36,7 +36,7 @@
                         @endif
                          ">
                             <i class="fas fa-info-circle"></i>
-                            <span class="mr-1"> 
+                            <span class="mr-1">
                                 @if($service->agreed_at)
                                 جاري التنفيذ
                                 @elseif($service->declined_at)
@@ -151,7 +151,7 @@
                 </div>
             </div>
             <div class="text-lg mt-4" id="message_container">
-                
+
             </div>
         </div>
     <hr>
@@ -187,8 +187,9 @@
             <input hidden name="_id" id="ticket_id" value="{{$ticket->id}}">
             <input hidden name="_date" value="{{$date}}">
             <label>
-                <textarea class="w-full border-2 border-blue-200 bg-blue-50 outline-none focus:ring-1 ring-curious-blue py-2 px-4" name="message" id="message" cols="30" rows="10"></textarea>
+                <textarea @if($user->hasRole('governmental organization')) disabled placeholder="لا يمكنك إرسال رسالة لانك منظمة حكومية." @endif class="w-full border-2 border-blue-200 bg-blue-50 outline-none focus:ring-1 ring-curious-blue py-2 px-4" name="message" id="message" cols="30" rows="10"></textarea>
             </label>
+            @if(!$user->hasRole('governmental organization'))
             <div class="flex">
                 <div class="table pl-8 pr-2 py-2 border-2 border-curious-blue text-curious-blue hover:bg-curious-blue hover:text-white cursor-pointer ml-2">
                     <span class="ml-6">
@@ -206,6 +207,7 @@
                 <button id="submit" class="mt-4 text-2xl text-white py-2 px-24 outline-none bg-curious-blue focus:ring-2 border border-white ring-curious-blue">
                     أرسل
                 </button>
+            @endif
         </form>
     </div>
 </div>
@@ -220,7 +222,7 @@
                     'X-CSRF-TOKEN': $("input[name='_token']").val(),
                 },
             data : {
-                
+
                 "message":message,
             },
             success: function(data, textStatus, jqXHR)
@@ -242,7 +244,7 @@
         $.ajax({
             url : "/api/messages/"+$("#ticket_id").val(),
             type: "GET",
-            
+
             data : {
                 "date":date,
             },
@@ -267,7 +269,7 @@
         console.log('checked');
         updateMessages($('input[name="_date"]').val());
     },5000);
-    
+
     var submitButton = document.getElementById('submit');
     submitButton.addEventListener('click',function(e){
         e.preventDefault();

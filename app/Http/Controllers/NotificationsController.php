@@ -20,6 +20,13 @@ class NotificationsController extends Controller
         return view('dashboard.notifications', ['notifications'=>$notifications]);
     }
 
+    public function celebrityIndex($username)
+    {
+        $notifications = NotificationsUser::user(User::where('username', $username)->first()->id)->orderByRaw('created_at DESC')->with('notification')->get();
+
+        return view('dashboard.notifications', ['notifications'=>$notifications]);
+
+    }
 
     public function create()
     {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Service;
 use App\Models\ServicePurchase;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Notifications\PurchaseAgreed;
@@ -21,6 +22,12 @@ class RequestController extends Controller
                 $query->where('user_id',$user->id);
             })->with('ticket.sender')->get();
 
+        return view('dashboard.requests',['requests'=>$services]);
+    }
+
+    public function celebrityIndex(Request $request, $username)
+    {
+        $services = ServicePurchase::whereIn('service_id', Service::where('user_id', User::where('username', $username)->first()->id)->get(['id']) )->with(['ticket.sender', 'service'])->get();
         return view('dashboard.requests',['requests'=>$services]);
     }
 

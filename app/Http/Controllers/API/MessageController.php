@@ -16,9 +16,9 @@ class MessageController extends Controller
 
     public function updateMessages(Request $request, $ticket)
     {
-        
         $date = $request->date ?? Ticket::where('id',$ticket)->first()->created_at->todateString();
         $date = Carbon::createFromFormat('Y-m-d H:i:s',$date);
+
         return [
             'Messages' => Message::where([
                 ['ticket_id', $ticket],
@@ -37,9 +37,13 @@ class MessageController extends Controller
         ]);
         if(!$validator->fails())
         {
+            $currentTicket = Ticket::where('id', $ticket)->first();
+
+            $sender = ($currentTicket->reciever_id !== $request->user()->id && $currentTicket->sender_id ) ? $currentTicket->reciever_id : $request->user()->id;
+
             $message = new Message();
 
-            $message->user_id = Auth::user()->id;
+            $message->user_id = $sender;
             $message->message = $request->message;
             $message->ticket_id = $ticket;
 

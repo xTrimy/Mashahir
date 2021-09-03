@@ -47,14 +47,20 @@ class ProfileController extends Controller
     }
 
     public function editProfile() {
-        $user = User::find(Auth::user()->id);
-        $user_info = UserInfo::where('user_id',$user->id)->first();
+        $user = User::find(Auth::user()->id)->with('user_info')->first();
 
         // if(!user_info) {
 
         // }
 
-        return view('dashboard.edit-profile',['user_info' => $user_info]);
+        return view('dashboard.edit-profile',['profile' => $user]);
+    }
+
+    public function editCelebrityProfile(Request $request, $username)
+    {
+        $user = User::where('username', $username)->with('user_info')->first();
+
+        return view('dashboard.edit-profile',['profile'=>$user]);
     }
 
     public function saveChanges(Request $input) {
@@ -62,7 +68,7 @@ class ProfileController extends Controller
         $input->validate(
             [
                 'name' => "string|max:255|min:12|required",
-                'username' => "string|max:16|min:3|required|regex:/^[a-zA-Z0-9_-]{3,15}$/|unique:users,username,".Auth::user()->id.",id",
+                'username' => "string|max:16|min:3|required|regex:/^[a-zA-Z0-9_-]{3,15}$/|unique:users,username,".Auth::user()->id,
                 'location' => "string|max:255|min:3|required",
                 'description' => "string|max:255|min:12|required",
                 'viewers' => "string|max:255|min:2|required",
@@ -111,4 +117,48 @@ class ProfileController extends Controller
         $user->save();
         return redirect()->back();
     }
+    public function saveCelebirtyChanges(Request $input, $username) {
+
+        $user = User::where('username', $username)->with('user_info')->first();
+
+        $input->validate(
+            [
+                'name' => "string|max:255|min:12|required",
+                'username' => "string|max:16|min:3|required|regex:/^[a-zA-Z0-9_-]{3,15}$/|unique:users,username,".$user->id,
+                'location' => "string|max:255|min:3|required",
+                'description' => "string|max:255|min:12|required",
+                'viewers' => "string|max:255|min:2|required",
+                'maroof_url' => "string|max:255|min:12|required",
+            ]
+        );
+
+
+        $user_info = UserInfo::where('user_id',$user->id)->first();
+
+        if (!$user_info) {
+            $user_info = new UserInfo();
+            $user_info->user_id = $user->id;
+        }
+
+        if($input->file()) {
+            $fileName = time().'_'.$input->file('vat')->getClientOriginalName();
+            $input->file('vat')->move(public_path('uploads'), $fileName);
+
+            $user_info->vat = $fileName;
+        }
+
+        $user->name = $input["name"];
+        $user->username = $input["username"];
+        $user->save();
+
+        $user_info->location = $input["location"];
+        $user_info->description = $input["description"];
+        $user_info->viewers = $input["viewers"];
+        $user_info->maroof_url = $input["maroof_url"];
+        $user_info->save();
+
+        return redirect()->route('dashboard.edit-profile');
+    }
+
+
 }
