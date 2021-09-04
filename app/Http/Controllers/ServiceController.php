@@ -31,7 +31,7 @@ class ServiceController extends Controller
     }
 
     public function dashboard_review(){
-        $services = Service::where('user_id',Auth::user()->id)->with('category')->get();
+        $services = Service::where('user_id',Auth::user()->id)->with(['category','images'])->get();
         return view('dashboard.services.review',['services'=>$services]);
     }
 

@@ -24,7 +24,7 @@
                         @foreach ($services as $service)
                             <div class="bg-white w-full h-72 p-3 border-solid border mb-5">
                                 <div class="w-full h-3/5 md:ml-10">
-                                    <img class="w-full h-full object-cover" src="{{ asset($service->image ?? "default.png") }}"/>
+                                    <img class="w-full h-full object-cover" src="{{ asset($service->images->first()->image ?? "default.png") }}"/>
                                 </div>
                                 <div class="text-l text-center my-3"><b>{{ $service->name }}</b></div>
                                 <a href="{{ route('dashboard.services.edit',$service->id) }}"><div class=" bg-curious-blue text-white w-8/12 cursor-pointer m-auto py-2 text-center font-bold">تعديل</div></a>

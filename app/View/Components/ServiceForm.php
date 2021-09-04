@@ -29,7 +29,7 @@ class ServiceForm extends Component
         $categories = Category::all();
         $service = null;
         if($this->id){
-            $service = Service::where('id',$this->id)->with('upgrades')->first();
+            $service = Service::where('id',$this->id)->with(['upgrades','images'])->first();
         }
         return view('components.service-form',['service'=> $service,'categories'=>$categories]);
     }

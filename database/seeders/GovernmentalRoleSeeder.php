@@ -15,13 +15,6 @@ class GovernmentalRoleSeeder extends Seeder
      */
     public function run()
     {
-        $role = Role::create(['name'=>"governmental organization"])->givePermissionTo([
-            'manage all celebrities',
-            'manage managers',
-            'send important notifications',
-            'view all tasks',
-            'view all ads',
-            'view all transactions',
-        ]);
+        $role = Role::create(['name'=>"governmental organization"]);
     }
 }

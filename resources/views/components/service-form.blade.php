@@ -13,10 +13,22 @@
                                     {{ Session::get('error') }}
                                 </div>
                                 @endif
-                                <div class="w-full h-96">
-                                    <div class="w-full h-full">
-                                        <img src="{{ asset('image/placeholders/banner.jpg') }}" class="object-contain object-center w-full h-full" alt="">
+                                <div dir="ltr" class="relative max-w-full mx-auto my-auto embla bg-white" id="embla">
+                                    <div class="embla__viewport bg-white">
+                                        <div class="embla__container">
+                                            @foreach ($service->images as $image)
+                                                <div class="embla__slide" style="height:350px;">
+                                                    <img class="w-full h-full object-contain" src={{ asset($image->image) }} />
+                                                </div>
+                                            @endforeach
+                                        </div>
                                     </div>
+                                    <button class="embla__button embla__button--prev" type="button">
+                                        <i class="fas fa-caret-left text-5xl text-curious-blue"></i>
+                                    </button>
+                                    <button class="embla__button embla__button--next" type="button">
+                                        <i class="fas fa-caret-right text-5xl text-curious-blue"></i>
+                                    </button>
                                 </div>
                                     <div class="py-8 ">
                                         
