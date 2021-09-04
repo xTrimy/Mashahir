@@ -3,8 +3,6 @@
 نظرة عامة | لوحة التحكم
 @endsection
 @section('content')
-        <div class="px-2 lg:pr-12 lg:pl-24 py-12 mt-8 w-full overflow-x-hidden">
-            <h1 class="text-3xl lg:text-5xl font-extrabold mb-8">لوحة التحكم</h1>
             <x-dashboard-nav-bar page="main"/>
             <div class="flex mt-4  flex-wrap">
                 @if($user->hasPermissionTo('manage celebrities') || $user->hasPermissionTo('manage all celebrities'))
@@ -12,7 +10,7 @@
                         @if($showCelebrities)
                             <div class="flex justify-between items-center">
                                 <h2 class="text-2xl">المشاهير</h2>
-                                <a href="dashboard/celebrities" class="text-blue-600 text-sm">عرض المزيد</a>
+                                <a href="{{route('dashboard.celebrities')}}" class="text-blue-600 text-sm">عرض المزيد</a>
                             </div>
                             @if($celebrities)
                             <div class="w-full">
@@ -24,7 +22,7 @@
                                                 </div>
                                                 <span class="text-lg">{{$celebrity->name}}</span>
                                             </div>
-                                            <a href="celebrity/{{$celebrity->username}}/"><div class="py-1 px-8 text-sm bg-blue-50 text-blue-600 rounded-full">إدارة</div></a>
+                                            <a href="{{route('dashboard.celebrity.main', ['username'=>$celebrity->username])}}"><div class="py-1 px-8 text-sm bg-blue-50 text-blue-600 rounded-full">إدارة</div></a>
                                         </div>
                                 @endforeach
                             </div>
@@ -34,7 +32,7 @@
                         @endif
                         <div class="flex justify-between items-center mt-8">
                             <h2 class="text-2xl">المهام</h2>
-                            <a href="requests" class="text-blue-600 text-sm">عرض المزيد</a>
+                            <a href="@if($requestInfo->username) {{route('dashboard.celebrity.requests',['username'=>$requestInfo->username])}} @else {{route('dashboard.requests')}} @endif" class="text-blue-600 text-sm">عرض المزيد</a>
                         </div>
                         @if($tasks)
                         <div class="w-full">
@@ -74,7 +72,7 @@
                 <div class="flex-1 mt-4 lg:mt-0 lg:mr-8 ">
                     <div class="flex justify-between">
                         <h2 class="text-2xl">الرصيد</h2>
-                        <a class="text-blue-600" href="credits">عرض الجميع</a>
+                        <a class="text-blue-600" href="@if($requestInfo->username) {{route('dashboard.celebrity.credit',['username'=>$requestInfo->username])}} @else {{route('dashboard.credit')}} @endif">عرض الجميع</a>
                     </div>
                     <div class="grid gap-4 grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 grid-rows-3 xl:grid-rows-2 2xl:grid-rows-1 w-full mt-4">
                         <div class="w-full h-full bg-white rounded-lg shadow-lg py-4 px-4 lg:px-8">

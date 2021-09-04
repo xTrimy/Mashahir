@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Notifications\PurchaseAgreed;
 use App\Notifications\PurchaseDeclined;
+use Illuminate\Support\Facades\View;
 
 class RequestController extends Controller
 {
@@ -28,7 +29,8 @@ class RequestController extends Controller
     public function celebrityIndex(Request $request, $username)
     {
         $services = ServicePurchase::whereIn('service_id', Service::where('user_id', User::where('username', $username)->first()->id)->get(['id']) )->with(['ticket.sender', 'service'])->get();
-        return view('dashboard.requests',['requests'=>$services]);
+        $user = User::where('username', $username)->first();
+        return view('dashboard.requests',['requests'=>$services, 'profile'=>$user]);
     }
 
     public function accept($id){

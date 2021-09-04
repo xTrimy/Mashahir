@@ -20,7 +20,7 @@ class hasTicket
      */
     public function handle(Request $request, Closure $next, ...$roles)
     {
-        $ticket = Ticket::find($request->ticket)->first();
+        $ticket = Ticket::find($request->ticket);
 
         if(!$ticket){
             abort(404);

@@ -21,10 +21,14 @@
             </a>
             <div class="lg:mr-2 text-white text-base h-full">
                 <div class="flex items-center h-full">
-                    <a href="#" class="hidden lg:flex md:mr-5 lg:mr-6 hover:bg-curious-blue-200 h-full items-center lg:px-4 px-1 ">
-                        <i class="fas fa-folder-open text-xl ml-2"></i>
-                        أعلاناتي
-                    </a>
+                    @if($user)
+                        @if($user->hasPermissionTo('publish services'))
+                            <a href="{{route('profile.ads', ['username'=>$user->username])}}" class="hidden lg:flex md:mr-5 lg:mr-6 hover:bg-curious-blue-200 h-full items-center lg:px-4 px-1 ">
+                                <i class="fas fa-folder-open text-xl ml-2"></i>
+                                أعلاناتي
+                            </a>
+                        @endif
+                    @endif
                     <a href="#" class="hidden md:flex md:mr-5 lg:mr-6 hover:bg-curious-blue-200 h-full items-center lg:px-4 px-1 ">
                         <i class="fas fa-cubes text-xl ml-2"></i>
                         التصنيفات
@@ -189,7 +193,7 @@
         $.ajax({
             url : "/api/notifications/",
             type: "GET",
-            
+
             data : {
                 "date":date,
             },
@@ -199,13 +203,13 @@
                 for(let i = 0;i < notifications.length; i++){
                     append_notification(notifications[i]);
                     console.log(notifications[i].created_at);
-                    
+
                 }
                 if(notifications[0]){
                     var date = new Date(notifications[0].created_at);
                     $('input[name="_date"]').val(date.getFromFormat('yyyy-mm-dd hh:ii:ss'));
                 }
-                document.querySelector('#notification_count').innerHTML = 
+                document.querySelector('#notification_count').innerHTML =
                     parseInt(document.querySelector('#notification_count').innerHTML) +
                     notifications.length;
                 console.log(data);
@@ -221,7 +225,7 @@
         console.log($('input[name="_date"]').val());
         updateNotifications($('input[name="_date"]').val());
     },5000);
-    
+
     </script>
     @yield('scripts')
 </body>

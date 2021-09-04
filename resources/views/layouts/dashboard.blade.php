@@ -41,7 +41,7 @@
                 <div class="group w-14 h-14 bg-white rounded-full overflow-hidden">
                     <img src="{{ asset(Auth::user()->image ?? "avatars/images/default.png") }}" class="w-full h-full object-cover object-center" alt="">
                 </div>
-                
+
                 <div class="absolute top-full z-20 left-0 w-48 bg-white group-hover:block group-focus:block hidden text-black text-base">
                     <div class="w-6 overflow-hidden inline-block absolute left-8 bottom-full">
                         <div class=" h-3 w-6 bg-white rotate-45 transform origin-bottom-left"></div>
@@ -122,10 +122,14 @@
                 </div>
             </div>
         </div>
-
+        <div class="px-2 lg:pr-12 lg:pl-24 py-12 mt-8 w-full overflow-x-hidden">
+        @if($requestInfo->username)
+        <a href="{{route('dashboard.main')}}"><div class="rounded-full bg-blue-200 table text-curious-blue py-2 px-12 mb-2">العودة للرئيسية</div></a>
+        @endif
+        <h1 class="text-3xl lg:text-5xl font-extrabold mb-8">لوحة التحكم @if($requestInfo->username) ({{$profile->name}}) @endif</h1>
         @yield('content')
 </div>
-    
+
     <script src="{{ asset('js/app.js') }}"></script>
     <script>
         var dahsboard_menu_button = document.getElementById('dashboard-menu-button');

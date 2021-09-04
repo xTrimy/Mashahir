@@ -95,7 +95,9 @@ Route::prefix('/messages')->middleware(['auth', 'verified'])->group(function(){
 
     Route::get('/create/{username}', [ticketController::class, 'index'])->middleware('profile.exists', 'user.notHimSelf')->name('new-ticket');
     Route::post('/create/{username}', [ticketController::class, 'store'])->middleware('profile.exists', 'user.notHimSelf');
+
     Route::get('/{ticket}',[ticketController::class, 'read'])->middleware('user.hasTicket:web')->name('ticket');
+
     Route::post('/{ticket}',[ticketController::class, 'finish_service_request'])->middleware('user.hasTicket:web')->name('ticket-finish');
     Route::post('/{ticket}/finish_request',[ticketController::class, 'finish_service'])->middleware('user.hasTicket:web')->name('finish_ticket');
     Route::post('/{ticket}/rate',[ticketController::class, 'rate_service'])->middleware('user.hasTicket:web')->name('rate_service');
@@ -132,8 +134,8 @@ Route::prefix('/dashboard')->as('dashboard.')->middleware('verified')->group(fun
 
 
     Route::get('/requests', [RequestController::class,'index'])->name('requests');
-    Route::get('/requests/accept/{id}', [RequestController::class, 'accept'])->name('accept-request')->middleware('user.hasService');
-    Route::get('/requests/decline/{id}', [RequestController::class, 'decline'])->name('decline-request')->middleware('user.hasService');
+    Route::get('/requests/accept/{id}', [RequestController::class, 'accept'])->name('accept-request')->middleware('user.hasPermission:view all tasks');
+    Route::get('/requests/decline/{id}', [RequestController::class, 'decline'])->name('decline-request')->middleware('user.hasPermission:view all tasks');
 
     Route::get('/notifications', [NotificationsController::class, 'index'])->name('notifications');
 
@@ -161,17 +163,18 @@ Route::prefix('/dashboard')->as('dashboard.')->middleware('verified')->group(fun
     });
 
 
-    Route::group(['prefix'=>'/celebrity/{username}','as'=>"celebrity", 'middleware'=>['profile.exists', 'agency.hasCelebrity']], function(){
+    Route::group(['prefix'=>'/celebrity/{username}','as'=>"celebrity.", 'middleware'=>['profile.exists', 'agency.hasCelebrity']], function(){
 
 
-        Route::get('/', [DashboardHomeController::class, 'celebrityIndex']);
-        Route::get('/requests', [RequestController::class, 'celebrityIndex']);
+        Route::get('/', [DashboardHomeController::class, 'celebrityIndex'])->name('main');
+        Route::get('/requests', [RequestController::class, 'celebrityIndex'])->name('requests');
 
-        Route::get('/credit', function () {
-            return view('dashboard.credit');
-        });
+        Route::get('/credit', function ($username) {
+            $user = User::where('username', $username)->first();
+            return view('dashboard.credit', ['profile'=>$user]);
+        })->name('credit');
 
-        Route::get('/edit-profile', [ProfileController::class, 'editCelebrityProfile']);
+        Route::get('/edit-profile', [ProfileController::class, 'editCelebrityProfile'])->name('edit-profile');
         Route::post('/edit-profile', [ProfileController::class, 'saveCelebirtyChanges'])->middleware('user.doesnothaverole:governmental organization');
         Route::get('/notifications', [NotificationsController::class, 'celebrityIndex'])->name('notifications');
 
