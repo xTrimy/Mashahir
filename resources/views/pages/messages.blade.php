@@ -55,16 +55,17 @@
                 <span>أبلاغ عن مشكلة</span>
                 <i class="las la-life-ring text-2xl mr-2"></i>
             </div>
-            @if($ticket->purchase->service->user->id == Auth::user()->id && $ticket->finished_at == null)
-            <form method="POST">
-                @csrf
-                <input type="hidden" name="_id" value="{{ $ticket->id }}">
-                <button type="submit" class="bg-green-500 hover:bg-green-600 px-8 py-2 text-white flex items-center ">
-                    <span>تسليم الخدمة</span>
-                    <i class="las la-shopping-cart text-2xl mr-2"></i>
-                </button>
-            </form>
-            @endif
+            @if(!empty($ticket->purchase))
+                @if($ticket->purchase->service->user->id == Auth::user()->id && $ticket->finished_at == null)
+                <form method="POST">
+                    @csrf
+                    <input type="hidden" name="_id" value="{{ $ticket->id }}">
+                    <button type="submit" class="bg-green-500 hover:bg-green-600 px-8 py-2 text-white flex items-center ">
+                        <span>تسليم الخدمة</span>
+                        <i class="las la-shopping-cart text-2xl mr-2"></i>
+                    </button>
+                </form>
+                @endif
             @if($ticket->purchase->service->user->id != Auth::user()->id && $ticket->finished_at != null && $ticket->purchase->finished_at == null)
             <form method="POST" action="{{ route('finish_ticket',$ticket->id) }}">
                 @csrf
@@ -85,7 +86,8 @@
                 </button>
             </form>
             @endif
-            
+            @endif
+
         </div>
 
     </div>
@@ -125,7 +127,7 @@
                     @endif
                 </div>
             </div>
-            <div class="text-lg 
+            <div class="text-lg
             @if(!$message->auto_message)
             mt-4
             @endif
@@ -156,9 +158,10 @@
         </div>
     <hr>
     </div>
-    @if($ticket->purchase->service->user->id != Auth::user()->id 
-    && $ticket->finished_at != null 
-    && $ticket->purchase->finished_at != null 
+    @if($ticket->purchase)
+    @if($ticket->purchase->service->user->id != Auth::user()->id
+    && $ticket->finished_at != null
+    && $ticket->purchase->finished_at != null
     && $ticket->purchase->rating == null)
     <form method="POST" class="w-full px-8 py-4 border-b" action="{{ route('rate_service',$ticket->id) }}">
         @csrf
@@ -177,9 +180,10 @@
             </label>
         </div>
         <button type="submit" class="mx-auto table py-4 px-12 mt-4 bg-curious-blue text-lg text-white hover:bg-curious-blue-200">
-            تقييم 
+            تقييم
         </button>
     </form>
+    @endif
     @endif
     <div class="w-full py-12 px-8">
         <form method="POST" class="w-full">
@@ -187,7 +191,7 @@
             <input hidden name="_id" id="ticket_id" value="{{$ticket->id}}">
             <input hidden name="_date" value="{{$date}}">
             <label>
-                <textarea @if($user->hasRole('governmental organization')) disabled placeholder="لا يمكنك إرسال رسالة لانك منظمة حكومية." @endif class="w-full border-2 border-blue-200 bg-blue-50 outline-none focus:ring-1 ring-curious-blue py-2 px-4" name="message" id="message" cols="30" rows="10"></textarea>
+                <textarea @if($user->hasRole('governmental organization')) disabled placeholder="لا يمكنك إرسال رسالة." @endif class="w-full border-2 border-blue-200 bg-blue-50 outline-none focus:ring-1 ring-curious-blue py-2 px-4" name="message" id="message" cols="30" rows="10"></textarea>
             </label>
             @if(!$user->hasRole('governmental organization'))
             <div class="flex">
@@ -212,7 +216,7 @@
     </div>
 </div>
 <script>
-    
+
 
     function sendMessage(message){
         $.ajax({

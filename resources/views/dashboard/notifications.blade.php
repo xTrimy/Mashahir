@@ -3,9 +3,8 @@
 الأشعارات الهامة  | لوحة التحكم
 @endsection
 @section('content')
-        <div class="px-2 lg:pr-12 lg:pl-24 py-12 mt-8 w-full overflow-x-hidden">
             <h1 class="text-3xl lg:text-5xl font-extrabold mb-8">إدارة الملف </h1>
-
+            <div class="hidden bg-curious-blue bg-curious-green bg-curious-red bg-curious-yellow"></div>
             <div class="w-full mt-8 flex flex-wrap lg:flex-nowrap">
                 <x-profile-settings-navbar page="notifications" />
                 <div class="lg:mr-8 flex-1 h-full ">

@@ -43,11 +43,13 @@ class HomeController extends Controller
     {
         $tasks = ServicePurchase::whereNotNull('agreed_at')->whereIn('service_id', Service::where('user_id', User::where('username', $username)->first()->id)->get(['id']) )->with(['customer', 'service.user'])
                 ->paginate(5);
+        $user = User::where('username', $username)->first();
 
         return view('dashboard.main',[
             'showCelebrities' => false,
             'celebrities' => null,
             'tasks' => $tasks,
+            'profile'=> $user
         ]);
     }
 }

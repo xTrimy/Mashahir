@@ -3,9 +3,8 @@
 مراجعة عامة للخدمات  | لوحة التحكم
 @endsection
 @section('content')
-        <div class="px-2 lg:pr-12 lg:pl-24 py-12 mt-8 w-full overflow-x-hidden">
             <h1 class="text-3xl lg:text-5xl font-extrabold mb-8">إدارة الملف </h1>
-            
+
             <div class="w-full mt-8 flex flex-wrap lg:flex-nowrap">
 
                 <x-profile-settings-navbar page="services" />
@@ -30,10 +29,9 @@
                                 <a href="{{ route('dashboard.services.edit',$service->id) }}"><div class=" bg-curious-blue text-white w-8/12 cursor-pointer m-auto py-2 text-center font-bold">تعديل</div></a>
                             </div>
                         @endforeach
-                        
+
                     </div>
                 </div>
             </div>
         </div>
 @endsection
-   

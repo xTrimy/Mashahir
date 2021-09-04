@@ -3,8 +3,6 @@
  المهام | لوحة التحكم
 @endsection
 @section('content')
-        <div class="px-2 lg:pr-12 lg:pl-24 py-12 mt-8 w-full overflow-x-hidden">
-            <h1 class="text-3xl lg:text-5xl font-extrabold mb-8">لوحة التحكم</h1>
             <x-dashboard-nav-bar page="tasks"/>
 
             <div class="w-full mt-8">

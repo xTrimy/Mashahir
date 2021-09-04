@@ -1,7 +1,7 @@
 const colors = require('tailwindcss/colors')
 
 module.exports = {
-  mode:'jit',
+//   mode:'jit',
   purge: [
     './resources/*.blade.php',
     './resources/**/*.blade.php',
@@ -44,7 +44,7 @@ module.exports = {
   variants: {
     extend: {
       display: ['group-hover','group-focus','focus-within','hover'],
-      textColor: ['peer-checked'],
+    //   textColor: ['peer-checked'],
     },
   },
 plugins: [
