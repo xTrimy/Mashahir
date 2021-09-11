@@ -70,39 +70,43 @@
                     </div>
                 @endif
                 <div class="flex-1 mt-4 lg:mt-0 lg:mr-8 ">
-                    <div class="flex justify-between">
-                        <h2 class="text-2xl">الرصيد</h2>
-                        <a class="text-blue-600" href="@if($requestInfo->username) {{route('dashboard.celebrity.credit',['username'=>$requestInfo->username])}} @else {{route('dashboard.credit')}} @endif">عرض الجميع</a>
-                    </div>
-                    <div class="grid gap-4 grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 grid-rows-3 xl:grid-rows-2 2xl:grid-rows-1 w-full mt-4">
-                        <div class="w-full h-full bg-white rounded-lg shadow-lg py-4 px-4 lg:px-8">
+                    @if(!$user->hasRole('governmental organization') || $requestInfo->username)
+                        @if(($user->hasRole('governmental organization') && $user->hasPermissionTo('view all credits')) || !$user->hasRole('governmental organization'))
                             <div class="flex justify-between">
-                                <div class="text-base font-bold mr-2">أرباح يمكن سحبها</div>
-                                <div class="w-8 h-8 lg:w-12 lg:h-12 bg-green-100 rounded-full flex justify-center items-center">
-                                    <i class="las la-check-circle text-green-500 text-3xl"></i>
+                                <h2 class="text-2xl">الرصيد</h2>
+                                <a class="text-blue-600" href="@if($requestInfo->username) {{route('dashboard.celebrity.credit',['username'=>$requestInfo->username])}} @else {{route('dashboard.credit')}} @endif">عرض الجميع</a>
+                            </div>
+                            <div class="grid gap-4 grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 grid-rows-3 xl:grid-rows-2 2xl:grid-rows-1 w-full mt-4">
+                                <div class="w-full h-full bg-white rounded-lg shadow-lg py-4 px-4 lg:px-8">
+                                    <div class="flex justify-between">
+                                        <div class="text-base font-bold mr-2">أرباح يمكن سحبها</div>
+                                        <div class="w-8 h-8 lg:w-12 lg:h-12 bg-green-100 rounded-full flex justify-center items-center">
+                                            <i class="las la-check-circle text-green-500 text-3xl"></i>
+                                        </div>
+                                    </div>
+                                    <div class="text-3xl lg:text-5xl lg:-mt-4 text-curious-blue">$3910</div>
+                                </div>
+                                <div class="w-full h-full bg-white rounded-lg shadow-lg py-4 px-4 lg:px-8">
+                                    <div class="flex justify-between">
+                                        <div class="text-base font-bold mr-2">رصيد معلق</div>
+                                        <div class="w-8 h-8 lg:w-12 lg:h-12 bg-yellow-100 rounded-full flex justify-center items-center">
+                                            <i class="las la-pause-circle text-yellow-500 text-3xl"></i>
+                                        </div>
+                                    </div>
+                                    <div class="text-3xl lg:text-5xl lg:-mt-4 text-curious-blue">$1577</div>
+                                </div>
+                                <div class="w-full h-full bg-white rounded-lg shadow-lg py-4 px-4 lg:px-8">
+                                    <div class="flex justify-between">
+                                        <div class="text-base font-bold mr-2">أرباح يمكن سحبها</div>
+                                        <div class="w-8 h-8 lg:w-12 lg:h-12 bg-blue-100 rounded-full flex justify-center items-center">
+                                            <i class="las la-chart-pie text-blue-500 text-3xl"></i>
+                                        </div>
+                                    </div>
+                                    <div class="text-3xl lg:text-5xl lg:-mt-4 text-curious-blue">$5487</div>
                                 </div>
                             </div>
-                            <div class="text-3xl lg:text-5xl lg:-mt-4 text-curious-blue">$3910</div>
-                        </div>
-                        <div class="w-full h-full bg-white rounded-lg shadow-lg py-4 px-4 lg:px-8">
-                            <div class="flex justify-between">
-                                <div class="text-base font-bold mr-2">رصيد معلق</div>
-                                <div class="w-8 h-8 lg:w-12 lg:h-12 bg-yellow-100 rounded-full flex justify-center items-center">
-                                    <i class="las la-pause-circle text-yellow-500 text-3xl"></i>
-                                </div>
-                            </div>
-                            <div class="text-3xl lg:text-5xl lg:-mt-4 text-curious-blue">$1577</div>
-                        </div>
-                        <div class="w-full h-full bg-white rounded-lg shadow-lg py-4 px-4 lg:px-8">
-                            <div class="flex justify-between">
-                                <div class="text-base font-bold mr-2">أرباح يمكن سحبها</div>
-                                <div class="w-8 h-8 lg:w-12 lg:h-12 bg-blue-100 rounded-full flex justify-center items-center">
-                                    <i class="las la-chart-pie text-blue-500 text-3xl"></i>
-                                </div>
-                            </div>
-                            <div class="text-3xl lg:text-5xl lg:-mt-4 text-curious-blue">$5487</div>
-                        </div>
-                    </div>
+                        @endif
+                    @endif
                     <div class="w-full mt-6">
                         <h2 class="text-2xl mb-4">التقويم</h2>
                         {{-- Calendar Element --}}

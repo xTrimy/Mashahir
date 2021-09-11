@@ -70,7 +70,7 @@ class Kernel extends HttpKernel
         'user.hasTicket' => \App\Http\Middleware\hasTicket::class,
         'user.hasService' => \App\Http\Middleware\hasService::class,
         'user.notHimSelf' => \App\Http\Middleware\notThisUser::class,
-        'agency.hasCelebrity' =>\App\Http\Middleware\hasCelebrity::class
-
+        'agency.hasCelebrity' =>\App\Http\Middleware\hasCelebrity::class,
+        'abort.checkRoles' => \App\Http\Middleware\abortWithRole::class,
     ];
 }

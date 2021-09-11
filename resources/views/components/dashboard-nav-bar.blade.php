@@ -13,6 +13,23 @@
         @endif
         <a href="{{route('dashboard.send-notification')}}"><div class="{{ $page == 'settings' ?$selected_style:"" }} px-4 mx-2">الاشعارات الهامة</div></a>
     @endif
-    <a href="@if($requestInfo->username) {{route('dashboard.celebrity.credit',['username'=>$requestInfo->username])}} @else {{ route('dashboard.credit') }} @endif"><div class="{{ $page == 'credit' ?$selected_style:"" }} px-4 mx-2">الرصيد</div></a>
-    <a href="@if($requestInfo->username) {{route('dashboard.celebrity.edit-profile', ['username'=>$requestInfo->username])}} @else {{ route('dashboard.edit-profile') }} @endif"><div class="{{ $page == 'settings' ?$selected_style:"" }} px-4 mx-2">اعدادات</div></a>
+
+    {{-- Credit Handler --}}
+    @if($requestInfo->username)
+        @if(($user->hasRole('governmental organization') && $user->hasPermissionTo('view all credits')) || $user->hasRole('advertising agency'))
+            <a href="{{route('dashboard.celebrity.credit',['username'=>$requestInfo->username])}}"><div class="{{ $page == 'credit' ?$selected_style:"" }} px-4 mx-2">الرصيد</div></a>
+        @endif
+    @elseif(!$user->hasRole('governmental organization'))
+        <a href="{{ route('dashboard.credit') }}"><div class="{{ $page == 'credit' ?$selected_style:"" }} px-4 mx-2">الرصيد</div></a>
+    @endif
+
+    {{-- Settings Handler --}}
+    @if($requestInfo->username)
+        @if(($user->hasRole('governmental organization') && $user->hasPermissionTo('edit all profiles')) || $user->hasRole('advertising agency'))
+            <a href="{{route('dashboard.celebrity.edit-profile', ['username'=>$requestInfo->username])}}"><div class="{{ $page == 'settings' ?$selected_style:"" }} px-4 mx-2">اعدادات</div></a>
+        @endif
+    @else
+        <a href="{{ route('dashboard.edit-profile') }}"><div class="{{ $page == 'settings' ?$selected_style:"" }} px-4 mx-2">اعدادات</div></a>
+    @endif
 </div>
+

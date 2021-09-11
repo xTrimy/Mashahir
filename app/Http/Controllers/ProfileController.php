@@ -47,11 +47,7 @@ class ProfileController extends Controller
     }
 
     public function editProfile() {
-        $user = User::find(Auth::user()->id)->with('user_info')->first();
-
-        // if(!user_info) {
-
-        // }
+        $user = User::where('id', Auth::user()->id)->with('user_info')->first();
 
         return view('dashboard.edit-profile',['profile' => $user]);
     }
@@ -157,7 +153,7 @@ class ProfileController extends Controller
         $user_info->maroof_url = $input["maroof_url"];
         $user_info->save();
 
-        return redirect()->route('dashboard.edit-profile');
+        return redirect()->route('profile', ['username'=> $username]);
     }
 
 

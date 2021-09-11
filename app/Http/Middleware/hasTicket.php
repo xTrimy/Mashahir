@@ -26,7 +26,7 @@ class hasTicket
             abort(404);
         }
 
-        if(DB::select('SELECT id FROM tickets WHERE id = ? AND (sender_id = ? OR reciever_id = ?)', [$request->ticket, Auth::user()->id, Auth::user()->id]) || AgencyCelebrity::where(["agency_id"=> $request->user()->id, "celebrity_id"=>$ticket->reciever_id]) || $request->user()->hasPermissionTo('view all tasks'))
+        if(DB::select('SELECT id FROM tickets WHERE id = ? AND (sender_id = ? OR reciever_id = ?)', [$request->ticket, Auth::user()->id, Auth::user()->id]) || AgencyCelebrity::where(["agency_id"=> $request->user()->id, "celebrity_id"=>$ticket->reciever_id])->first() || $request->user()->hasPermissionTo('view all messages'))
         {
             return $next($request);
         }
