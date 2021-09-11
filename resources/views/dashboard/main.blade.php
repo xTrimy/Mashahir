@@ -4,6 +4,7 @@
 @endsection
 @section('content')
             <x-dashboard-nav-bar page="main"/>
+            <div id="calenderIdentifier" data-url="@if($requestInfo->username){{url('/api/calender/'. $requestInfo->username)}}@else{{url('api/calender/')}}@endif" hidden> </div>
             <div class="flex mt-4  flex-wrap">
                 @if($user->hasPermissionTo('manage celebrities') || $user->hasPermissionTo('manage all celebrities'))
                     <div class="w-full lg:w-96">
@@ -164,7 +165,7 @@
                             function getCalendarData(year_value, month_value){
                                 calednar_loading_overlay.classList.remove('hidden');
                                 $.ajax({
-                                    url: "{{ url('/api/calender') }}",
+                                    url: document.getElementById('calenderIdentifier').dataset.url,
                                     type: "get", //send it through get method
                                     data: {
                                         year: year_value | null,
