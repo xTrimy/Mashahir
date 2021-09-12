@@ -95,6 +95,21 @@ class User extends Authenticatable implements MustVerifyEmail
         });
     }
 
+    public function scopeServiceKeyword($query, $keywords)
+    {
+        if(empty($keywords)) return $query;
+        return $query->whereExists(function($query) use($keywords){
+
+            foreach($keywords as $word){
+                $query->select(DB::raw(1))
+                    ->from('services')
+                    ->orWhere('keywords', 'LIKE', '%'. $word . '%')
+                    ->whereColumn('services.user_id','users.id');
+            }
+
+        });
+    }
+
     public function sendEmailVerificationNotification()
     {
         //dispactches the job to the queue passing it this User object
