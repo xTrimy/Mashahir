@@ -25,6 +25,30 @@
                 </div>
             </div>
 
+            <div class="w-full mb-2 px-8 py-12 bg-white">
+                <div class="relative overflow-hidden">
+                    <div class="show cat">
+                        <div class="flex justify-between items-center mb-4">
+                            <h1 class="text-xl font-bold">نوع الحساب</h1>
+                        </div>
+                    </div>
+                    <ul class="text-lg group">
+                        @foreach ($types as $type)
+                            <li>
+                                <label class="cursor-pointer">
+                                    <input name="type" value="{{$type['en']}}" type="checkbox"
+                                    @if (in_array($type['en'], $selected_types))
+                                        checked
+                                    @endif
+                                    class="ml-2 form-checkbox rounded border-curious-blue border-2 text-curious-blue">
+                                    {{$type['ar']}}
+                                </label>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+
             <div class="w-full px-8 py-12 bg-white">
                 <div class="relative overflow-hidden">
                     <div class="show cat">
@@ -100,7 +124,7 @@
             checked = "&";
         }
         if(keywords){
-            path += checked + "keywords=" + keywords;
+            path += checked + "keyword=" + keywords;
         }
 
         return window.location.href = path;
