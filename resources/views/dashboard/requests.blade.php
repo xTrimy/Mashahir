@@ -1,4 +1,7 @@
 @extends('layouts.dashboard')
+@section('page')
+requests
+@endsection
 @section('title')
 المشاهير | لوحة التحكم
 @endsection
@@ -77,7 +80,7 @@
                         </div>
                     </div>
                     </div>
-                    @if($request->agreed_at == null && $request->declined_at == null && !$user->hasPermissionTo('manage all celebrities'))
+                    @if($request->agreed_at == null && $request->declined_at == null && $user->hasPermissionTo('manage all celebrities'))
                     <div class="flex items-center">
                         <a href="{{ route('dashboard.accept-request',$request->id) }}"><div class="py-2 px-4 border-2 border-curious-blue text-curious-blue hover:bg-curious-blue hover:text-white transition-colors">
                             قبول الطلب

@@ -1,4 +1,7 @@
 @extends('layouts.dashboard')
+@section('page')
+services
+@endsection
 @section('title')
 تعديل الملف | لوحة التحكم
 @endsection

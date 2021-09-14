@@ -16,11 +16,13 @@
                                 <div dir="ltr" class="relative max-w-full mx-auto my-auto embla bg-white" id="embla">
                                     <div class="embla__viewport bg-white">
                                         <div class="embla__container">
-                                            @foreach ($service->images as $image)
-                                                <div class="embla__slide" style="height:350px;">
-                                                    <img class="w-full h-full object-contain" src={{ asset($image->image) }} />
-                                                </div>
-                                            @endforeach
+                                            @if($service)
+                                                @foreach ($service->images as $image)
+                                                    <div class="embla__slide" style="height:350px;">
+                                                        <img class="w-full h-full object-contain" src={{ asset($image->image) }} />
+                                                    </div>
+                                                @endforeach
+                                            @endif
                                         </div>
                                     </div>
                                     <button class="embla__button embla__button--prev" type="button">

@@ -1,4 +1,7 @@
 @extends('layouts.dashboard')
+@section('page')
+notifications
+@endsection
 @section('title')
 الأشعارات الهامة  | لوحة التحكم
 @endsection

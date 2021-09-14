@@ -1,4 +1,7 @@
 @extends('layouts.dashboard')
+@section('page')
+notifications
+@endsection
 @section('title')
 المشاهير | لوحة التحكم
 @endsection

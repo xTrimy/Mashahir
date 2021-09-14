@@ -1,4 +1,7 @@
 @extends('layouts.dashboard')
+@section('page')
+tasks
+@endsection
 @section('title')
  المهام | لوحة التحكم
 @endsection

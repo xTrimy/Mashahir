@@ -1,4 +1,7 @@
 @extends('layouts.dashboard')
+@section('page')
+credit
+@endsection
 @section('title')
 المشاهير | لوحة التحكم
 @endsection

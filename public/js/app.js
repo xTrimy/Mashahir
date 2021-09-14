@@ -28,6 +28,11 @@ Date.prototype.getFromFormat = function (format) {
   return format;
 };
 
+function playSound(url) {
+  var audio = new Audio(url);
+  audio.play();
+}
+
 /***/ }),
 
 /***/ "./resources/js/embla.js":

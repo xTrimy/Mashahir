@@ -1,3 +1,10 @@
+@auth
+    @php
+        $notifications = Auth::user()->notifications()->limit(10)->get();
+        $notifications_latest = Auth::user()->notifications()->latest()->limit(1)->first();
+        $notifications_unseen = Auth::user()->unreadNotifications()->count();
+    @endphp
+@endauth
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +20,7 @@
 <body dir="rtl" class="bg-gray-100 overflow-x-hidden">
     <div class="w-full bg-curious-blue h-20 shadow-lg px-4 md:px-8 lg:px-12 xl:px-20 2xl:px-52 flex justify-between">
         <div class="flex items-center h-full">
-            <div class="cursor-pointer h-8 w-8 text-white text-3xl lg:text-4xl flex justify-start items-center">
+            <div id="main-sidebar-open" class="cursor-pointer h-8 w-8 text-white text-3xl lg:text-4xl flex justify-start items-center">
                 <i class="las la-bars"></i>
             </div>
             <a href="{{ route('home') }}" class="w-12 h-12 md:h-18 md:w-18 xl:w-64">
@@ -71,9 +78,9 @@
 
             <button class="group lg:mr-2 relative h-full flex items-center hover:bg-curious-blue-200 focus:bg-curious-blue-200 px-4 cursor-pointer">
                 <i class="fas fa-bell relative">
-                    <input type="hidden" name="_date">
+                    <input type="hidden" name="_date" value="{{ $notifications_latest->created_at }}">
                     <div id="notification_count" class="absolute bottom-full left-full w-5 transform -translate-x-1/2 translate-y-1/2 h-5 text-sm text-white bg-red-500 rounded-full">
-                        2
+                        {{ $notifications_unseen }}
                     </div>
                 </i>
                 <div  class=" absolute w-72 bg-white top-full -left-8 z-20 hidden group-focus:block">
@@ -81,6 +88,27 @@
                         <div class=" h-3 w-6 bg-white rotate-45 transform origin-bottom-left"></div>
                     </div>
                     <div style="max-height:500px;" class="overflow-y-auto" id="notification_container">
+                        @foreach ($notifications as $notification)
+                            <div class="border-b w-full py-4 px-4 bg-white hover:bg-gray-100 cursor-pointer text-black">
+                            <div class="flex w-full">
+                                @if($notification->data['image'])
+                                <div class="flex-initial w-12 h-12 bg-black rounded-full ml-2 overflow-hidden">
+                                    <img src="{{ asset($notification->data['image']) }}" class="w-full h-full object-cover" alt="">
+                                </div>
+                                @endif
+                                <p class="text-sm flex-1 text-right" id="content">
+                                    {{ $notification->data['message'] }}
+                                </p>
+                            </div>
+                            <div class="w-full text-gray-400 flex items-center">
+                                <i class="las la-clock"> </i>
+                                <span class="text-sm flex-1 text-right" id="date">
+                                    {{ $notification->created_at->diffForHumans() }}
+                                </span>
+                            </div>
+                        </div>
+                        @endforeach
+                        
                         <div class="hidden" id="notification_cloner">
                             <div id="notification" class="border-b w-full py-4 px-4 bg-white hover:bg-gray-100 cursor-pointer text-black">
                                 <div class="flex w-full">
@@ -126,6 +154,7 @@
         @endguest
 
     </div>
+    <x-main-sidebar/>
     <div class="w-full">
         @yield('before-contents')
     </div>
@@ -182,12 +211,13 @@
     </div>
     <script src="{{ asset('js/app.js') }}"></script>
     <script>
+        
         let append_notification = (notification)=>{
         let notification_data = JSON.parse(notification.data);
         let notification_clone = document.querySelector('#notification_cloner #notification').cloneNode(true);
         notification_clone.querySelector('#content').innerHTML = notification_data.message;
         notification_clone.querySelector('#date').innerHTML = notification.created_diff;
-        document.querySelector('#notification_container').appendChild(notification_clone);
+        document.querySelector('#notification_container').prepend(notification_clone);
     }
     function updateNotifications(date){
         $.ajax({
@@ -202,17 +232,15 @@
                 var notifications = data['notifications'];
                 for(let i = 0;i < notifications.length; i++){
                     append_notification(notifications[i]);
-                    console.log(notifications[i].created_at);
-
                 }
                 if(notifications[0]){
+                    playSound("{{ asset('audio/pristine-609.mp3') }}");
                     var date = new Date(notifications[0].created_at);
                     $('input[name="_date"]').val(date.getFromFormat('yyyy-mm-dd hh:ii:ss'));
                 }
                 document.querySelector('#notification_count').innerHTML =
                     parseInt(document.querySelector('#notification_count').innerHTML) +
                     notifications.length;
-                console.log(data);
             },
             error: function (jqXHR, textStatus, errorThrown)
             {

@@ -1,3 +1,7 @@
+@php
+    $page = app()->view->getSections()['page'] ?? null;
+    $page = rtrim($page);
+@endphp
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +17,7 @@
 <body dir="rtl" class="bg-gray-100 overflow-x-hidden">
     <div class="w-full bg-white  h-20 shadow-md px-4 md:px-8 lg:px-12 xl:px-20 2xl:px-52 flex justify-between">
         <div class="flex items-center h-full">
-            <div class="cursor-pointer h-8 w-8 text-curious-blue text-3xl lg:text-4xl flex justify-start items-center">
+            <div id="main-sidebar-open" class="cursor-pointer h-8 w-8 text-curious-blue text-3xl lg:text-4xl flex justify-start items-center">
                 <i class="las la-bars"></i>
             </div>
             <div class="w-12 h-12 md:h-18 md:w-18 xl:w-64">
@@ -78,48 +82,57 @@
             </div>
         </div>
     </div>
+    <x-main-sidebar/>
+
     <div class="w-full relative min-h-screen flex">
         <div id="dashboard-side" class="fixed z-20 transform transition-transform translate-x-full lg:translate-x-0 lg:sticky shadow-xl top-0 right-0 bg-white h-screen">
             <div id="dashboard-menu-button" class="lg:hidden cursor-pointer absolute top-24 right-full w-12 h-10 bg-white border-l-2 border-curious-blue text-curious-blue flex justify-center items-center">
                 <i class="las la-bars text-2xl"></i>
             </div>
             <div class="w-36 h-full px-4">
-                <div class="w-full h-28 text-center shadow-md rounded flex justify-center items-center flex-col">
-                    <div class="w-full h-16 flex justify-center items-center text-curious-blue">
+                <a href="@if($requestInfo->username) {{route('dashboard.celebrity.main',['username'=>$requestInfo->username])}} @else {{route('dashboard.main')}} @endif">
+                <div class="w-full h-28 text-center @if($page == "main") shadow-md @else  text-gray-400  @endif rounded flex justify-center items-center flex-col">
+                    <div class="w-full h-16 flex justify-center items-center @if($page == "main") text-curious-blue @endif">
                         <i class="las la-tachometer-alt text-3xl lg:text-4xl"></i>
                     </div>
                     الرئيسية
                 </div>
-                <div class="w-full h-18 text-sm lg:text-base lg:h-28 text-center rounded text-gray-400 flex justify-center items-center flex-col">
-                    <div class="w-full h-16 flex justify-center items-center ">
-                        <i class="las la-shopping-cart text-3xl lg:text-4xl"></i>
+            </a>
+                <a href="@if($requestInfo->username) {{route('dashboard.celebrity.requests',['username'=>$requestInfo->username])}} @else {{route('dashboard.requests')}} @endif">
+                    <div class="w-full h-18 text-sm lg:text-base lg:h-28 text-center rounded @if($page == "requests") shadow-md @else  text-gray-400  @endif  flex justify-center items-center flex-col">
+                        <div class="w-full h-16 flex justify-center items-center @if($page == "requests") text-curious-blue @endif">
+                            <i class="las la-shopping-cart text-3xl lg:text-4xl"></i>
+                        </div>
+                        الطلبات
                     </div>
-                    الطلبات
-                </div>
-                <div class="w-full h-18 text-sm lg:text-base lg:h-28 text-center rounded text-gray-400 flex justify-center items-center flex-col">
-                    <div class="w-full h-16 flex justify-center items-center ">
-                        <i class="las la-dollar-sign text-3xl lg:text-4xl"></i>
+                </a>
+                <a href="@if($requestInfo->username) {{route('dashboard.celebrity.credit',['username'=>$requestInfo->username])}} @else {{route('dashboard.credit')}} @endif">
+                    <div class="w-full h-18 text-sm lg:text-base lg:h-28 text-center rounded @if($page == "credit") shadow-md @else  text-gray-400  @endif  flex justify-center items-center flex-col">
+                        <div class="w-full h-16 flex justify-center items-center @if($page == "credit") text-curious-blue @endif">
+                            <i class="las la-dollar-sign text-3xl lg:text-4xl"></i>
+                        </div>
+                        الرصيد
                     </div>
-                    الرصيد
-                </div>
-                <div class="w-full h-18 text-sm lg:text-base lg:h-28 text-center rounded text-gray-400 flex justify-center items-center flex-col">
-                    <div class="w-full h-16 flex justify-center items-center ">
+                </a>
+                <div class="w-full h-18 text-sm lg:text-base lg:h-28 text-center rounded @if($page == "calendar") shadow-md @else  text-gray-400  @endif  flex justify-center items-center flex-col">
+                    <div class="w-full h-16 flex justify-center items-center @if($page == "calendar") text-curious-blue @endif">
                         <i class="las la-calendar text-3xl lg:text-4xl"></i>
                     </div>
                     التقويم
                 </div>
-                <div class="w-full h-18 text-sm lg:text-base lg:h-28 text-center rounded text-gray-400 flex justify-center items-center flex-col">
-                    <div class="w-full h-16 flex justify-center items-center ">
+                <a href="@if($requestInfo->username) {{route('dashboard.celebrity.notifications',['username'=>$requestInfo->username])}} @else {{ route('dashboard.notifications') }} @endif">
+                    <div class="w-full h-18 text-sm lg:text-base lg:h-28 text-center rounded @if($page == "notifications") shadow-md @else  text-gray-400  @endif  flex justify-center items-center flex-col">
+                    <div class="w-full h-16 flex justify-center items-center @if($page == "notifications") text-curious-blue @endif">
                         <i class="las la-bell text-3xl lg:text-4xl"></i>
                     </div>
                     الاشعارات الهامة
-                </div>
-                <div class="lg:absolute bottom-4 w-full h-18 lg:h-28 text-center rounded text-gray-400 flex justify-center items-center flex-col">
+                </div></a>
+                <a href="{{ route('logout') }}"><div class="lg:absolute bottom-4 w-full h-18 lg:h-28 text-center rounded text-gray-400 flex justify-center items-center flex-col">
                     <div class="w-full h-16 flex justify-center items-center ">
                         <i class="las la-sign-out-alt text-3xl lg:text-4xl"></i>
                     </div>
                     تسجيل الخروج
-                </div>
+                </div></a>
             </div>
         </div>
         <div class="px-2 lg:pr-12 lg:pl-24 py-12 mt-8 w-full overflow-x-hidden">

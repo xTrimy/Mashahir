@@ -9,9 +9,11 @@
     <a href="@if($requestInfo->username) {{route('dashboard.celebrity.requests', ['username'=>$requestInfo->username])}} @else {{ route('dashboard.requests') }} @endif"><div class="{{ $page == 'requests' ?$selected_style:"" }} px-4 mx-2">الطلبات</div></a>
     @if(!$requestInfo->username)
         @if($user->hasPermissionTo('manage celebrities') || $user->hasPermissionTo('manage all celebrities'))
-        <a href="{{ route('dashboard.celebrities') }}"><div class="{{ $page == 'celebrities' ?$selected_style:"" }} px-4 mx-2">المشاهير</div></a>
+            <a href="{{ route('dashboard.celebrities') }}"><div class="{{ $page == 'celebrities' ?$selected_style:"" }} px-4 mx-2">المشاهير</div></a>
         @endif
-        <a href="{{route('dashboard.send-notification')}}"><div class="{{ $page == 'settings' ?$selected_style:"" }} px-4 mx-2">الاشعارات الهامة</div></a>
+        @if($user->hasPermissionTo('send important notifications'))
+            <a href="{{route('dashboard.send-notification')}}"><div class="{{ $page == 'settings' ?$selected_style:"" }} px-4 mx-2">الاشعارات الهامة</div></a>
+        @endif
     @endif
     <a href="@if($requestInfo->username) {{route('dashboard.celebrity.credit',['username'=>$requestInfo->username])}} @else {{ route('dashboard.credit') }} @endif"><div class="{{ $page == 'credit' ?$selected_style:"" }} px-4 mx-2">الرصيد</div></a>
     <a href="@if($requestInfo->username) {{route('dashboard.celebrity.edit-profile', ['username'=>$requestInfo->username])}} @else {{ route('dashboard.edit-profile') }} @endif"><div class="{{ $page == 'settings' ?$selected_style:"" }} px-4 mx-2">اعدادات</div></a>

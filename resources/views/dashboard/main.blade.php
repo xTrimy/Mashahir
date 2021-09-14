@@ -1,4 +1,7 @@
 @extends('layouts.dashboard')
+@section('page')
+main
+@endsection
 @section('title')
 نظرة عامة | لوحة التحكم
 @endsection

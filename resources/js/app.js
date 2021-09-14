@@ -14,3 +14,8 @@ Date.prototype.getFromFormat = function(format) {
         format = format.replace(/ss/g, (ss[1]?ss:"0"+ss[0]));
         return format;
     };
+
+function playSound(url) {
+        const audio = new Audio(url);
+        audio.play();
+    }
