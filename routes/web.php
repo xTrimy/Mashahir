@@ -172,10 +172,10 @@ Route::prefix('/dashboard')->as('dashboard.')->middleware('verified')->group(fun
         Route::get('/credit', function ($username) {
             $user = User::where('username', $username)->first();
             return view('dashboard.credit', ['profile'=>$user]);
-        })->name('credit');
+        })->name('credit')->middleware('abort.checkRoles:view all credits');
 
-        Route::get('/edit-profile', [ProfileController::class, 'editCelebrityProfile'])->name('edit-profile');
-        Route::post('/edit-profile', [ProfileController::class, 'saveCelebirtyChanges'])->middleware('user.doesnothaverole:governmental organization');
+        Route::get('/edit-profile', [ProfileController::class, 'editCelebrityProfile'])->name('edit-profile')->middleware('abort.checkRoles:edit all profiles');
+        Route::post('/edit-profile', [ProfileController::class, 'saveCelebirtyChanges'])->middleware('abort.checkRoles:edit all profiles');
         Route::get('/notifications', [NotificationsController::class, 'celebrityIndex'])->name('notifications');
 
 

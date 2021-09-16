@@ -11,6 +11,44 @@
 <div class="w-full flex my-12 ">
     <section class="hidden lg:block w-96">
         <form id="form">
+
+            <div class="w-full mb-2 px-8 py-12 bg-white">
+                <div class="relative overflow-hidden">
+                    <div class="show cat">
+                        <div class="flex justify-between items-center mb-4">
+                            <h1 class="text-xl font-bold">كلمات مفتاحية</h1>
+                        </div>
+                    </div>
+                    <ul class="text-lg group">
+                        <input name="keywords" type="text" class="w-full  border-blue-200 bg-gray-100 border-2 outline-none p-2 mb-3 rounded-sm" placeholder="مثال: فيديوهات,اعلانات" value="{{$keywords}}">
+                    </ul>
+                </div>
+            </div>
+
+            <div class="w-full mb-2 px-8 py-12 bg-white">
+                <div class="relative overflow-hidden">
+                    <div class="show cat">
+                        <div class="flex justify-between items-center mb-4">
+                            <h1 class="text-xl font-bold">نوع الحساب</h1>
+                        </div>
+                    </div>
+                    <ul class="text-lg group">
+                        @foreach ($types as $type)
+                            <li>
+                                <label class="cursor-pointer">
+                                    <input name="type" value="{{$type['en']}}" type="checkbox"
+                                    @if (in_array($type['en'], $selected_types))
+                                        checked
+                                    @endif
+                                    class="ml-2 form-checkbox rounded border-curious-blue border-2 text-curious-blue">
+                                    {{$type['ar']}}
+                                </label>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+
             <div class="w-full px-8 py-12 bg-white">
                 <div class="relative overflow-hidden">
                     <div class="show cat">
@@ -77,10 +115,16 @@
     form.addEventListener('submit', (e) => {
         e.preventDefault();
         let checkedBoxes = document.querySelectorAll("input[type=checkbox]:checked");
-        let path = "/celebrities"
+        let keywords = document.querySelector("input[name=keywords]").value;
+        let path = "/celebrities?";
+        let checked = '';
         if(checkedBoxes.length > 0)
         {
-            path += "?category=" + Array.from(checkedBoxes).map((category) => category.value).join(',');
+            path += "category=" + Array.from(checkedBoxes).map((category) => category.value).join(',');
+            checked = "&";
+        }
+        if(keywords){
+            path += checked + "keyword=" + keywords;
         }
 
         return window.location.href = path;

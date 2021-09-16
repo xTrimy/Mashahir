@@ -43,6 +43,12 @@ class Service extends Model
         return $query->where('user_id', $user_id);
     }
 
+    public function scopeUserId($query, $user_id)
+    {
+        return $query->where('user_id', $user_id);
+    }
+
+
     public function scopeCategory($query, $categories = [])
     {
         return $query->whereIn('category_id', $categories);
