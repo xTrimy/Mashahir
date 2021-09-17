@@ -83,7 +83,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Service::class);
     }
-
+    public function social_links(){
+        return $this->hasMany(SocialLink::class);
+    }
     public function scopeServicesCategory($query, $cat)
     {
         if(empty($cat)) return $query;

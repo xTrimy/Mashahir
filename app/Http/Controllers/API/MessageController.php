@@ -33,7 +33,7 @@ class MessageController extends Controller
     public function store(Request $request, $ticket)
     {
         $validator = Validator::make($request->all(), [
-            "message" => "required|min:4"
+            "message" => "required|min:1"
         ]);
         if(!$validator->fails())
         {

@@ -28,6 +28,7 @@ edit-profile
                             {{ $profile->name }}
                         </div>
                     </div>
+                    
                     <form method="POST" class="mt-8" enctype="multipart/form-data">
                         @csrf
                         <label >
@@ -70,33 +71,83 @@ edit-profile
                         <h2 class="text-xl font-bold mt-4 text-gray-600 mb-8">
                             وسائل التواصل
                         </h2>
-                        <div class="flex mb-2">
-                            <div class="w-18 py-2 px-6 bg-curious-blue relative text-white rounded">
-                                <i class="fab fa-twitter text-xl"></i>
-                                <div class="absolute top-1/2 transform -translate-y-1/2 right-2">
-                                    <i class="fas fa-caret-down"></i>
+                        @php 
+                        $social_platforms = ['facebook','instagram','snapchat','youtube'];
+                        @endphp
+                        <div id="social_links">
+                            @foreach ($profile->social_links as $social_link)
+                                <div class="flex mb-2">
+                                    <button type="button" class="group w-18 py-2 px-6 bg-curious-blue relative text-white rounded">
+                                        <i class="fab fa-{{ $social_link->platform }} text-xl"></i>
+                                        <div class="absolute top-1/2 transform -translate-y-1/2 right-2">
+                                            <i class="fas fa-caret-down"></i>
+                                        </div>
+                                        <input type="hidden" name="platform[]" value="{{ $social_link->platform }}">
+                                        <div class="group-focus:block hidden absolute bottom-full left-0 w-full py-2 px-2 rounded-t-md bg-curious-blue">
+                                            @foreach ($social_platforms as $platform )
+                                                <div data-name="{{ $platform }}" class="social_selection text-white text-center py-2">
+                                                    <i class="fab fa-{{ $platform }} text-xl"></i>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </button>
+                                    <input type="text" name="social_link[]" value="{{ $social_link->link }}" class="form-input w-full border border-curious-blue rounded mr-2">
                                 </div>
-                            </div>
-                            <input type="text" class="form-input w-full border border-curious-blue rounded mr-2">
+                            @endforeach
                         </div>
+                        
                         <div class="flex mb-2">
-                            <div class="w-18 py-2 px-6 bg-curious-blue relative text-white rounded">
-                                <i class="fab fa-instagram text-xl"></i>
-                                <div class="absolute top-1/2 transform -translate-y-1/2 right-2">
-                                    <i class="fas fa-caret-down"></i>
-                                </div>
-                            </div>
-                            <input type="text" class="form-input w-full border border-curious-blue rounded mr-2">
-                        </div>
-                        <div class="flex mb-2">
-                            <div class="w-18 py-2 px-6 bg-blue-300 relative text-white rounded">
+                            <div class="w-18 py-2 px-6 bg-blue-300 relative text-white rounded" id="social_link_adder">
                                 <i class="fas fa-plus text-xl"></i>
-
                             </div>
                         </div>
+                        
                         <button class="text-center bg-curious-blue text-white px-8 py-2 text-lg font-semibold cursor-pointer">حفظ</button>
                     </form>
+                    <div id="social_link_cloner" class="hidden">
+                            <div class="flex mb-2">
+                                <button type="button" class="group w-18 py-2 px-6 bg-curious-blue relative text-white rounded">
+                                    <i class="fab fa-instagram text-xl"></i>
+                                    <div class="absolute top-1/2 transform -translate-y-1/2 right-2">
+                                        <i class="fas fa-caret-down"></i>
+                                    </div>
+                                    <input type="hidden" name="platform[]" value="instagram">
+                                    <div class="group-focus:block hidden absolute bottom-full left-0 w-full py-2 px-2 rounded-t-md bg-curious-blue">
+                                        @foreach ($social_platforms as $platform )
+                                            <div data-name="{{ $platform }}" class="social_selection text-white text-center py-2">
+                                                <i class="fab fa-{{ $platform }} text-xl"></i>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </button>
+                                <input type="text" name="social_link[]" class="form-input w-full border border-curious-blue rounded mr-2">
+                            </div>
+                        </div>
                 </div>
             </div>
         </div>
+        <script>
+                            function addEventsToSocialLinks(element){
+                                element.addEventListener('click',function(){
+                                    var parent = this.parentElement.parentElement;
+                                    parent.querySelector('i').setAttribute('class','fab text-xl fa-'+this.getAttribute('data-name'));
+                                    parent.querySelector('input').value = this.getAttribute('data-name');
+                                });
+                            }
+                            var social_selection = document.querySelectorAll('.social_selection');
+                            for(let i = 0; i<social_selection.length; i++){
+                                addEventsToSocialLinks(social_selection[i]);
+                            }
+                            var social_link_cloner = document.getElementById('social_link_cloner');
+                            var social_link_adder = document.getElementById('social_link_adder');
+                            var social_links_container = document.getElementById('social_links');
+                            social_link_adder.addEventListener('click',function(){
+                                var clone = social_link_cloner.querySelector('div').cloneNode(true);
+                                social_links_container.appendChild(clone);
+                                var social_selection = clone.querySelectorAll('.social_selection');
+                                for(let i = 0; i<social_selection.length; i++){
+                                    addEventsToSocialLinks(social_selection[i]);
+                                }
+                            });
+                        </script>
 @endsection

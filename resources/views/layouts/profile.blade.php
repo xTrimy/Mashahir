@@ -32,6 +32,14 @@
         </script>
     @endif
     <img class="w-full h-full object-cover" src="{{ asset($profile->cover ?? "image/gradients-design.png") }}" alt="">
+    <div class="flex absolute left-4 md:left-8 transform translate-y-2 lg:left-12 xl:left-20 2xl:left-52  bottom-0 z-50 text-xl text-white">
+        @foreach ($profile->social_links as $social_link)
+            <a href="{{ $social_link->link }}"><div class="py-4 px-4 bg-curious-blue  mr-2">
+                <i class="fab fa-{{ $social_link->platform }} "></i>
+            </div></a>
+        @endforeach
+        
+    </div>
 </div>
 @endsection
 
