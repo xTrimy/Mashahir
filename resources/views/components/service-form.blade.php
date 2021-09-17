@@ -56,6 +56,12 @@
                                             <div class="flex-1 border-l-2 border-t-2 border-b-2 border-blue-200 text-lg flex items-center">أيام</div>
                                         </div>
 
+                                        <p class="mb-2 font-semibold text-gray-800">سعر الخدمة ($5 كحد ادني و 5000 كحد اقصى)</p>
+                                        <div class="flex  mb-3 ">
+                                            <input required type="text" oninput="this.value|=0" max="5000" min="5" pattern="[0-9]+" name="price" class="w-24 h-full border-r-2 border-t-2 border-b-2 border-blue-200 outline-none p-2 rounded-sm" value="{{ old('price') ?? $service->price ?? "5" }}">
+                                            <div class="flex-1 border-l-2 border-t-2 border-b-2 border-blue-200 text-lg flex items-center">$</div>
+                                        </div>
+
                                         <p class="mb-2 font-semibold text-gray-800">أضف صور للخدمة</p>
                                         <div class="w-full py-4 px-4 bg-gray-100" id="upload_image_container">
                                             <label class="mt-4 cursor-pointer table px-12 py-2 bg-curious-blue hover:bg-curious-blue-200 text-white">

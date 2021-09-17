@@ -78,7 +78,7 @@
 
             <button class="group lg:mr-2 relative h-full flex items-center hover:bg-curious-blue-200 focus:bg-curious-blue-200 px-4 cursor-pointer">
                 <i class="fas fa-bell relative">
-                    <input type="hidden" name="_date" value="{{ $notifications_latest->created_at }}">
+                    <input type="hidden" name="_date" value="{{ $notifications_latest->created_at ?? date('Y-m-d H:i:s'); }}">
                     <div id="notification_count" class="absolute bottom-full left-full w-5 transform -translate-x-1/2 translate-y-1/2 h-5 text-sm text-white bg-red-500 rounded-full">
                         {{ $notifications_unseen }}
                     </div>

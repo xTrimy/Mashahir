@@ -58,6 +58,7 @@ class ServiceController extends Controller
             }
             $total_price += $service_upgrade->price;
         }
+        $total_price += $service->price;
         $total_price *= $request->quantity;
 
         $service_purchase = new ServicePurchase();

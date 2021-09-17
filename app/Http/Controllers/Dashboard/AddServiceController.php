@@ -37,6 +37,7 @@ class AddServiceController extends Controller
             'description'=>"required|min:50|max:500",
             'keywords'=>"required",
             'duration'=>"required|numeric",
+            'price' => "required|numeric|min:5|max:5000",
             'instructions'=>"required|min:30|max:500",
             "upgrade" => "nullable|array|max:5",
             "upgrade_duration" => "nullable|array|max:5",
@@ -56,6 +57,7 @@ class AddServiceController extends Controller
             }
         }
         $service->name = $request->name;
+        $service->price = $request->price;
         $service->description = $request->description;
         $service->category_id = $request->category;
         $service->keywords = $request->keywords;
@@ -70,7 +72,7 @@ class AddServiceController extends Controller
         $service->status = $request->status;
         if (!$request->hasFile('images') && !$request->has('service_id')) {
             return redirect()->back()->with('error','يجب ان تحتوي الخدمة على الأقل صورة واحدة')->withInput();
-        }else{
+        }else if($request->hasFile('images')){
             $service_image_count = count(ServiceImage::where('service_id',$service->id)->get());
             if($service_image_count >= 5){
                 return redirect()->back()->with('error', 'لا يسمح بأن تحتوي الخدمة على أكثر من خمسة صور')->withInput();

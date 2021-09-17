@@ -15,47 +15,47 @@ class ProfileController extends Controller
 
     public function index($username)
     {
-        $profile = User::select('id','name','username','image','cover')->with('user_info','social_links')->where('username', '=', $username)->first();
+        $profile = User::select('id','name','username','image','cover','country')->with('country_info','user_info','social_links')->where('username', '=', $username)->first();
         return view('pages.profile', ["profile"=>$profile]);
     }
 
     public function services($username)
     {
-        $profile = User::select('id','name','username','image','cover')->with('services', 'user_info','social_links')->where('username', '=', $username)->first();
+        $profile = User::select('id','name','username','image','cover','country')->with('country_info','services', 'user_info','social_links')->where('username', '=', $username)->first();
 
         return view('pages.profile-services', ["profile"=>$profile]);
     }
 
     public function agent($username)
     {
-        $profile = User::select('id','name','username','image','cover')->with('user_info', 'agency.agent','social_links')->where('username', '=', $username)->first();
+        $profile = User::select('id','name','username','image','cover','country')->with('country_info','user_info', 'agency.agent','social_links')->where('username', '=', $username)->first();
 
         return view('pages.profile-agent',["profile"=>$profile]);
     }
 
     public function celebrities($username)
     {
-        $profile = User::select('id','name','username','image','cover')->with('user_info', 'celebrities.celebrity','social_links')->where('username', '=', $username)->first();
+        $profile = User::select('id','name','username','image','cover','country')->with('country_info','user_info', 'celebrities.celebrity','social_links')->where('username', '=', $username)->first();
 
         return view('pages.profile-celebrities', ["profile"=>$profile]);
     }
 
     public function ads($username)
     {
-        $profile = User::select('id','name','username','image','cover')->with('user_info','social_links')->where('username', '=', $username)->first();
+        $profile = User::select('id','name','username','image','cover','country')->with('country_info','user_info','social_links')->where('username', '=', $username)->first();
 
         return view('pages.profile-ads', ["profile"=>$profile]);
     }
 
     public function editProfile() {
-        $user = User::where('id', Auth::user()->id)->with('user_info')->with('social_links')->first();
+        $user = User::where('id', Auth::user()->id)->with('user_info')->with('country_info','social_links')->first();
 
         return view('dashboard.edit-profile',['profile' => $user]);
     }
 
     public function editCelebrityProfile(Request $request, $username)
     {
-        $user = User::where('username', $username)->with('user_info')->with('social_links')->first();
+        $user = User::where('username', $username)->with('user_info')->with('country_info','social_links')->first();
 
         return view('dashboard.edit-profile',['profile'=>$user]);
     }

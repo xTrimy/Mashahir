@@ -111,7 +111,7 @@
                 <div class="text-center">
                     <p class="text-gray-600 mb-4">
                         سعر طلب الخدمة
-                        <span>$<span class="price" id="price">0</span></span>
+                        <span>$<span class="price" id="price">{{ $service->price }}</span></span>
                     </p>
                     <label class="text-gray-700">
                         <span class='ml-2'>عدد مرات الطلب</span>
@@ -148,9 +148,11 @@
                 </div>
             </div>
         </form>
+        <input type="hidden" id="service_price" value="{{ $service->price }}">
         <script>
             var price = 0;
             var checkboxes = document.querySelectorAll('.form-checkbox');
+            var service_price = document.getElementById('service_price').value;
             for(let i = 0; i < checkboxes.length; i++){
                 checkboxes[i].addEventListener('change',function(){
                     if(this.checked){
@@ -158,12 +160,12 @@
                     }else{
                         price -= parseInt(this.getAttribute('data-price'));
                     }
-                    document.getElementById('price').innerHTML = price;
-                    document.getElementById('total_price').innerHTML = price * document.getElementById('quantity').value;
+                    document.getElementById('price').innerHTML = (parseInt(price)+ parseInt(service_price));
+                    document.getElementById('total_price').innerHTML = (parseInt(price)+ parseInt(service_price)) * document.getElementById('quantity').value;
                 });
             }
             document.getElementById('quantity').addEventListener('change',function(){
-                    document.getElementById('total_price').innerHTML = price * parseInt(this.value);
+                    document.getElementById('total_price').innerHTML = (parseInt(price)+ parseInt(service_price)) * parseInt(this.value);
             });
         </script>
         
@@ -218,6 +220,10 @@
                         <div class="mb-6">
                             <i class="fas fa-suitcase ml-2"></i>
                             <span>3 طلبات جاري تنفيذها</span>
+                        </div>
+                        <div class="mb-6">
+                            <i class="fas fa-dollar-sign ml-2"></i>
+                            <span>سعر الخدمة: ${{ $service->price }}</span>
                         </div>
                     </div>
                 </div>

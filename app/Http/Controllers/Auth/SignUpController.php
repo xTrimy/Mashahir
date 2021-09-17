@@ -8,6 +8,7 @@ use App\Models\UserType;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Stevebauman\Location\Facades\Location;
 
 class SignUpController extends Controller
 {
@@ -43,10 +44,16 @@ class SignUpController extends Controller
         $user->phone = $request->phone;
         $user->password = bcrypt($request->password);
         $user->user_type_id = $user_type->id;
+        
+        if ($position = Location::get()) {
+            // Successfully retrieved position.
+            $user->country = $position->countryCode;
+        } 
         $user->save();
-        $user->assignRole(str_replace('-',' ',$request->type));
+        $user->assignRole(str_replace('-', ' ', $request->type));
         Auth::login($user);
         event(new Registered($user));
+        
         return redirect()->route('verification.notice');
         
     }

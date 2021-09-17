@@ -74,7 +74,7 @@
             <div class="w-full break-words p-4 bg-white border-0 border-b border-solid mb-5">
                 <div class="mb-3 flex">
                     <p class="text-base text-black flex-1">البلد</p>
-                    <p class="text-lg text-black font-semibold flex-1 text-left">{{ $profile->user_info['location'] ?? "N/A"}}</p>
+                    <p class="text-lg text-black font-semibold flex-1 text-left">{{ $profile->country_info->country_arName ?? "N/A"}}</p>
                 </div>
                 <div class="mb-3 flex">
                     <p class="text-base text-black flex-1">عدد المشاهدات</p>

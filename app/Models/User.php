@@ -28,6 +28,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'image',
         'user_type_id',
         'cover',
+        'country',
     ];
 
     /**
@@ -85,6 +86,10 @@ class User extends Authenticatable implements MustVerifyEmail
     }
     public function social_links(){
         return $this->hasMany(SocialLink::class);
+    }
+    public function country_info()
+    {
+        return $this->belongsTo(Country::class,'country','country_code');
     }
     public function scopeServicesCategory($query, $cat)
     {

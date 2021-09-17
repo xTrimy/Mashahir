@@ -36,7 +36,7 @@
                         @foreach ($types as $type)
                             <li>
                                 <label class="cursor-pointer">
-                                    <input name="type" value="{{$type['en']}}" type="checkbox"
+                                    <input name="type[]" value="{{$type['en']}}" type="checkbox"
                                     @if (in_array($type['en'], $selected_types))
                                         checked
                                     @endif
@@ -63,7 +63,7 @@
                         @foreach ($categories as $category)
                             <li>
                                 <label class="cursor-pointer">
-                                    <input name="category" value="{{$category->id}}" type="checkbox"
+                                    <input name="category[]" value="{{$category->id}}" type="checkbox"
                                     @if (in_array($category->id, $selected_categories))
                                         checked
                                     @endif
@@ -111,25 +111,6 @@
 </div>
 <script>
 
-    let form = document.getElementById('form');
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        let checkedBoxes = document.querySelectorAll("input[type=checkbox]:checked");
-        let keywords = document.querySelector("input[name=keywords]").value;
-        let path = "/celebrities?";
-        let checked = '';
-        if(checkedBoxes.length > 0)
-        {
-            path += "category=" + Array.from(checkedBoxes).map((category) => category.value).join(',');
-            checked = "&";
-        }
-        if(keywords){
-            path += checked + "keyword=" + keywords;
-        }
-
-        return window.location.href = path;
-
-    })
 
 </script>
 
