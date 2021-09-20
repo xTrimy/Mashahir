@@ -90,23 +90,26 @@
             </div>
         </form>
     </section>
-    <div class="flex-1 mr-8  flex flex-wrap justify-around">
-            @foreach ($celebrities as $celebrity )
-                <div class="w-72 px-4 py-6 bg-white mb-8">
-                    <div class="w-full h-48 bg-black">
-                        <img src="{{ $celebrity->image ?? asset('avatars/images/default.png') }}" class="w-full h-full object-cover object-center" alt="">
+    <div>
+        <div class="flex-1 mr-8  flex flex-wrap justify-around">
+                @foreach ($celebrities as $celebrity )
+                    <div class="w-72 px-4 py-6 bg-white mb-8">
+                        <div class="w-full h-48 bg-black">
+                            <img src="{{ $celebrity->image ?? asset('avatars/images/default.png') }}" class="w-full h-full object-cover object-center" alt="">
+                        </div>
+                        <div class="text-center">
+                            <p class="text-lg mt-4">{{$celebrity->name}}</p>
+                            <a href="/profile/{{$celebrity->username}}/services">
+                                <div class="table py-2 px-12 bg-curious-blue mx-auto mt-4 text-white">طلب اعلان</div>
+                            </a>
+                        </div>
                     </div>
-                    <div class="text-center">
-                        <p class="text-lg mt-4">{{$celebrity->name}}</p>
-                        <a href="/profile/{{$celebrity->username}}/services">
-                            <div class="table py-2 px-12 bg-curious-blue mx-auto mt-4 text-white">طلب اعلان</div>
-                        </a>
-                    </div>
-                </div>
-            @endforeach
+                    
+                @endforeach
 
-            <div class="w-72 p-8 mb-8"></div>
-            <div class="w-72 p-8 mb-8"></div>
+                <div class="w-72 p-8 mb-8"></div>
+                <div class="w-72 p-8 mb-8"></div>
+        </div>
     </div>
 </div>
 <script>

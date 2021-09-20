@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
+use stdClass;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -34,7 +35,6 @@ class AppServiceProvider extends ServiceProvider
             $user = Auth::check()
                     ? Auth::user()
                     : null;
-
             $view->with('user', $user);
         });
 

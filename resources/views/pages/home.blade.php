@@ -22,44 +22,19 @@
                     </div>
                 </a>
                 <div class="w-full px-8 grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="w-full">
-                        <div class="w-full h-56 bg-black">
-                            <img src="{{ asset('image/placeholders/face-3.jpg') }}" class="w-full h-full object-center object-cover" alt="">
+                    @foreach ($celebrities as $user)
+                        <div class="w-full">
+                            <div class="w-full h-56 bg-black">
+                                <img src="{{ asset($user->image ?? "avatars/images/default.png") }}" class="w-full h-full object-center object-cover" alt="">
+                            </div>
+                            <div class="text-center">
+                                <p class="text-xl mt-4">{{ $user->name }}</p>
+                                <a href="{{ route('profile.services',$user->username) }}"><div class="table py-2 px-12 bg-curious-blue mx-auto mt-4 text-white">طلب أعلان</div></a>
+                            </div>
                         </div>
-                        <div class="text-center">
-                            <p class="text-xl mt-4">محمد عبده</p>
-                            <div class="table py-2 px-12 bg-curious-blue mx-auto mt-4 text-white">طلب أعلان</div>
-                        </div>
-                    </div>
-                    <div class="w-full">
-                        <div class="w-full h-56 bg-black">
-                            <img src="{{ asset('image/placeholders/face-4.jpg') }}" class="w-full h-full object-center object-cover" alt="">
-                        </div>
-                        <div class="text-center">
-                            <p class="text-xl mt-4">محمد عبده</p>
-                            <div class="table py-2 px-12 bg-curious-blue mx-auto mt-4 text-white">طلب أعلان</div>
-                        </div>
-                    </div>
-                    <div class="w-full">
-                        <div class="w-full h-56 bg-black">
-                            <img src="{{ asset('image/placeholders/face-1.jpg') }}" class="w-full h-full object-center object-cover" alt="">
-                        </div>
-                        <div class="text-center">
-                            <p class="text-xl mt-4">محمد عبده</p>
-                            <div class="table py-2 px-12 bg-curious-blue mx-auto mt-4 text-white">طلب أعلان</div>
-                        </div>
-                    </div>
-                    <div class="w-full">
-                        <div class="w-full h-56 bg-black">
-                            <img src="{{ asset('image/placeholders/face-2.jpg') }}" class="w-full h-full object-center object-cover" alt="">
-                        </div>
-                        <div class="text-center">
-                            <p class="text-xl mt-4">محمد عبده</p>
-                            <div class="table py-2 px-12 bg-curious-blue mx-auto mt-4 text-white">طلب أعلان</div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
-                <a href="#"><div class="table py-2 px-12 border-curious-blue border-2 mt-8 mx-auto text-curious-blue hover:bg-curious-blue hover:text-white transition-colors">
+                <a href="{{ route('search') }}?type[]=celebrity"><div class="table py-2 px-12 border-curious-blue border-2 mt-8 mx-auto text-curious-blue hover:bg-curious-blue hover:text-white transition-colors">
                     عرض الجميع</div></a>
             </div>
             <div class="w-full bg-white pb-8">
@@ -71,44 +46,19 @@
                     <img src="{{ asset('image/placeholders/r0_0_4996_3286_w1200_h678_fmax.jpg') }}" class="w-full h-full object-cover object-center" alt="">
                 </div>
                 <div class="w-full px-8 grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="w-full">
-                        <div class="w-full h-56 bg-black">
-                            <img src="{{ asset('image/placeholders/face-3.jpg') }}" class="w-full h-full object-center object-cover" alt="">
+                    @foreach ($digital_marketers as $user)
+                        <div class="w-full">
+                            <div class="w-full h-56 bg-black">
+                                <img src="{{ asset($user->image ?? "avatars/images/default.png") }} " class="w-full h-full object-center object-cover" alt="">
+                            </div>
+                            <div class="text-center">
+                                <p class="text-xl mt-4">{{ $user->name }}</p>
+                                <a href="{{ route('profile.services',$user->username) }}"><div class="table py-2 px-12 bg-curious-blue mx-auto mt-4 text-white">طلب أعلان</div></a>
+                            </div>
                         </div>
-                        <div class="text-center">
-                            <p class="text-xl mt-4">محمد عبده</p>
-                            <div class="table py-2 px-12 bg-curious-blue mx-auto mt-4 text-white">طلب أعلان</div>
-                        </div>
-                    </div>
-                    <div class="w-full">
-                        <div class="w-full h-56 bg-black">
-                            <img src="{{ asset('image/placeholders/face-4.jpg') }}" class="w-full h-full object-center object-cover" alt="">
-                        </div>
-                        <div class="text-center">
-                            <p class="text-xl mt-4">محمد عبده</p>
-                            <div class="table py-2 px-12 bg-curious-blue mx-auto mt-4 text-white">طلب أعلان</div>
-                        </div>
-                    </div>
-                    <div class="w-full">
-                        <div class="w-full h-56 bg-black">
-                            <img src="{{ asset('image/placeholders/face-1.jpg') }}" class="w-full h-full object-center object-cover" alt="">
-                        </div>
-                        <div class="text-center">
-                            <p class="text-xl mt-4">محمد عبده</p>
-                            <div class="table py-2 px-12 bg-curious-blue mx-auto mt-4 text-white">طلب أعلان</div>
-                        </div>
-                    </div>
-                    <div class="w-full">
-                        <div class="w-full h-56 bg-black">
-                            <img src="{{ asset('image/placeholders/face-2.jpg') }}" class="w-full h-full object-center object-cover" alt="">
-                        </div>
-                        <div class="text-center">
-                            <p class="text-xl mt-4">محمد عبده</p>
-                            <div class="table py-2 px-12 bg-curious-blue mx-auto mt-4 text-white">طلب أعلان</div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
-                <a href="#"><div class="table py-2 px-12 border-curious-blue border-2 mt-8 mx-auto text-curious-blue hover:bg-curious-blue hover:text-white transition-colors">
+                <a href="{{ route('search') }}?type[]=digital+marketer"><div class="table py-2 px-12 border-curious-blue border-2 mt-8 mx-auto text-curious-blue hover:bg-curious-blue hover:text-white transition-colors">
                     عرض الجميع</div></a>
             </div>
         </div>

@@ -10,6 +10,7 @@ use App\Http\Controllers\Dashboard\HomeController as DashboardHomeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\NotificationsController;
+use App\Http\Controllers\ProfessionPermitController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RequestController;
 use App\Http\Controllers\ServiceController;
@@ -107,7 +108,7 @@ Route::prefix('/messages')->middleware(['auth', 'verified'])->group(function(){
 
 Route::get('/agencies', [AgencyController::class,'search'])->name('agencies');
 Route::get('/agency/request/{id}',[AgencyController::class,'agency_request'])->name('agency-request');
-Route::get('/celebrities', [CelebrityController::class, 'index']);
+Route::get('/celebrities', [CelebrityController::class, 'index'])->name('search');
 
 Route::get('/service/{id}', [ServiceController::class, 'index'])->name('service');
 Route::post('/service/{id}', [ServiceController::class, 'purchase']);
@@ -144,6 +145,10 @@ Route::prefix('/dashboard')->as('dashboard.')->middleware('verified')->group(fun
         Route::post('/send-notification', [NotificationsController::class, 'store']);
     });
 
+    Route::middleware(['user.hasPermission:publish services'])->group(function () {
+        Route::get('/permit', [ProfessionPermitController::class, 'index'])->name('permit');
+        Route::post('/permit', [ProfessionPermitController::class, 'store']);
+    });
 
     Route::prefix('/services')->as('services.')->middleware('user.hasPermission:publish services')->group(function () {
         Route::get('/', [ServiceController::class,'dashboard_review'])->name('main');

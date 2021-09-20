@@ -3,10 +3,12 @@
 namespace App\Models;
 
 use App\Jobs\QueuedVerifyEmailJob;
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Support\Facades\DB;
 
@@ -121,5 +123,31 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         //dispactches the job to the queue passing it this User object
         QueuedVerifyEmailJob::dispatch($this);
+    }
+
+    public function profession_permits(){
+        return $this->hasMany(ProfessionPermit::class);
+    }
+
+    public function scopeValidPermit($query){
+
+            $now = Carbon::now();
+            $date = Carbon::parse($now)->toDateString();
+            return $query->whereHas('profession_permits',function($query) use ($date){
+                return $query->whereDate('expiration_date', '>=', $date);
+            })->orWhereHas('roles',function($query){
+                $query->where("name", "!=", "celebrity");
+            });
+    }
+
+    public function scopeIsValidPermit($query){
+        $now = Carbon::now();
+        $date = Carbon::parse($now)->toDateString();
+        $profession_permit = ProfessionPermit::where([['user_id', Auth::user()->id], ["expiration_date", ">=", $date]])->latest()->first();
+        if($profession_permit){
+            return true;
+        }else{
+            return false;
+        }
     }
 }

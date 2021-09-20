@@ -155,11 +155,22 @@
 
     </div>
     <x-main-sidebar/>
+    @if($user)
+        @if(!Auth::user()->IsValidPermit() && Auth::user()->hasRole('celebrity'))
+        <div class="w-full bg-yellow-200 text-yellow-700 p-4 px-8">
+            <p class="inline-block"> 
+                الرجاء ارسال تصريح مزاولة المهنة حتى تتمكن من أستقبال الطلبات على خدماتك
+            </p>
+            <a href="{{ route('dashboard.permit') }}" class="mr-4 inline-block py-2 px-8 bg-curious-blue text-white">إرسال</a>
+        </div>
+        @endif
+    @endif
     <div class="w-full">
         @yield('before-contents')
     </div>
+    
     <div class="md:wrapper pt-4 px-4 md:px-8 lg:px-12 xl:px-20 2xl:px-52 mt-10 min-h-screen">
-
+    
         @yield('contents')
 
     </div>

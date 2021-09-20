@@ -11,8 +11,8 @@
         {!! implode('', $errors->all('<p>:message</p>')) !!}
     </div>
     @endif
-
-    @if($user->id == $profile->id)
+    
+    @if($user && $user->id == $profile->id)
         <form method="POST" id="form-cover" action="{{ route('change-cover',$profile->username) }}" enctype='multipart/form-data'>
             @csrf
             <label class="opacity-70 lg:opacity-0 group-hover:opacity-75 w-auto h-auto px-4 md:px-12 py-2 lg:w-full lg:h-full absolute top-0 left-0 bg-black flex transition-all cursor-pointer justify-center items-center z-10 text-white text-base md:text-lg lg:text-xl">

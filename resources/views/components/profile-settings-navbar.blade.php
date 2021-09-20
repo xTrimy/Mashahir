@@ -37,7 +37,14 @@
                 </div>
             </a>
         @endif
-
+        @if($user->hasPermissionTo('publish services'))
+        <a href="{{ route('dashboard.permit') }}">
+            <div class="w-full py-6 px-8 {{ $page == "profession-permit"?$selected_style:$default }} border-b">
+                <i class="fas fa-file ml-4 text-2xl"></i>
+                <span>تصريح مزاولة المهنة</span>
+            </div>
+        </a>
+        @endif
         <a href="@if($requestInfo->username) {{route('dashboard.celebrity.notifications',['username'=>$requestInfo->username])}} @else {{ route('dashboard.notifications') }} @endif">
             <div class="w-full py-6 px-8 {{ $page == "notifications"?$selected_style:$default }} border-b">
                 <i class="fas fa-comment ml-4 text-2xl relative">
@@ -48,5 +55,6 @@
                 <span>الاشعارات الهامة</span>
             </div>
         </a>
+
     </div>
 </div>

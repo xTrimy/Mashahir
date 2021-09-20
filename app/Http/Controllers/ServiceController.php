@@ -21,7 +21,9 @@ class ServiceController extends Controller
         if(!$service){
             return abort(404);
         }
-        $tickets = Ticket::where([['sender_id',Auth::user()->id],['reciever_id',$service->user->id],['task_started',null]])->get();
+        $tickets = null;
+        if(Auth::check())
+            $tickets = Ticket::where([['sender_id',Auth::user()->id],['reciever_id',$service->user->id],['task_started',null]])->get();
         $time_ago = new Carbon($service->updated_at);
         if(count($service->ratings) > 0)
         $rating = number_format(count($service->ratings->where('rating',1))/count($service->ratings)*5,1,'.','');

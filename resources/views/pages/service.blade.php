@@ -128,6 +128,7 @@
                     </p>
                     <hr class="my-8">
                     <div class="w-full mt-8">
+                    @if($user)
                     @if($service->user->id != $user->id)
                     @if(count($tickets) > 0)
                         <p class="text-lg text-gray-600">عنوان الطلب</p>
@@ -143,6 +144,12 @@
                     <a href="{{ route('new-ticket',$service->user->username) }}" class="table mx-auto px-12 py-4 bg-curious-blue text-white text-lg mt-4"> طلب تواصل </a>
 
                     @endif
+                    @endif
+                    @else
+                    <p>برجاء تسجيل الدخول حتى تتمكن من طلب الخدمة</p>
+                    <a href="{{ route('login') }}" class="table mx-auto px-12 py-4 bg-curious-blue text-white text-lg mt-4"> تسجيل الدخول </a>
+                    <a href="{{ route('signup')}}" class="table mx-auto px-12 py-4 bg-white text-curious-blue border-2 border-curious-blue text-lg mt-4"> حساب جديد </a>
+
                     @endif
                 </div>
                 </div>
